@@ -1,0 +1,80 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import CurrencyConverter from '@/components/calculators/CurrencyConverter';
+
+const faqs = [
+  {
+    q: 'Where do these exchange rates come from?',
+    a: 'Rates are provided by <a href="https://www.exchangerate-api.com" rel="noopener">ExchangeRate-API</a> and updated once a day. They are mid-market rates: the midpoint between the prices banks buy and sell each currency at. The time of the last update is shown under the converter.',
+  },
+  {
+    q: 'Why is my bank’s rate different?',
+    a: 'Banks, card providers and exchange bureaus add a margin (a markup) to the mid-market rate, and some also charge a fixed fee. That’s why the rate you’re offered is usually a little worse than the one shown here. Compare their rate with this one to see how much you’re paying.',
+  },
+  {
+    q: 'How do I convert currency by hand?',
+    a: 'Multiply the amount by the exchange rate. If 1 USD = 0.88 EUR, then 250 USD × 0.88 = 220 EUR. To go the other way, divide by the rate, or multiply by the inverse rate: 220 EUR ÷ 0.88 = 250 USD.',
+  },
+  {
+    q: 'How many currencies can I convert?',
+    a: 'More than 160 currencies, including the US dollar, euro, pound, Indian and Pakistani rupees, UAE dirham, Saudi riyal, Nigerian naira and many more. Search by code (like PKR) or by name (like “rupee”).',
+  },
+  {
+    q: 'Can I use these rates for trading or official accounts?',
+    a: 'No. The rates are for information only and update daily, not in real time. For payments, trading, tax or accounting, use the rate from your bank, broker or official source.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="currency-converter"
+  title="Currency Converter – Exchange Rates for 160+ Currencies"
+  description="Free currency converter with daily exchange rates for 160+ world currencies. Convert USD, EUR, GBP, INR, PKR, AED and more, with rates both ways."
+  intro="Convert between more than 160 world currencies with daily mid-market exchange rates. See the rate both ways and your amount in popular currencies."
+  faqs={faqs}
+  updated="2026-09-24"
+>
+  <CurrencyConverter client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the currency converter</h2>
+    <ol>
+      <li><strong>Enter an amount.</strong></li>
+      <li><strong>Choose the currencies</strong> to convert from and to. Type a code or a name to search.</li>
+      <li><strong>Swap</strong> the two currencies with the arrow button, or tap one of the popular conversions.</li>
+    </ol>
+    <p>The result updates as you type. The table underneath shows the same amount in other popular currencies. Tap a row to convert to that currency.</p>
+
+    <h2>How currency conversion works</h2>
+    <p>An exchange rate tells you how much of one currency you get for one unit of another:</p>
+    <div class="formula">Converted amount = Amount × Exchange rate</div>
+    <div class="formula">Inverse rate = 1 ÷ Exchange rate</div>
+
+    <h3>Worked example</h3>
+    <p>
+      Suppose <strong>1 USD = 0.88 EUR</strong> (an example rate; see the converter for today’s). To convert <strong>$250</strong>: 250 × 0.88 = <strong>€220</strong>. The inverse
+      rate is 1 ÷ 0.88 ≈ 1.1364, so 1 EUR buys about $1.14.
+    </p>
+
+    <h3>Converting between two non-dollar currencies</h3>
+    <p>
+      Rates are usually quoted against one base currency, such as the US dollar. To convert between two others, divide one rate by the other. With example rates of
+      <strong>1 USD = 3.6725 AED</strong> and <strong>1 USD = 96 INR</strong>, the cross rate is 96 ÷ 3.6725 ≈ <strong>26.14</strong>, so 1 AED ≈ ₹26.14. The converter does
+      this for every pair automatically.
+    </p>
+
+    <h2>Getting a better exchange rate</h2>
+    <ul>
+      <li><strong>Compare with the mid-market rate:</strong> the closer your provider’s rate is to it, the less you’re paying in hidden fees.</li>
+      <li><strong>Avoid airport and hotel exchange desks,</strong> which usually have the widest margins.</li>
+      <li><strong>Pay in the local currency</strong> when a card terminal abroad offers to charge you in your home currency. The terminal’s own conversion rate is usually worse.</li>
+      <li><strong>Check card fees:</strong> some cards charge 2–3% on foreign transactions; travel cards often charge nothing.</li>
+    </ul>
+
+    <h2>About these rates</h2>
+    <p>
+      Rates are updated once a day from <a href="https://www.exchangerate-api.com" rel="noopener">ExchangeRate-API</a> and are for information only. They are not live trading rates
+      and aren’t an offer to buy or sell currency.
+    </p>
+  </Fragment>
+</CalculatorLayout>
