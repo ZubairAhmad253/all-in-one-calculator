@@ -53,6 +53,17 @@ describe('calculateMortgage', () => {
     expect(r.schedule.at(-1)!.balance).toBeCloseTo(0, 2);
   });
 
+  it('supports short and part-year terms', () => {
+    const sevenYears = calculateMortgage({ ...base, termYears: 7 });
+    expect(sevenYears.months).toBe(84);
+    expect(sevenYears.schedule).toHaveLength(7);
+
+    // 90 months entered in the months unit = 7.5 years.
+    const ninetyMonths = calculateMortgage({ ...base, termYears: 90 / 12 });
+    expect(ninetyMonths.months).toBe(90);
+    expect(ninetyMonths.schedule.at(-1)!.balance).toBe(0);
+  });
+
   it('handles a down payment larger than the price', () => {
     const r = calculateMortgage({ ...base, downPayment: 500_000 });
     expect(r.loanAmount).toBe(0);

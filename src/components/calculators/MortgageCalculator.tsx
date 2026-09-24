@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { calculateMortgage } from '@/lib/calculators/mortgage';
 import { CURRENCIES, localeFor, currencySymbol, formatDuration, formatMoney, formatMoneyCompact, formatNumber } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
-import { NumberField, SelectField } from '@/components/ui/fields';
+import { NumberField, SelectField, TermField, type TermUnit } from '@/components/ui/fields';
 import { AmortizationPanel, BreakdownDonut, Headline, ShareButton, StatGrid } from './shared/results';
 
 const DEFAULTS = {
@@ -10,6 +10,7 @@ const DEFAULTS = {
   down: 80_000,
   rate: 6.5,
   term: 30,
+  unit: 'y',
   tax: 1.1,
   ins: 1_500,
   hoa: 0,
@@ -17,11 +18,11 @@ const DEFAULTS = {
   cur: 'USD',
 };
 
-const TERMS = [10, 15, 20, 25, 30, 35, 40].map((y) => ({ value: y, label: `${y} years` }));
-
 export default function MortgageCalculator() {
   const [s, set, reset] = useUrlState(DEFAULTS);
   const [showMore, setShowMore] = useState(false);
+  const unit = s.unit as TermUnit;
+  const termYears = unit === 'y' ? s.term : s.term / 12;
 
   const r = useMemo(
     () =>
@@ -29,7 +30,7 @@ export default function MortgageCalculator() {
         homePrice: s.price,
         downPayment: Math.min(s.down, s.price),
         annualRate: s.rate,
-        termYears: s.term,
+        termYears,
         propertyTaxRate: s.tax,
         insurancePerYear: s.ins,
         hoaPerMonth: s.hoa,
@@ -67,9 +68,17 @@ export default function MortgageCalculator() {
             </p>
           )}
 
-          <div className="grid grid-cols-2 gap-3">
-            <NumberField label="Interest rate" value={s.rate} onChange={(v) => set('rate', v)} suffix="%" min={0} max={30} decimals={3} />
-            <SelectField label="Loan term" value={s.term} onChange={(v) => set('term', v)} options={TERMS} />
+          <div className="grid grid-cols-2 items-start gap-3">
+            <NumberField label="Interest rate" value={s.rate} onChange={(v) => set('rate', v)} suffix="%" min={0} max={30} decimals={3} slider={{ min: 0, max: 15, step: 0.125 }} />
+            <TermField
+              value={s.term}
+              unit={unit}
+              onChange={(v) => set('term', v)}
+              onUnitChange={(u, v) => {
+                set('unit', u);
+                set('term', v);
+              }}
+            />
           </div>
 
           <button type="button" onClick={() => setShowMore((v) => !v)} className="text-sm font-medium text-brand" aria-expanded={showMore}>
@@ -132,7 +141,7 @@ export default function MortgageCalculator() {
           principal={r.loanAmount}
           yearly={r.schedule}
           currency={cur}
-          note={`Based on a fixed rate of ${formatNumber(s.rate, 3)}% over ${s.term} years. Actual payments vary with your lender, fees and local taxes.`}
+          note={`Based on a fixed rate of ${formatNumber(s.rate, 3)}% over ${formatDuration(Math.round(termYears * 12))}. Actual payments vary with your lender, fees and local taxes.`}
         />
       )}
     </section>
