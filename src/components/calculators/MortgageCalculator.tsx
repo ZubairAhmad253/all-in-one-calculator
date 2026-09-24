@@ -1,10 +1,9 @@
 import { useMemo, useState } from 'react';
 import { calculateMortgage } from '@/lib/calculators/mortgage';
-import { CURRENCIES, currencySymbol, formatDuration, formatMoney, formatMoneyCompact, formatNumber } from '@/lib/format/number';
+import { CURRENCIES, localeFor, currencySymbol, formatDuration, formatMoney, formatMoneyCompact, formatNumber } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
-import { NumberField, SelectField, Tabs } from '@/components/ui/fields';
-import { Donut } from '@/components/charts/Donut';
-import { LineChart } from '@/components/charts/LineChart';
+import { NumberField, SelectField } from '@/components/ui/fields';
+import { AmortizationPanel, BreakdownDonut, Headline, ShareButton, StatGrid } from './shared/results';
 
 const DEFAULTS = {
   price: 400_000,
@@ -22,9 +21,7 @@ const TERMS = [10, 15, 20, 25, 30, 35, 40].map((y) => ({ value: y, label: `${y} 
 
 export default function MortgageCalculator() {
   const [s, set, reset] = useUrlState(DEFAULTS);
-  const [view, setView] = useState<'chart' | 'table'>('chart');
   const [showMore, setShowMore] = useState(false);
-  const [copied, setCopied] = useState(false);
 
   const r = useMemo(
     () =>
@@ -53,36 +50,15 @@ export default function MortgageCalculator() {
     { label: 'HOA', value: r.hoa, color: 'var(--chart-4)' },
   ];
 
-  let cumInterest = 0;
-  let cumPrincipal = 0;
-  const chartRows = [{ year: 0, balance: r.loanAmount, interest: 0, principal: 0 }].concat(
-    r.schedule.map((row) => ({
-      year: row.year,
-      balance: row.balance,
-      interest: (cumInterest += row.interest),
-      principal: (cumPrincipal += row.principal),
-    })),
-  );
-
-  const share = async () => {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      /* Clipboard blocked: the URL bar already holds the shareable link. */
-    }
-  };
-
   return (
     <section aria-label="Mortgage calculator" className="card overflow-hidden">
       <div className="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
         {/* Inputs */}
         <div className="space-y-5 border-b border-line p-5 sm:p-7 lg:border-r lg:border-b-0">
-          <NumberField label="Home price" value={s.price} onChange={(v) => set('price', v)} prefix={sym} min={0} decimals={0} slider={{ min: 50_000, max: 2_000_000, step: 5_000 }} />
+          <NumberField label="Home price" value={s.price} onChange={(v) => set('price', v)} prefix={sym} locale={localeFor(cur)} min={0} decimals={0} slider={{ min: 50_000, max: 2_000_000, step: 5_000 }} />
 
           <div className="grid grid-cols-[minmax(0,1fr)_7.5rem] gap-3">
-            <NumberField label="Down payment" value={s.down} onChange={(v) => set('down', v)} prefix={sym} min={0} decimals={0} />
+            <NumberField label="Down payment" value={s.down} onChange={(v) => set('down', v)} prefix={sym} locale={localeFor(cur)} min={0} decimals={0} />
             <NumberField label="Percent" value={Number(downPct.toFixed(2))} onChange={(v) => set('down', Math.round((s.price * v) / 100))} suffix="%" min={0} max={100} />
           </div>
           {downPct < 20 && s.price > 0 && (
@@ -104,11 +80,11 @@ export default function MortgageCalculator() {
             <div className="space-y-5">
               <div className="grid grid-cols-2 gap-3">
                 <NumberField label="Property tax" value={s.tax} onChange={(v) => set('tax', v)} suffix="%/yr" min={0} max={10} hint={`${money(r.tax * 12)} per year`} />
-                <NumberField label="Home insurance" value={s.ins} onChange={(v) => set('ins', v)} prefix={sym} suffix="/yr" min={0} decimals={0} />
+                <NumberField label="Home insurance" value={s.ins} onChange={(v) => set('ins', v)} prefix={sym} locale={localeFor(cur)} suffix="/yr" min={0} decimals={0} />
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <NumberField label="HOA / service fee" value={s.hoa} onChange={(v) => set('hoa', v)} prefix={sym} suffix="/mo" min={0} decimals={0} />
-                <NumberField label="Extra payment" value={s.extra} onChange={(v) => set('extra', v)} prefix={sym} suffix="/mo" min={0} decimals={0} />
+                <NumberField label="HOA / service fee" value={s.hoa} onChange={(v) => set('hoa', v)} prefix={sym} locale={localeFor(cur)} suffix="/mo" min={0} decimals={0} />
+                <NumberField label="Extra payment" value={s.extra} onChange={(v) => set('extra', v)} prefix={sym} locale={localeFor(cur)} suffix="/mo" min={0} decimals={0} />
               </div>
             </div>
           )}
@@ -125,47 +101,22 @@ export default function MortgageCalculator() {
 
         {/* Results */}
         <div className="bg-surface-2/50 p-5 sm:p-7" aria-live="polite">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="text-sm font-medium text-muted">Monthly payment</p>
-              <p className="tabular mt-1 text-4xl font-bold tracking-tight sm:text-5xl">{money(r.monthlyTotal)}</p>
-            </div>
-            <button type="button" onClick={share} className="shrink-0 rounded-xl bg-brand px-4 py-2 text-sm font-semibold text-brand-fg hover:opacity-90">
-              {copied ? 'Link copied' : 'Share result'}
-            </button>
+          <Headline label="Monthly payment" value={money(r.monthlyTotal)} action={<ShareButton />} />
+
+          <div className="mt-6">
+            <BreakdownDonut segments={segments} currency={cur} center={{ label: 'Loan', value: formatMoneyCompact(r.loanAmount, cur) }} />
           </div>
 
-          <div className="mt-6 flex flex-col items-center gap-6 sm:flex-row">
-            <Donut segments={segments} size={168}>
-              <div>
-                <p className="text-xs text-muted">Loan</p>
-                <p className="tabular text-sm font-semibold">{formatMoneyCompact(r.loanAmount, cur)}</p>
-              </div>
-            </Donut>
-            <ul className="w-full flex-1 space-y-2.5 text-sm">
-              {segments.map((seg) => (
-                <li key={seg.label} className="flex items-center gap-2.5">
-                  <span className="size-2.5 shrink-0 rounded-full" style={{ background: seg.color }} />
-                  <span className="text-muted">{seg.label}</span>
-                  <span className="tabular ml-auto font-medium">{money(seg.value)}</span>
-                </li>
-              ))}
-            </ul>
+          <div className="mt-7">
+            <StatGrid
+              items={[
+                ['Loan amount', money(r.loanAmount)],
+                ['Total interest', money(r.totalInterest)],
+                ['Total of payments', money(r.totalPaid)],
+                ['Paid off in', formatDuration(r.months)],
+              ]}
+            />
           </div>
-
-          <dl className="mt-7 grid grid-cols-2 gap-3">
-            {[
-              ['Loan amount', money(r.loanAmount)],
-              ['Total interest', money(r.totalInterest)],
-              ['Total of payments', money(r.totalPaid)],
-              ['Paid off in', formatDuration(r.months)],
-            ].map(([k, v]) => (
-              <div key={k} className="rounded-xl border border-line bg-surface p-3.5">
-                <dt className="text-xs text-muted">{k}</dt>
-                <dd className="tabular mt-1 font-semibold">{v}</dd>
-              </div>
-            ))}
-          </dl>
 
           {s.extra > 0 && r.interestSaved > 0 && (
             <p className="mt-4 rounded-xl bg-accent/10 px-4 py-3 text-sm">
@@ -176,63 +127,13 @@ export default function MortgageCalculator() {
         </div>
       </div>
 
-      {/* Schedule */}
       {r.loanAmount > 0 && (
-        <div className="border-t border-line p-5 sm:p-7">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 className="text-lg font-semibold">Amortization</h2>
-            <Tabs
-              value={view}
-              onChange={setView}
-              tabs={[
-                { value: 'chart', label: 'Chart' },
-                { value: 'table', label: 'Schedule' },
-              ]}
-            />
-          </div>
-
-          {view === 'chart' ? (
-            <div className="mt-5">
-              <LineChart
-                labels={chartRows.map((row) => row.year)}
-                xTitle="Year"
-                formatY={(v) => formatMoneyCompact(v, cur)}
-                formatTooltip={(v) => money(v)}
-                series={[
-                  { label: 'Remaining balance', color: 'var(--chart-1)', values: chartRows.map((row) => row.balance), area: true },
-                  { label: 'Principal paid', color: 'var(--chart-2)', values: chartRows.map((row) => row.principal) },
-                  { label: 'Interest paid', color: 'var(--chart-3)', values: chartRows.map((row) => row.interest) },
-                ]}
-              />
-            </div>
-          ) : (
-            <div className="mt-5 max-h-[28rem] overflow-auto rounded-xl border border-line">
-              <table className="tabular w-full text-sm">
-                <thead className="sticky top-0 bg-surface-2 text-left text-xs text-muted">
-                  <tr>
-                    <th className="px-4 py-2.5 font-medium">Year</th>
-                    <th className="px-4 py-2.5 text-right font-medium">Principal</th>
-                    <th className="px-4 py-2.5 text-right font-medium">Interest</th>
-                    <th className="px-4 py-2.5 text-right font-medium">Balance</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-line">
-                  {r.schedule.map((row) => (
-                    <tr key={row.year}>
-                      <td className="px-4 py-2">{row.year}</td>
-                      <td className="px-4 py-2 text-right">{money(row.principal)}</td>
-                      <td className="px-4 py-2 text-right">{money(row.interest)}</td>
-                      <td className="px-4 py-2 text-right font-medium">{money(row.balance)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-          <p className="mt-3 text-xs text-muted">
-            Based on a fixed rate of {formatNumber(s.rate, 3)}% over {s.term} years. Actual payments vary with your lender, fees and local taxes.
-          </p>
-        </div>
+        <AmortizationPanel
+          principal={r.loanAmount}
+          yearly={r.schedule}
+          currency={cur}
+          note={`Based on a fixed rate of ${formatNumber(s.rate, 3)}% over ${s.term} years. Actual payments vary with your lender, fees and local taxes.`}
+        />
       )}
     </section>
   );

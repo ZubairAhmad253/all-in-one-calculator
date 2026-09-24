@@ -1,0 +1,91 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import LoanCalculator from '@/components/calculators/LoanCalculator';
+
+const faqs = [
+  {
+    q: 'How is a monthly loan payment calculated?',
+    a: 'Fixed-rate loans use the amortization formula M = P × r ÷ (1 − (1 + r)<sup>−n</sup>), where P is the amount borrowed, r is the monthly interest rate (annual rate ÷ 12) and n is the number of monthly payments. The payment stays the same every month; only the split between interest and principal changes.',
+  },
+  {
+    q: 'What is the difference between interest rate and APR?',
+    a: 'The interest rate is the cost of borrowing the principal. APR (annual percentage rate) also includes most lender fees, so it shows the true yearly cost. When comparing loan offers, compare APRs. Enter the APR here for the most realistic total cost.',
+  },
+  {
+    q: 'Is a shorter loan term better?',
+    a: 'A shorter term means higher monthly payments but much less interest overall. For example, a $25,000 loan at 7% costs $4,702 in interest over 5 years but only $2,789 over 3 years. Choose the shortest term whose monthly payment you can comfortably afford.',
+  },
+  {
+    q: 'Do extra payments reduce the interest I pay?',
+    a: 'Yes. Extra payments go straight to the principal, so every later month charges interest on a smaller balance. Check with your lender that there is no early repayment penalty, and ask for extra payments to be applied to principal.',
+  },
+  {
+    q: 'What loans can I use this calculator for?',
+    a: 'Any fixed-rate loan repaid in equal monthly instalments: personal loans, car loans, student loans, business term loans and home loans. For a home purchase with property tax and insurance, use the <a href="/mortgage-calculator">mortgage calculator</a> instead.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="loan-calculator"
+  title="Loan Calculator – Monthly Payment, Interest & Schedule"
+  description="Free loan calculator. Work out the monthly payment and total interest on any fixed-rate loan, see a full amortization schedule and find out what extra payments save."
+  intro="Work out the monthly payment and total interest on a personal, car, student or business loan, and see how every payment is split between interest and principal."
+  faqs={faqs}
+  updated="2026-09-24"
+>
+  <LoanCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the loan calculator</h2>
+    <ol>
+      <li><strong>Loan amount:</strong> the amount you plan to borrow.</li>
+      <li><strong>Interest rate:</strong> the yearly rate or APR from your lender.</li>
+      <li><strong>Loan term:</strong> how long you have to repay it. Switch between years and months with the selector in the field.</li>
+      <li><strong>Extra payment</strong> (optional): an amount you would add each month to pay the loan off sooner.</li>
+    </ol>
+    <p>The monthly payment, total interest and payoff time update as you type. The <strong>Monthly</strong> tab lists every payment, and <strong>Share result</strong> copies a link with your numbers.</p>
+
+    <h2>The loan payment formula</h2>
+    <div class="formula">M = P × r ÷ (1 − (1 + r)<sup>−n</sup>)</div>
+    <ul>
+      <li><strong>M</strong>: monthly payment</li>
+      <li><strong>P</strong>: loan amount (principal)</li>
+      <li><strong>r</strong>: monthly interest rate (annual rate ÷ 12 ÷ 100)</li>
+      <li><strong>n</strong>: total number of monthly payments</li>
+    </ul>
+
+    <h3>Worked example</h3>
+    <p>You borrow <strong>$25,000</strong> at <strong>7%</strong> for <strong>5 years</strong>. The monthly rate is r = 0.07 ÷ 12 ≈ 0.005833 and there are n = 60 payments.</p>
+    <div class="formula">M = 25,000 × 0.005833 ÷ (1 − 1.005833<sup>−60</sup>) ≈ $495.03</div>
+    <p>
+      Over 60 payments you repay <strong>$29,701.80</strong>, of which <strong>$4,701.80</strong> is interest. In the first month, $145.83 of your payment is interest (7% ÷ 12 of $25,000) and only
+      $349.20 reduces the balance.
+    </p>
+
+    <h2>How much do extra payments save?</h2>
+    <p>Using the same $25,000 loan, adding <strong>$100 a month</strong> changes the result like this:</p>
+    <table>
+      <thead><tr><th></th><th>Regular payments</th><th>With $100 extra</th></tr></thead>
+      <tbody>
+        <tr><td>Months to pay off</td><td>60</td><td>49</td></tr>
+        <tr><td>Total interest</td><td>$4,701.80</td><td>$3,762.80</td></tr>
+        <tr><td>You save</td><td>—</td><td>$938.99 and 11 months</td></tr>
+      </tbody>
+    </table>
+
+    <h2>How the loan term changes the cost</h2>
+    <p>
+      A shorter term raises the monthly payment but cuts the interest. Repaying the same $25,000 at 7% over <strong>3 years</strong> costs $771.93 a month but only
+      <strong>$2,789.39</strong> in interest, saving $1,912 compared with 5 years.
+    </p>
+
+    <h2>Tips for getting a cheaper loan</h2>
+    <ul>
+      <li><strong>Compare APRs,</strong> not just interest rates, so fees are included.</li>
+      <li><strong>Improve your credit score</strong> before applying: it has the biggest effect on the rate you are offered.</li>
+      <li><strong>Borrow only what you need.</strong> Interest is charged on every unit of currency you borrow.</li>
+      <li><strong>Check for early repayment penalties</strong> if you plan to make extra payments.</li>
+    </ul>
+  </Fragment>
+</CalculatorLayout>

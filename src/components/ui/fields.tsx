@@ -14,6 +14,8 @@ interface NumberFieldProps {
   /** Adds a range slider under the input for quick exploration. */
   slider?: { min: number; max: number; step: number };
   decimals?: number;
+  /** Digit grouping locale, e.g. from localeFor(currency) for money fields. */
+  locale?: string;
 }
 
 /**
@@ -21,14 +23,14 @@ interface NumberFieldProps {
  * thousands separators on blur, and reports every valid keystroke so
  * results update as the user types.
  */
-export function NumberField({ label, value, onChange, prefix, suffix, hint, min, max, slider, decimals = 2 }: NumberFieldProps) {
+export function NumberField({ label, value, onChange, prefix, suffix, hint, min, max, slider, decimals = 2, locale = 'en' }: NumberFieldProps) {
   const id = useId();
-  const [text, setText] = useState(() => formatNumber(value, decimals));
+  const [text, setText] = useState(() => formatNumber(value, decimals, locale));
   const [focused, setFocused] = useState(false);
 
   useEffect(() => {
-    if (!focused) setText(formatNumber(value, decimals));
-  }, [value, focused, decimals]);
+    if (!focused) setText(formatNumber(value, decimals, locale));
+  }, [value, focused, decimals, locale]);
 
   const n = parseNumber(text);
   const invalid = text.trim() !== '' && (Number.isNaN(n) || (min !== undefined && n < min) || (max !== undefined && n > max));
@@ -134,5 +136,45 @@ export function Tabs<T extends string>({ value, onChange, tabs }: { value: T; on
         </button>
       ))}
     </div>
+  );
+}
+
+export type TermUnit = 'y' | 'm';
+
+/** Loan term with a years/months switch inside the field. */
+export function TermField({ label = 'Loan term', value, unit, onChange, onUnitChange, maxYears = 40 }: {
+  label?: string;
+  value: number;
+  unit: TermUnit;
+  onChange: (value: number) => void;
+  /** Receives the new unit and the value converted into it. */
+  onUnitChange: (unit: TermUnit, value: number) => void;
+  maxYears?: number;
+}) {
+  const unitSelect = (
+    <select
+      aria-label="Term unit"
+      value={unit}
+      onChange={(e) => {
+        const next = e.target.value as TermUnit;
+        if (next !== unit) onUnitChange(next, next === 'm' ? Math.round(value * 12) : Math.max(1, Math.round(value / 12)));
+      }}
+      className="-mr-1 cursor-pointer rounded-md bg-transparent py-1 text-sm font-medium text-muted outline-none hover:text-fg"
+    >
+      <option value="y">years</option>
+      <option value="m">months</option>
+    </select>
+  );
+  return (
+    <NumberField
+      label={label}
+      value={value}
+      onChange={onChange}
+      suffix={unitSelect}
+      min={1}
+      max={unit === 'y' ? maxYears : maxYears * 12}
+      decimals={0}
+      slider={unit === 'y' ? { min: 1, max: maxYears, step: 1 } : { min: 1, max: maxYears * 12, step: 1 }}
+    />
   );
 }

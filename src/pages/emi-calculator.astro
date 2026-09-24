@@ -1,0 +1,90 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import EmiCalculator from '@/components/calculators/EmiCalculator';
+
+const faqs = [
+  {
+    q: 'What is EMI?',
+    a: 'EMI stands for Equated Monthly Instalment: the fixed amount you pay your lender every month until a loan is repaid. Each EMI covers that month’s interest, and the rest reduces the outstanding principal.',
+  },
+  {
+    q: 'How is EMI calculated?',
+    a: 'EMI = P × r × (1 + r)<sup>n</sup> ÷ ((1 + r)<sup>n</sup> − 1), where P is the loan amount, r is the monthly interest rate (annual rate ÷ 12 ÷ 100) and n is the number of monthly instalments. Banks use this reducing-balance method for home, car and personal loans.',
+  },
+  {
+    q: 'How can I reduce my EMI?',
+    a: 'You can choose a longer tenure, make a larger down payment so you borrow less, negotiate a lower interest rate, or make a part-prepayment and ask the bank to reduce the EMI. A longer tenure lowers the EMI but increases the total interest you pay.',
+  },
+  {
+    q: 'Does the EMI change during the loan?',
+    a: 'For a fixed-rate loan, no. For a floating-rate loan, the bank may change the rate when its benchmark rate changes. It will then adjust either your EMI or your remaining tenure. Recalculate with the new rate to see the effect.',
+  },
+  {
+    q: 'Are processing fees included in the EMI?',
+    a: 'No. Processing fees, insurance and other charges are usually paid separately, either upfront or deducted from the loan amount. Add them to the total cost when you compare lenders.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="emi-calculator"
+  title="EMI Calculator – Home, Car & Personal Loan EMI"
+  description="Free EMI calculator for home, car and personal loans. Find your monthly EMI, total interest and total amount payable, with a month-by-month repayment schedule."
+  intro="Calculate the monthly EMI for a home, car or personal loan, and see the total interest, total amount payable and a month-by-month repayment schedule."
+  faqs={faqs}
+  updated="2026-09-24"
+>
+  <EmiCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the EMI calculator</h2>
+    <ol>
+      <li><strong>Choose a loan type</strong> (home, car or personal) to start from typical values, or type your own.</li>
+      <li><strong>Loan amount:</strong> the amount you want to borrow.</li>
+      <li><strong>Interest rate:</strong> the yearly rate your bank offers.</li>
+      <li><strong>Loan tenure:</strong> the repayment period in years or months.</li>
+    </ol>
+    <p>Your EMI, total interest and total amount payable update instantly. The <strong>Yearly</strong> and <strong>Monthly</strong> tabs show how every EMI is split between interest and principal.</p>
+
+    <h2>EMI formula</h2>
+    <div class="formula">EMI = P × r × (1 + r)<sup>n</sup> ÷ ((1 + r)<sup>n</sup> − 1)</div>
+    <ul>
+      <li><strong>P</strong>: loan amount (principal)</li>
+      <li><strong>r</strong>: monthly interest rate (annual rate ÷ 12 ÷ 100)</li>
+      <li><strong>n</strong>: loan tenure in months</li>
+    </ul>
+
+    <h3>Worked example: home loan</h3>
+    <p>A home loan of <strong>₹50,00,000</strong> at <strong>8.5%</strong> a year for <strong>20 years</strong>: r = 8.5 ÷ 12 ÷ 100 ≈ 0.007083 and n = 240.</p>
+    <div class="formula">EMI = 50,00,000 × 0.007083 × 1.007083<sup>240</sup> ÷ (1.007083<sup>240</sup> − 1) ≈ ₹43,391</div>
+    <p>
+      Over 240 EMIs you pay <strong>₹1,04,13,879</strong> in total, of which <strong>₹54,13,879</strong> is interest, more than the amount borrowed. In the first EMI, ₹35,417 goes to interest
+      and only ₹7,975 reduces the principal.
+    </p>
+
+    <h2>How tenure affects your EMI</h2>
+    <p>For the same ₹50,00,000 loan at 8.5%:</p>
+    <table>
+      <thead><tr><th>Tenure</th><th>Monthly EMI</th><th>Total interest</th></tr></thead>
+      <tbody>
+        <tr><td>15 years</td><td>₹49,237</td><td>₹38,62,656</td></tr>
+        <tr><td>20 years</td><td>₹43,391</td><td>₹54,13,879</td></tr>
+      </tbody>
+    </table>
+    <p>Choosing 15 years instead of 20 raises the EMI by about ₹5,846 but saves more than <strong>₹15.5 lakh</strong> in interest.</p>
+
+    <h2>Why early EMIs are mostly interest</h2>
+    <p>
+      Interest is charged on the outstanding balance, which is highest at the start of the loan. So early EMIs are mostly interest, and the principal share grows every month. This is
+      also why <strong>part-prepayments early in the loan</strong> save the most interest.
+    </p>
+
+    <h2>Tips to manage your EMI</h2>
+    <ul>
+      <li>Keep all your EMIs together under about <strong>40–50% of your monthly take-home pay</strong>.</li>
+      <li>Use bonuses to make part-prepayments, and choose to reduce the tenure rather than the EMI to save the most interest.</li>
+      <li>Compare the full cost across banks, including processing fees, not just the interest rate.</li>
+    </ul>
+    <p>Borrowing in dollars, pounds or another currency? Switch the currency in the calculator, or use the general <a href="/loan-calculator">loan calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
