@@ -205,3 +205,42 @@ export function QuickPicks({ label, values, value, onPick, format = (v) => `${v}
     </div>
   );
 }
+
+/** Compact number box for use inside a sentence, e.g. "What is [15]% of [200]?". */
+export function InlineNumber({ value, onChange, label, width = 'w-24', allowNegative = true }: {
+  value: number;
+  onChange: (value: number) => void;
+  /** Accessible name, since there is no visible label. */
+  label: string;
+  width?: string;
+  allowNegative?: boolean;
+}) {
+  const [text, setText] = useState(() => formatNumber(value, 10));
+  const [focused, setFocused] = useState(false);
+  useEffect(() => {
+    if (!focused) setText(formatNumber(value, 10));
+  }, [value, focused]);
+  const n = parseNumber(text);
+  const invalid = text.trim() !== '' && (Number.isNaN(n) || (!allowNegative && n < 0));
+
+  return (
+    <input
+      type="text"
+      inputMode="decimal"
+      autoComplete="off"
+      aria-label={label}
+      aria-invalid={invalid}
+      value={text}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
+      onChange={(e) => {
+        setText(e.target.value);
+        const v = parseNumber(e.target.value);
+        if (!Number.isNaN(v) && (allowNegative || v >= 0)) onChange(v);
+      }}
+      className={`tabular h-11 rounded-xl border bg-surface px-3 text-center text-base font-semibold outline-none transition focus:ring-4 ${width} ${
+        invalid ? 'border-warn focus:ring-warn/15' : 'border-line focus:border-brand focus:ring-brand/15'
+      }`}
+    />
+  );
+}

@@ -1,0 +1,84 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import FractionCalculator from '@/components/calculators/FractionCalculator';
+
+const faqs = [
+  {
+    q: 'How do I add fractions with different denominators?',
+    a: 'Find a common denominator (the lowest common multiple of the two denominators), rewrite each fraction with it, then add the numerators. For 3/4 + 5/6, the common denominator is 12: 9/12 + 10/12 = 19/12 = 1 7/12.',
+  },
+  {
+    q: 'How do I multiply fractions?',
+    a: 'Multiply the numerators together and the denominators together, then simplify. 3/4 × 2/9 = 6/36 = 1/6. You don’t need a common denominator to multiply.',
+  },
+  {
+    q: 'How do I divide fractions?',
+    a: 'Flip the second fraction (swap its numerator and denominator) and multiply. 3/4 ÷ 5/6 = 3/4 × 6/5 = 18/20 = 9/10. A common way to remember it: keep, change, flip.',
+  },
+  {
+    q: 'How do I enter a mixed number like 2 ¾?',
+    a: 'Type the whole number (2) in the small box on the left, then 3 on top and 4 on the bottom. For a negative mixed number, put the minus sign on the whole number: −2 ¾ is whole −2, numerator 3, denominator 4.',
+  },
+  {
+    q: 'How do I simplify a fraction?',
+    a: 'Divide the numerator and denominator by their greatest common divisor. For 18/24, the greatest common divisor is 6, so 18/24 = 3/4. The calculator always shows the answer in its simplest form.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="fraction-calculator"
+  title="Fraction Calculator – Add, Subtract, Multiply & Divide"
+  description="Free fraction calculator with steps. Add, subtract, multiply and divide fractions and mixed numbers, and get the simplified answer as a fraction, mixed number and decimal."
+  intro="Add, subtract, multiply or divide fractions and mixed numbers. Get the simplified answer as a fraction, a mixed number and a decimal, with the working shown step by step."
+  faqs={faqs}
+  updated="2026-09-24"
+>
+  <FractionCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the fraction calculator</h2>
+    <ol>
+      <li><strong>Enter the first fraction:</strong> numerator on top, denominator underneath. Use the small box on the left for the whole number of a mixed number, or leave it at 0.</li>
+      <li><strong>Choose + − × or ÷.</strong></li>
+      <li><strong>Enter the second fraction.</strong></li>
+    </ol>
+    <p>The answer appears straight away in its simplest form, with the mixed number, the decimal and each step of the working.</p>
+
+    <h2>Fraction rules</h2>
+    <table>
+      <thead><tr><th>Operation</th><th>Rule</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Add</td><td>Common denominator, add numerators</td><td>1/4 + 1/6 = 3/12 + 2/12 = 5/12</td></tr>
+        <tr><td>Subtract</td><td>Common denominator, subtract numerators</td><td>3/4 − 1/3 = 9/12 − 4/12 = 5/12</td></tr>
+        <tr><td>Multiply</td><td>Multiply tops and bottoms</td><td>2/3 × 3/5 = 6/15 = 2/5</td></tr>
+        <tr><td>Divide</td><td>Flip the second, then multiply</td><td>2/3 ÷ 4/5 = 2/3 × 5/4 = 10/12 = 5/6</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked example: adding</h3>
+    <div class="formula">3/4 + 5/6 = 9/12 + 10/12 = 19/12 = 1 7/12</div>
+    <p>The lowest common multiple of 4 and 6 is 12. Multiply 3/4 by 3/3 and 5/6 by 2/2 so both have 12 on the bottom, then add the tops.</p>
+
+    <h3>Worked example: mixed numbers</h3>
+    <div class="formula">2 ½ × 1 ⅓ = 5/2 × 4/3 = 20/6 = 10/3 = 3 ⅓</div>
+    <p>Turn each mixed number into an improper fraction first: 2 ½ = (2 × 2 + 1)/2 = 5/2, and 1 ⅓ = 4/3. Then multiply and simplify.</p>
+
+    <h2>Common fractions as decimals and percentages</h2>
+    <table>
+      <thead><tr><th>Fraction</th><th>Decimal</th><th>Percentage</th></tr></thead>
+      <tbody>
+        <tr><td>1/2</td><td>0.5</td><td>50%</td></tr>
+        <tr><td>1/3</td><td>0.333…</td><td>33.33%</td></tr>
+        <tr><td>2/3</td><td>0.666…</td><td>66.67%</td></tr>
+        <tr><td>1/4</td><td>0.25</td><td>25%</td></tr>
+        <tr><td>3/4</td><td>0.75</td><td>75%</td></tr>
+        <tr><td>1/5</td><td>0.2</td><td>20%</td></tr>
+        <tr><td>1/8</td><td>0.125</td><td>12.5%</td></tr>
+        <tr><td>3/8</td><td>0.375</td><td>37.5%</td></tr>
+        <tr><td>1/10</td><td>0.1</td><td>10%</td></tr>
+      </tbody>
+    </table>
+    <p>To turn a fraction into a percentage, see the <a href="/percentage-calculator">percentage calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
