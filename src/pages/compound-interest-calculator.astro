@@ -1,0 +1,102 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import CompoundInterestCalculator from '@/components/calculators/CompoundInterestCalculator';
+
+const faqs = [
+  {
+    q: 'What is compound interest?',
+    a: 'Compound interest is interest earned on both your original money and the interest it has already earned. Each period, the interest is added to the balance, so the next period’s interest is calculated on a larger amount. Over long periods this makes savings grow much faster than simple interest.',
+  },
+  {
+    q: 'What is the compound interest formula?',
+    a: 'A = P(1 + r/n)<sup>nt</sup>, where A is the final amount, P is the starting principal, r is the annual interest rate as a decimal, n is the number of times interest is compounded per year and t is the number of years. Regular deposits are added using the future value of an annuity.',
+  },
+  {
+    q: 'How often should interest compound?',
+    a: 'More frequent compounding earns slightly more. $10,000 at 5% for 10 years grows to $16,288.95 with yearly compounding and $16,470.09 with monthly compounding. The rate itself matters far more than the frequency, so compare accounts by their APY.',
+  },
+  {
+    q: 'What is APY and how is it different from the interest rate?',
+    a: 'APY (annual percentage yield) is the rate you actually earn in a year once compounding is included. A 5% rate compounded monthly gives an APY of 5.116%. Banks advertise APY so that accounts with different compounding frequencies can be compared fairly.',
+  },
+  {
+    q: 'How long does it take to double my money?',
+    a: 'Use the Rule of 72: divide 72 by the annual interest rate. At 6% your money doubles in about 12 years; at 9%, in about 8 years. This is a quick estimate; the calculator gives the exact figure.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="compound-interest-calculator"
+  title="Compound Interest Calculator – With Monthly Deposits"
+  description="Free compound interest calculator. See how savings grow with daily, monthly, quarterly or yearly compounding and regular deposits, with a year-by-year growth chart."
+  intro="See how your savings grow when interest earns interest. Add regular deposits, choose how often interest compounds, and get a year-by-year breakdown."
+  faqs={faqs}
+  updated="2026-09-24"
+>
+  <CompoundInterestCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the compound interest calculator</h2>
+    <ol>
+      <li><strong>Initial deposit:</strong> the amount you start with. It can be 0 if you are only making regular deposits.</li>
+      <li><strong>Interest rate and years:</strong> the yearly rate and how long you plan to save.</li>
+      <li><strong>Compounding:</strong> how often interest is added to your balance. Check your bank’s terms; monthly or daily is common for savings accounts.</li>
+      <li><strong>Regular deposit:</strong> an amount you add every month or every year.</li>
+    </ol>
+    <p>The chart shows how much of your balance comes from your own deposits and how much from interest. Switch to <strong>Yearly</strong> for the exact figures.</p>
+
+    <h2>The compound interest formula</h2>
+    <div class="formula">A = P × (1 + r/n)<sup>n×t</sup></div>
+    <ul>
+      <li><strong>A</strong>: final amount</li>
+      <li><strong>P</strong>: initial deposit (principal)</li>
+      <li><strong>r</strong>: annual interest rate as a decimal (5% = 0.05)</li>
+      <li><strong>n</strong>: number of times interest compounds per year</li>
+      <li><strong>t</strong>: number of years</li>
+    </ul>
+    <p>With a regular monthly deposit <strong>D</strong> and monthly compounding, the deposits add:</p>
+    <div class="formula">D × ((1 + r/12)<sup>12×t</sup> − 1) ÷ (r/12)</div>
+
+    <h3>Worked example</h3>
+    <p>You deposit <strong>$10,000</strong> at <strong>5%</strong> compounded monthly for <strong>10 years</strong>:</p>
+    <div class="formula">A = 10,000 × (1 + 0.05/12)<sup>120</sup> ≈ $16,470.09</div>
+    <p>
+      That is <strong>$6,470.09</strong> of interest. If you also add <strong>$100 a month</strong>, those deposits grow to $15,528.23, for a final balance of
+      <strong>$31,998.32</strong>. You paid in $22,000 and earned $9,998.32 in interest.
+    </p>
+
+    <h2>How compounding frequency changes the result</h2>
+    <p>$10,000 at 5% for 10 years, with no extra deposits:</p>
+    <table>
+      <thead><tr><th>Compounding</th><th>Final balance</th><th>APY</th></tr></thead>
+      <tbody>
+        <tr><td>Yearly</td><td>$16,288.95</td><td>5.000%</td></tr>
+        <tr><td>Quarterly</td><td>$16,436.19</td><td>5.095%</td></tr>
+        <tr><td>Monthly</td><td>$16,470.09</td><td>5.116%</td></tr>
+        <tr><td>Daily</td><td>$16,486.65</td><td>5.127%</td></tr>
+      </tbody>
+    </table>
+    <p>Moving from yearly to daily compounding adds under $200 here. A higher rate, or more time, makes a much bigger difference.</p>
+
+    <h2>Time is the most powerful factor</h2>
+    <p>The same $10,000 start plus $100 a month at 5%, left for longer:</p>
+    <table>
+      <thead><tr><th>Years</th><th>You deposit</th><th>Interest earned</th><th>Final balance</th></tr></thead>
+      <tbody>
+        <tr><td>10</td><td>$22,000</td><td>$9,998</td><td>$31,998</td></tr>
+        <tr><td>20</td><td>$34,000</td><td>$34,230</td><td>$68,230</td></tr>
+        <tr><td>30</td><td>$46,000</td><td>$81,903</td><td>$127,903</td></tr>
+      </tbody>
+    </table>
+    <p>After 30 years, interest makes up almost two-thirds of the balance. Starting early matters more than starting big.</p>
+
+    <h2>Ways to make compounding work for you</h2>
+    <ul>
+      <li><strong>Start early:</strong> every extra year gives interest more time to earn interest.</li>
+      <li><strong>Deposit regularly:</strong> an automatic monthly transfer adds up faster than occasional lump sums.</li>
+      <li><strong>Reinvest the interest</strong> rather than withdrawing it.</li>
+      <li><strong>Compare APYs</strong> when choosing a savings account, and watch for fees that eat into returns.</li>
+    </ul>
+  </Fragment>
+</CalculatorLayout>

@@ -1,0 +1,94 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import SipCalculator from '@/components/calculators/SipCalculator';
+
+const faqs = [
+  {
+    q: 'What is a SIP?',
+    a: 'A SIP (Systematic Investment Plan) is a way of investing a fixed amount in a mutual fund at regular intervals, usually every month. It builds the habit of investing, and because you buy at different prices over time, it averages out the cost of your units.',
+  },
+  {
+    q: 'How is SIP maturity value calculated?',
+    a: 'Maturity value M = P × ((1 + i)<sup>n</sup> − 1) ÷ i × (1 + i), where P is the monthly instalment, i is the expected annual return ÷ 12 ÷ 100 and n is the number of monthly instalments. This assumes each instalment is invested at the start of the month, which is how most fund houses calculate it.',
+  },
+  {
+    q: 'Are SIP returns guaranteed?',
+    a: 'No. Mutual fund returns depend on the market and change every year. The calculator assumes a steady return to give an estimate. Actual returns can be higher or lower, and past performance does not guarantee future results.',
+  },
+  {
+    q: 'What is a step-up SIP?',
+    a: 'A step-up (or top-up) SIP increases your monthly instalment by a fixed percentage every year, for example 10% in line with salary rises. Investing ₹10,000 a month at 12% for 10 years gives about ₹23.2 lakh; stepping it up by 10% a year raises that to about ₹33.7 lakh.',
+  },
+  {
+    q: 'What return should I assume?',
+    a: 'Use a realistic long-term figure for the type of fund. Many people use 10–12% a year for diversified equity funds and 6–8% for debt funds, but these are assumptions, not promises. Try a lower rate as well to see a more cautious outcome.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="sip-calculator"
+  title="SIP Calculator – Mutual Fund SIP Returns & Step-Up"
+  description="Free SIP calculator. Estimate the maturity value of your monthly mutual fund SIP, see invested amount vs returns, and plan a yearly step-up."
+  intro="Estimate how much your monthly SIP could grow to, see how much comes from your investments and how much from returns, and plan a yearly step-up."
+  faqs={faqs}
+  updated="2026-09-24"
+>
+  <SipCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the SIP calculator</h2>
+    <ol>
+      <li><strong>Monthly investment:</strong> the amount you will invest every month.</li>
+      <li><strong>Expected return:</strong> the yearly return you expect from the fund.</li>
+      <li><strong>Investment period:</strong> how many years you plan to keep investing.</li>
+      <li><strong>Annual step-up</strong> (optional): how much you will raise your monthly SIP each year.</li>
+    </ol>
+    <p>The chart shows how your invested amount and your estimated returns build up each year. Switch the currency if you invest in another market.</p>
+
+    <h2>SIP formula</h2>
+    <div class="formula">M = P × ((1 + i)<sup>n</sup> − 1) ÷ i × (1 + i)</div>
+    <ul>
+      <li><strong>M</strong>: maturity value</li>
+      <li><strong>P</strong>: monthly SIP amount</li>
+      <li><strong>i</strong>: monthly rate of return (annual return ÷ 12 ÷ 100)</li>
+      <li><strong>n</strong>: number of monthly instalments</li>
+    </ul>
+
+    <h3>Worked example</h3>
+    <p>You invest <strong>₹10,000 a month</strong> for <strong>10 years</strong> at an expected <strong>12%</strong> a year. So i = 12 ÷ 12 ÷ 100 = 0.01 and n = 120.</p>
+    <div class="formula">M = 10,000 × (1.01<sup>120</sup> − 1) ÷ 0.01 × 1.01 ≈ ₹23,23,391</div>
+    <p>You invest <strong>₹12,00,000</strong> in total, and the estimated returns are <strong>₹11,23,391</strong>, almost doubling your money.</p>
+
+    <h2>The power of staying invested</h2>
+    <p>₹10,000 a month at 12%, over different periods:</p>
+    <table>
+      <thead><tr><th>Period</th><th>Amount invested</th><th>Maturity value</th></tr></thead>
+      <tbody>
+        <tr><td>5 years</td><td>₹6,00,000</td><td>₹8,24,864</td></tr>
+        <tr><td>10 years</td><td>₹12,00,000</td><td>₹23,23,391</td></tr>
+        <tr><td>15 years</td><td>₹18,00,000</td><td>₹50,45,760</td></tr>
+        <tr><td>20 years</td><td>₹24,00,000</td><td>₹99,91,479</td></tr>
+        <tr><td>25 years</td><td>₹30,00,000</td><td>₹1,89,76,351</td></tr>
+      </tbody>
+    </table>
+    <p>Doubling the period from 10 to 20 years only doubles what you invest, but the maturity value grows more than four times.</p>
+
+    <h2>Step-up SIP example</h2>
+    <p>
+      Start at ₹10,000 a month at 12% for 10 years, and raise the SIP by <strong>10% every year</strong>. By the final year you invest ₹23,579 a month. In total you invest
+      ₹19,12,491 and the maturity value reaches about <strong>₹33,74,326</strong>, about ₹10.5 lakh more than a flat SIP.
+    </p>
+
+    <h2>Tips for SIP investing</h2>
+    <ul>
+      <li><strong>Start early and stay invested:</strong> time does most of the work.</li>
+      <li><strong>Don’t stop during market falls:</strong> your SIP buys more units when prices are low.</li>
+      <li><strong>Step up with your income</strong> so your investments keep pace with your goals.</li>
+      <li><strong>Choose funds that match your goal and risk level,</strong> and review them once a year.</li>
+    </ul>
+    <p>
+      Want to see the effect of a single lump sum or a bank deposit instead? Use the <a href="/compound-interest-calculator">compound interest calculator</a>.
+    </p>
+  </Fragment>
+</CalculatorLayout>

@@ -4,6 +4,8 @@ import { formatMoney, formatMoneyCompact } from '@/lib/format/number';
 import { Tabs } from '@/components/ui/fields';
 import { Donut, type DonutSegment } from '@/components/charts/Donut';
 import { LineChart } from '@/components/charts/LineChart';
+import { StackedBarChart } from '@/components/charts/StackedBarChart';
+import type { GrowthYear } from '@/lib/calculators/growth';
 
 /** Donut with a value legend beside it (stacks on phones). */
 export function BreakdownDonut({ segments, currency, center }: { segments: DonutSegment[]; currency: string; center: { label: string; value: string } }) {
@@ -171,6 +173,59 @@ function ScheduleTable({ head, rows, yearBreaks = false }: { head: string[]; row
           ))}
         </tbody>
       </table>
+    </div>
+  );
+}
+
+interface GrowthPanelProps {
+  yearly: GrowthYear[];
+  currency: string;
+  note: string;
+  /** Names for the two parts of the balance, e.g. "Invested" / "Returns". */
+  depositLabel?: string;
+  interestLabel?: string;
+}
+
+/** Year-by-year growth: stacked bars of money paid in vs interest, plus a table. */
+export function GrowthPanel({ yearly, currency, note, depositLabel = 'Total deposits', interestLabel = 'Total interest' }: GrowthPanelProps) {
+  const [view, setView] = useState<'chart' | 'table'>('chart');
+  const money = (v: number) => formatMoney(v, currency);
+
+  return (
+    <div className="border-t border-line p-5 sm:p-7">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h2 className="text-lg font-semibold">Growth over time</h2>
+        <Tabs
+          value={view}
+          onChange={setView}
+          tabs={[
+            { value: 'chart', label: 'Chart' },
+            { value: 'table', label: 'Yearly' },
+          ]}
+        />
+      </div>
+
+      {view === 'chart' ? (
+        <div className="mt-5">
+          <StackedBarChart
+            labels={yearly.map((y) => y.year)}
+            xTitle="Year"
+            formatY={(v) => formatMoneyCompact(v, currency)}
+            formatTooltip={money}
+            layers={[
+              { label: depositLabel, color: 'var(--chart-1)', values: yearly.map((y) => y.totalDeposits) },
+              { label: interestLabel, color: 'var(--chart-2)', values: yearly.map((y) => y.totalInterest) },
+            ]}
+          />
+        </div>
+      ) : (
+        <ScheduleTable
+          head={['Year', 'Paid in', interestLabel.replace(/^Total (\w)/, (_, c: string) => c.toUpperCase()), 'Balance']}
+          rows={yearly.map((y) => [y.year, money(y.deposits), money(y.interest), money(y.balance)])}
+        />
+      )}
+
+      <p className="mt-3 text-xs text-muted">{note}</p>
     </div>
   );
 }
