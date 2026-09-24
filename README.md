@@ -4,7 +4,7 @@ A fast, SEO-focused website of free online calculators (finance, math, health, c
 
 > **"All-in-One Calculator" is a placeholder name.** Change it in [`src/config/site.ts`](src/config/site.ts) and it updates everywhere.
 
-**Status:** foundation built. **8 of 111** planned calculators are live: [mortgage](src/pages/mortgage-calculator.astro), [loan](src/pages/loan-calculator.astro), [EMI](src/pages/emi-calculator.astro), [compound interest](src/pages/compound-interest-calculator.astro), [SIP](src/pages/sip-calculator.astro), [sales tax / VAT](src/pages/sales-tax-calculator.astro), [discount](src/pages/discount-calculator.astro) and [tip](src/pages/tip-calculator.astro). See [Roadmap](#roadmap).
+**Status:** foundation built. **9 of 111** planned calculators are live: [mortgage](src/pages/mortgage-calculator.astro), [loan](src/pages/loan-calculator.astro), [EMI](src/pages/emi-calculator.astro), [compound interest](src/pages/compound-interest-calculator.astro), [SIP](src/pages/sip-calculator.astro), [sales tax / VAT](src/pages/sales-tax-calculator.astro), [discount](src/pages/discount-calculator.astro), [tip](src/pages/tip-calculator.astro) and [currency converter](src/pages/currency-converter.astro). See [Roadmap](#roadmap).
 
 ## Features
 
@@ -47,7 +47,8 @@ npm run dev        # http://localhost:4321
 | Command | What it does |
 |---|---|
 | `npm run dev` | Start the dev server with hot reload |
-| `npm run build` | Type-check (`astro check`) and build the static site into `dist/` |
+| `npm run build` | Refresh the exchange-rate snapshot, type-check (`astro check`) and build the static site into `dist/` |
+| `npm run rates` | Refresh the exchange-rate snapshot only (`src/data/fallback-rates.json`) |
 | `npm run preview` | Serve the production build locally |
 | `npm test` | Run the formula unit tests |
 | `npm run test:watch` | Run tests in watch mode |
@@ -149,6 +150,14 @@ Shared classes:
 - `.prose-content`: long-form text
 - `.formula`: highlighted formula block
 - `.tabular`: aligned numbers
+
+## Exchange rates
+
+The currency converter uses the free [ExchangeRate-API](https://www.exchangerate-api.com/docs/free) open endpoint: 166 currencies, updated daily, no API key.
+
+- **In the browser**, `src/lib/rates.ts` fetches live rates and caches them in `localStorage` for an hour.
+- **At build time**, `scripts/fetch-rates.mjs` saves a snapshot to `src/data/fallback-rates.json`. The converter shows the snapshot first and keeps using it if the API can't be reached. If the fetch fails during a build, the existing snapshot is kept and the build continues.
+- **Attribution is required** by the API's terms: keep the "Rates By Exchange Rate API" link under the converter.
 
 ## Ads
 

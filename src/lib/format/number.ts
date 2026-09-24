@@ -73,3 +73,38 @@ export function formatDuration(months: number): string {
   if (m) parts.push(`${m} mo`);
   return parts.join(' ') || '0 mo';
 }
+
+let displayNames: Intl.DisplayNames | null | undefined;
+
+/** Local currencies without an ISO code, which Intl can't name. */
+const EXTRA_NAMES: Record<string, string> = {
+  FOK: 'Faroese Króna',
+  GGP: 'Guernsey Pound',
+  IMP: 'Manx Pound',
+  JEP: 'Jersey Pound',
+  KID: 'Kiribati Dollar',
+  TVD: 'Tuvaluan Dollar',
+};
+
+/** English name for any ISO currency code, e.g. "PKR" → "Pakistani Rupee". */
+export function currencyName(code: string): string {
+  if (displayNames === undefined) {
+    try {
+      displayNames = new Intl.DisplayNames('en', { type: 'currency' });
+    } catch {
+      displayNames = null;
+    }
+  }
+  if (EXTRA_NAMES[code]) return EXTRA_NAMES[code];
+  const name = displayNames?.of(code);
+  return name && name !== code ? name.replace(/\b\w/g, (c) => c.toUpperCase()) : code;
+}
+
+/** Normal number of decimal places for a currency (JPY 0, USD 2, KWD 3). */
+export function currencyDecimals(code: string): number {
+  try {
+    return new Intl.NumberFormat('en', { style: 'currency', currency: code }).resolvedOptions().maximumFractionDigits ?? 2;
+  } catch {
+    return 2;
+  }
+}
