@@ -1,0 +1,88 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import BasicCalculator from '@/components/calculators/BasicCalculator';
+
+const faqs = [
+  {
+    q: 'Does this calculator follow the order of operations?',
+    a: 'Yes. Multiplication and division are done before addition and subtraction, so 2 + 3 × 4 = 14, not 20. This is the same rule taught in school as BODMAS or PEMDAS. The small line above the display shows the answer as you type.',
+  },
+  {
+    q: 'How does the % key work?',
+    a: 'It works like a phone calculator. After + or −, the percentage is taken of the number before it: 200 + 10% = 220 and 200 − 10% = 180. Anywhere else, % divides by 100: 50% = 0.5 and 200 × 10% = 20.',
+  },
+  {
+    q: 'Can I use my keyboard?',
+    a: 'Yes. Type numbers and + − * / directly, use % for percent, press Enter or = to get the answer, Backspace to delete and Esc to clear everything.',
+  },
+  {
+    q: 'Why does 0.1 + 0.2 show 0.3 here but not in some apps?',
+    a: 'Computers store decimals in binary, so 0.1 + 0.2 is really 0.30000000000000004. This calculator rounds results to 12 significant digits, which removes that tiny error and shows 0.3.',
+  },
+  {
+    q: 'Is my calculation history saved?',
+    a: 'Your last 10 calculations are shown on the page while it’s open, and you can tap one to use its answer again. Nothing is sent to our servers or kept after you leave the page.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="basic-calculator"
+  title="Online Calculator – Free Basic Calculator"
+  description="Free online calculator for everyday arithmetic. Add, subtract, multiply, divide and work out percentages, with keyboard support, a live answer preview and history."
+  intro="A simple, fast calculator for everyday sums. Type with your keyboard or tap the keys, see the answer as you go, and reuse recent results from the history."
+  faqs={faqs}
+  updated="2026-09-24"
+>
+  <BasicCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the calculator</h2>
+    <ul>
+      <li><strong>Tap the keys or type</strong> on your keyboard. The line above the display shows the answer before you press =.</li>
+      <li><strong>AC</strong> clears everything; <strong>⌫</strong> deletes the last digit.</li>
+      <li><strong>±</strong> changes the sign of the last number.</li>
+      <li><strong>After =</strong>, typing a number starts a new sum, and typing an operator carries on from the answer.</li>
+      <li><strong>History</strong> keeps your last 10 answers. Tap one to use it again.</li>
+    </ul>
+
+    <h2>Keyboard shortcuts</h2>
+    <table>
+      <thead><tr><th>Key</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td><code>0</code>–<code>9</code>, <code>.</code></td><td>Numbers and decimal point</td></tr>
+        <tr><td><code>+</code> <code>-</code> <code>*</code> <code>/</code></td><td>Add, subtract, multiply, divide</td></tr>
+        <tr><td><code>%</code></td><td>Percent</td></tr>
+        <tr><td><code>Enter</code> or <code>=</code></td><td>Calculate</td></tr>
+        <tr><td><code>Backspace</code></td><td>Delete last character</td></tr>
+        <tr><td><code>Esc</code></td><td>Clear</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Order of operations</h2>
+    <p>The calculator follows the standard order of operations (BODMAS / PEMDAS):</p>
+    <ol>
+      <li><strong>Brackets</strong> first</li>
+      <li><strong>Powers</strong> (exponents)</li>
+      <li><strong>Multiplication and division</strong>, left to right</li>
+      <li><strong>Addition and subtraction</strong>, left to right</li>
+    </ol>
+    <div class="formula">2 + 3 × 4 = 2 + 12 = 14</div>
+    <p>Some very simple calculators work left to right and would give 20. This one gives the mathematically correct answer.</p>
+
+    <h2>Working with percentages</h2>
+    <table>
+      <thead><tr><th>You type</th><th>Result</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>200 + 10%</td><td>220</td><td>Add 10% of 200</td></tr>
+        <tr><td>200 − 10%</td><td>180</td><td>Take 10% off 200</td></tr>
+        <tr><td>200 × 10%</td><td>20</td><td>10% of 200</td></tr>
+        <tr><td>50%</td><td>0.5</td><td>50 ÷ 100</td></tr>
+      </tbody>
+    </table>
+    <p>
+      For more percentage questions, like percentage change, try the <a href="/scientific-calculator">scientific calculator</a> for brackets and powers, or our dedicated finance tools like the
+      <a href="/discount-calculator">discount</a> and <a href="/sales-tax-calculator">sales tax</a> calculators.
+    </p>
+  </Fragment>
+</CalculatorLayout>
