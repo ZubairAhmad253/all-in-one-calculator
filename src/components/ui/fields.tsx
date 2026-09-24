@@ -178,3 +178,30 @@ export function TermField({ label = 'Loan term', value, unit, onChange, onUnitCh
     />
   );
 }
+
+/** One-tap preset values shown under a field, e.g. common tax or tip rates. */
+export function QuickPicks({ label, values, value, onPick, format = (v) => `${v}%` }: {
+  label: string;
+  values: number[];
+  value: number;
+  onPick: (v: number) => void;
+  format?: (v: number) => string;
+}) {
+  return (
+    <div role="group" aria-label={label} className="mt-2 flex flex-wrap gap-2">
+      {values.map((v) => (
+        <button
+          key={v}
+          type="button"
+          onClick={() => onPick(v)}
+          aria-pressed={v === value}
+          className={`h-8 rounded-lg border px-3 text-sm font-medium transition ${
+            v === value ? 'border-brand bg-brand-soft text-brand' : 'border-line bg-surface text-muted hover:border-brand/40 hover:text-fg'
+          }`}
+        >
+          {format(v)}
+        </button>
+      ))}
+    </div>
+  );
+}

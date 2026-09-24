@@ -4,7 +4,7 @@ A fast, SEO-focused website of free online calculators (finance, math, health, c
 
 > **"All-in-One Calculator" is a placeholder name.** Change it in [`src/config/site.ts`](src/config/site.ts) and it updates everywhere.
 
-**Status:** foundation built. **5 of 111** planned calculators are live: [mortgage](src/pages/mortgage-calculator.astro), [loan](src/pages/loan-calculator.astro), [EMI](src/pages/emi-calculator.astro), [compound interest](src/pages/compound-interest-calculator.astro) and [SIP](src/pages/sip-calculator.astro). See [Roadmap](#roadmap).
+**Status:** foundation built. **8 of 111** planned calculators are live: [mortgage](src/pages/mortgage-calculator.astro), [loan](src/pages/loan-calculator.astro), [EMI](src/pages/emi-calculator.astro), [compound interest](src/pages/compound-interest-calculator.astro), [SIP](src/pages/sip-calculator.astro), [sales tax / VAT](src/pages/sales-tax-calculator.astro), [discount](src/pages/discount-calculator.astro) and [tip](src/pages/tip-calculator.astro). See [Roadmap](#roadmap).
 
 ## Features
 

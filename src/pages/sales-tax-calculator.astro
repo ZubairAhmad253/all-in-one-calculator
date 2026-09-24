@@ -1,0 +1,83 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import SalesTaxCalculator from '@/components/calculators/SalesTaxCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate sales tax?',
+    a: 'Multiply the price by the tax rate as a decimal. For a $100 item at 10% tax: 100 × 0.10 = $10 tax, so you pay $110. To get the total in one step, multiply by 1 plus the rate: 100 × 1.10 = $110.',
+  },
+  {
+    q: 'How do I remove VAT or sales tax from a price?',
+    a: 'Divide the tax-inclusive price by 1 plus the tax rate. For £120 including 20% VAT: 120 ÷ 1.20 = £100 before VAT, so the VAT is £20. Don’t just take 20% off £120: that gives £96, which is wrong.',
+  },
+  {
+    q: 'What is the difference between sales tax, VAT and GST?',
+    a: 'All three are taxes on what you buy. US sales tax is usually added at the till and varies by state and city. VAT (used in the UK and EU) and GST (used in India, Australia, Canada and elsewhere) are normally already included in shop prices. The maths for adding or removing them is the same.',
+  },
+  {
+    q: 'Why is the tax a smaller percentage of the final price?',
+    a: 'Because the tax rate applies to the price before tax, not the total. With 20% VAT, a £100 item costs £120, and the £20 tax is 16.67% of £120. That is why removing tax needs division rather than simply subtracting the rate.',
+  },
+  {
+    q: 'Can I use this for any country?',
+    a: 'Yes. Enter your local rate (for example 20% UK VAT, 18% GST in India, 5% GST in Canada or your US state and local sales tax) and choose your currency.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="sales-tax-calculator"
+  title="Sales Tax & VAT Calculator – Add or Remove Tax"
+  description="Free sales tax and VAT calculator. Add tax to a price or remove it from a tax-inclusive price, for any rate and any currency, with the tax amount shown."
+  intro="Add sales tax, VAT or GST to a price, or work back from a tax-inclusive price to find the price before tax and the tax you paid."
+  faqs={faqs}
+  updated="2026-09-24"
+>
+  <SalesTaxCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the sales tax calculator</h2>
+    <ol>
+      <li><strong>Choose Add tax or Remove tax.</strong> Use <em>Add tax</em> when you have a price before tax (common in the US). Use <em>Remove tax</em> when the price already includes tax (common with VAT and GST).</li>
+      <li><strong>Enter the price.</strong></li>
+      <li><strong>Enter the tax rate,</strong> or tap one of the common rates.</li>
+    </ol>
+    <p>You’ll see the price before tax, the tax amount and the price including tax straight away.</p>
+
+    <h2>Sales tax formulas</h2>
+    <p><strong>Adding tax</strong> to a price before tax:</p>
+    <div class="formula">Tax = Price × Rate ÷ 100 &nbsp;&nbsp; Total = Price × (1 + Rate ÷ 100)</div>
+    <p><strong>Removing tax</strong> from a price that includes it:</p>
+    <div class="formula">Price before tax = Total ÷ (1 + Rate ÷ 100)</div>
+
+    <h3>Worked example: adding US sales tax</h3>
+    <p>
+      A <strong>$49.99</strong> item with <strong>8.25%</strong> sales tax: 49.99 × 0.0825 = <strong>$4.12</strong> tax, so you pay 49.99 × 1.0825 = <strong>$54.11</strong>.
+    </p>
+
+    <h3>Worked example: removing UK VAT</h3>
+    <p>
+      A receipt shows <strong>£120 including 20% VAT</strong>. The price before VAT is 120 ÷ 1.20 = <strong>£100</strong>, and the VAT is £120 − £100 = <strong>£20</strong>.
+    </p>
+
+    <h2>A common mistake when removing tax</h2>
+    <p>
+      It’s tempting to take 20% off £120, but that gives £96. That’s wrong, because the 20% was added to £100, not £120. Always divide by 1 plus the rate. The calculator shows how
+      much the wrong method would be off by when you use <strong>Remove tax</strong>.
+    </p>
+
+    <h2>Tax as a share of the final price</h2>
+    <table>
+      <thead><tr><th>Tax rate</th><th>Multiply to add tax</th><th>Divide to remove tax</th><th>Tax as % of final price</th></tr></thead>
+      <tbody>
+        <tr><td>5%</td><td>× 1.05</td><td>÷ 1.05</td><td>4.76%</td></tr>
+        <tr><td>10%</td><td>× 1.10</td><td>÷ 1.10</td><td>9.09%</td></tr>
+        <tr><td>15%</td><td>× 1.15</td><td>÷ 1.15</td><td>13.04%</td></tr>
+        <tr><td>18%</td><td>× 1.18</td><td>÷ 1.18</td><td>15.25%</td></tr>
+        <tr><td>20%</td><td>× 1.20</td><td>÷ 1.20</td><td>16.67%</td></tr>
+      </tbody>
+    </table>
+    <p>Buying something at a discount too? Use the <a href="/discount-calculator">discount calculator</a> first, then add tax to the sale price.</p>
+  </Fragment>
+</CalculatorLayout>

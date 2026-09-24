@@ -1,0 +1,83 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import DiscountCalculator from '@/components/calculators/DiscountCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate a discount?',
+    a: 'Multiply the original price by the discount percentage and divide by 100 to get the amount off, then subtract it. For $80 at 25% off: 80 × 25 ÷ 100 = $20 off, so you pay $60. Or multiply by the part you still pay: 80 × 0.75 = $60.',
+  },
+  {
+    q: 'Is 30% off plus an extra 20% off the same as 50% off?',
+    a: 'No. The extra 20% is taken off the already-reduced price. On $100, 30% off gives $70, and 20% off $70 is $56. That’s 44% off in total, not 50%. The calculator shows the real combined discount when you add an extra discount.',
+  },
+  {
+    q: 'How do I work out what percentage discount I got?',
+    a: 'Divide the amount you saved by the original price and multiply by 100. If a $80 item costs $65, you saved $15, and 15 ÷ 80 × 100 = 18.75% off. Choose “Amount off” in the calculator to see this automatically.',
+  },
+  {
+    q: 'How do I find the original price before a discount?',
+    a: 'Divide the sale price by the part you paid. If you paid $60 after 25% off, you paid 75% of the original price, so the original was 60 ÷ 0.75 = $80.',
+  },
+  {
+    q: 'Is sales tax calculated before or after the discount?',
+    a: 'In most places, tax is charged on the discounted price. Work out the sale price here, then add tax with the <a href="/sales-tax-calculator">sales tax calculator</a>.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="discount-calculator"
+  title="Discount Calculator – Sale Price & Percent Off"
+  description="Free discount calculator. Find the sale price and how much you save with a percentage or fixed amount off, including stacked extra discounts."
+  intro="Find the sale price and how much you save, whether it’s a percentage off, a fixed amount off or an extra discount on top of a sale."
+  faqs={faqs}
+  updated="2026-09-24"
+>
+  <DiscountCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the discount calculator</h2>
+    <ol>
+      <li><strong>Original price:</strong> the price before any discount.</li>
+      <li><strong>Discount type:</strong> a percentage off (e.g. 25% off) or a fixed amount off (e.g. $15 off).</li>
+      <li><strong>Extra discount</strong> (optional): for offers like “an extra 10% off sale items” that apply on top of the first discount.</li>
+    </ol>
+
+    <h2>Discount formulas</h2>
+    <div class="formula">Sale price = Original price × (1 − Discount ÷ 100)</div>
+    <div class="formula">Discount % = (Original − Sale price) ÷ Original × 100</div>
+    <p>With an extra discount, apply each one in turn:</p>
+    <div class="formula">Sale price = Original × (1 − D₁ ÷ 100) × (1 − D₂ ÷ 100)</div>
+
+    <h3>Worked example</h3>
+    <p>A jacket costs <strong>$80</strong> and is <strong>25% off</strong>: 80 × 0.25 = $20 off, so the sale price is <strong>$60</strong>.</p>
+
+    <h3>Worked example: stacked discounts</h3>
+    <p>
+      A <strong>$100</strong> item is <strong>30% off</strong>, with an <strong>extra 20% off</strong> at checkout. The first discount brings it to $70. The extra 20% is taken off $70, which is
+      $14, so you pay <strong>$56</strong>. In total that’s <strong>44% off</strong>, not the 50% you might expect.
+    </p>
+
+    <h2>Quick discount table</h2>
+    <p>What you pay for a $100 item:</p>
+    <table>
+      <thead><tr><th>Discount</th><th>You pay</th><th>Multiply the price by</th></tr></thead>
+      <tbody>
+        <tr><td>10% off</td><td>$90</td><td>0.90</td></tr>
+        <tr><td>20% off</td><td>$80</td><td>0.80</td></tr>
+        <tr><td>25% off</td><td>$75</td><td>0.75</td></tr>
+        <tr><td>30% off</td><td>$70</td><td>0.70</td></tr>
+        <tr><td>50% off</td><td>$50</td><td>0.50</td></tr>
+        <tr><td>30% + extra 20% off</td><td>$56</td><td>0.56</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Tips for spotting a real bargain</h2>
+    <ul>
+      <li><strong>Compare the final price,</strong> not the percentage: 40% off an inflated price can cost more than 20% off elsewhere.</li>
+      <li><strong>Remember that stacked discounts don’t simply add up.</strong></li>
+      <li><strong>Check whether tax and delivery</strong> are added after the discount.</li>
+    </ul>
+  </Fragment>
+</CalculatorLayout>
