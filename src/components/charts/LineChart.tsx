@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 
 export interface Series {
   label: string;
@@ -33,9 +33,11 @@ export function LineChart({ labels, series, formatY, formatTooltip, xTitle }: Pr
   // of shrinking with a scaled viewBox.
   const box = useRef<HTMLDivElement>(null);
   const [W, setW] = useState(640);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = box.current;
     if (!el) return;
+    // Measure before first paint so labels never flash at the wrong size.
+    setW(Math.max(Math.round(el.getBoundingClientRect().width), 280));
     const ro = new ResizeObserver(([e]) => setW(Math.max(Math.round(e.contentRect.width), 280)));
     ro.observe(el);
     return () => ro.disconnect();
