@@ -1,0 +1,96 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import MortgageCalculator from '@/components/calculators/MortgageCalculator';
+
+const faqs = [
+  {
+    q: 'How is a monthly mortgage payment calculated?',
+    a: 'The principal and interest part uses the standard amortization formula M = P × r ÷ (1 − (1 + r)<sup>−n</sup>), where P is the loan amount, r is the monthly interest rate and n is the number of monthly payments. Property tax, insurance and HOA fees are then added on top.',
+  },
+  {
+    q: 'How much should I put down on a house?',
+    a: 'A 20% down payment usually avoids private mortgage insurance (PMI) and lowers your monthly payment. Many loans accept less, some as little as 3 to 5%, but you will pay more interest over the life of the loan.',
+  },
+  {
+    q: 'Is a 15-year or 30-year mortgage better?',
+    a: 'A 15-year mortgage has higher monthly payments but usually a lower rate and far less total interest. A 30-year mortgage keeps monthly payments lower and leaves more room in your budget. Try both terms above to compare the total interest.',
+  },
+  {
+    q: 'Do extra payments really save money?',
+    a: 'Yes. Extra payments go straight to the principal, so less interest builds up every month after that. Even a small extra amount each month can take years off a 30-year loan. Enter an extra payment above to see exactly how much you would save.',
+  },
+  {
+    q: 'Does this calculator include PMI?',
+    a: 'No. PMI rates depend on your lender, credit score and loan type. If your down payment is under 20%, ask your lender for a PMI quote and add it to the monthly payment shown here.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="mortgage-calculator"
+  title="Mortgage Calculator – Monthly Payment & Amortization"
+  description="Free mortgage calculator. See your monthly payment with taxes and insurance, total interest, an amortization schedule and how much extra payments save you."
+  intro="Estimate your monthly home loan payment, see where every payment goes and find out how much interest extra payments could save you."
+  faqs={faqs}
+  updated="2026-09-24"
+>
+  <MortgageCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use this mortgage calculator</h2>
+    <ol>
+      <li><strong>Home price:</strong> the agreed purchase price of the property.</li>
+      <li><strong>Down payment:</strong> enter the amount or the percentage. The other field updates to match.</li>
+      <li><strong>Interest rate and term:</strong> the annual rate your lender quotes and the length of the loan.</li>
+      <li><strong>Taxes, insurance and extras</strong> (optional): add property tax, home insurance and HOA fees to see the full monthly cost, and an extra monthly payment to see how much sooner you would be debt-free.</li>
+    </ol>
+    <p>Results update as you type. Use <strong>Share result</strong> to copy a link that reopens the calculator with your numbers filled in.</p>
+
+    <h2>The mortgage payment formula</h2>
+    <p>For a fixed-rate loan, the monthly principal and interest payment is:</p>
+    <div class="formula">M = P × r ÷ (1 − (1 + r)<sup>−n</sup>)</div>
+    <ul>
+      <li><strong>M</strong>: monthly payment</li>
+      <li><strong>P</strong>: loan amount (home price minus down payment)</li>
+      <li><strong>r</strong>: monthly interest rate (annual rate ÷ 12 ÷ 100)</li>
+      <li><strong>n</strong>: number of payments (years × 12)</li>
+    </ul>
+
+    <h3>Worked example</h3>
+    <p>
+      You buy a home for $400,000 with $80,000 down, so you borrow <strong>P = $320,000</strong>. At 6.5% for 30 years, r = 0.065 ÷ 12 ≈ 0.005417 and n = 360.
+    </p>
+    <div class="formula">M = 320,000 × 0.005417 ÷ (1 − 1.005417<sup>−360</sup>) ≈ $2,022.62</div>
+    <p>
+      Add property tax of 1.1% a year ($366.67 a month) and insurance of $1,500 a year ($125 a month) for a total of about <strong>$2,514 a month</strong>. Over 30 years you would pay
+      roughly $408,000 in interest, more than the amount borrowed.
+    </p>
+
+    <h2>What makes up a mortgage payment</h2>
+    <table>
+      <thead><tr><th>Part</th><th>What it is</th></tr></thead>
+      <tbody>
+        <tr><td>Principal</td><td>Repays the amount you borrowed.</td></tr>
+        <tr><td>Interest</td><td>What the lender charges you to borrow. It is highest at the start of the loan.</td></tr>
+        <tr><td>Property tax</td><td>Charged by your local government, usually a percentage of the property value.</td></tr>
+        <tr><td>Home insurance</td><td>Covers damage to the property. Lenders normally require it.</td></tr>
+        <tr><td>HOA / service charge</td><td>Fees for shared buildings or communities, where they apply.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Why early payments are mostly interest</h2>
+    <p>
+      Each month's interest is worked out on the balance still owed. At the start the balance is at its highest, so most of each payment goes to interest. As the balance falls, more
+      of each payment goes to principal. The <strong>Amortization</strong> chart above shows this: the interest line climbs steeply in the early years and then levels off.
+    </p>
+
+    <h2>Ways to lower your mortgage payment</h2>
+    <ul>
+      <li><strong>Put more down:</strong> a smaller loan means a smaller payment, and 20% down avoids PMI.</li>
+      <li><strong>Improve your credit score:</strong> better credit usually qualifies for a lower rate.</li>
+      <li><strong>Compare lenders:</strong> even a 0.25% difference in rate adds up to thousands over the loan.</li>
+      <li><strong>Choose a longer term:</strong> this lowers the monthly payment but increases total interest.</li>
+      <li><strong>Refinance when rates drop:</strong> weigh the closing costs against the monthly saving.</li>
+    </ul>
+  </Fragment>
+</CalculatorLayout>

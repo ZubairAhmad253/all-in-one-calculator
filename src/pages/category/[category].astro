@@ -1,0 +1,43 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs.astro';
+import CalculatorCard from '@/components/ui/CalculatorCard.astro';
+import AdSlot from '@/components/layout/AdSlot.astro';
+import { CATEGORIES, type Category } from '@/data/categories';
+import { calculatorsInCategory } from '@/data/calculators';
+
+export function getStaticPaths() {
+  return CATEGORIES.map((category) => ({ params: { category: category.id }, props: { category } }));
+}
+
+const { category } = Astro.props as { category: Category };
+const calcs = calculatorsInCategory(category.id).sort((a, b) => Number(b.status === 'live') - Number(a.status === 'live'));
+const live = calcs.filter((c) => c.status === 'live');
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: `${category.name} Calculators`,
+    description: category.description,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: live.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, url: new URL(`/${c.slug}`, Astro.site).href })),
+    },
+  },
+];
+---
+
+<BaseLayout title={`${category.name} Calculators`} description={`Free ${category.name.toLowerCase()} calculators. ${category.description}`} jsonLd={jsonLd}>
+  <div class="container-page pt-6">
+    <Breadcrumbs items={[{ name: 'Home', href: '/' }, { name: category.name, href: `/category/${category.id}` }]} />
+    <h1 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">{category.name} calculators</h1>
+    <p class="mt-3 max-w-2xl text-lg text-muted">{category.description}</p>
+
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {calcs.map((c) => <CalculatorCard calc={c} />)}
+    </div>
+
+    <AdSlot height={100} class="mx-auto mt-12 max-w-[728px]" />
+  </div>
+</BaseLayout>

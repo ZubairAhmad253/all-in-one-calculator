@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { SITE } from '@/config/site';
+---
+
+<BaseLayout title="About" description={`About ${SITE.name}: who we are, how our calculators work and how we check that they are accurate.`}>
+  <div class="container-page max-w-3xl pt-10">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">About {SITE.name}</h1>
+    <div class="prose-content mt-6">
+      <p>{SITE.name} offers free online calculators for finance, health, maths, conversions and everyday life, each with a plain-English explanation of how the result is worked out.</p>
+      <h2>How we build our calculators</h2>
+      <p>Every calculator uses published, standard formulas. We test each formula automatically against known results before it goes live, and every page shows the formula and a worked example so you can check the maths yourself.</p>
+      <h2>A note on accuracy</h2>
+      <p>Our results are estimates for information only. They are not financial, medical, tax or legal advice. For important decisions, speak to a qualified professional.</p>
+      <h2>Contact</h2>
+      <p>Found a mistake or want a new calculator? We would like to hear from you.</p>
+    </div>
+  </div>
+</BaseLayout>

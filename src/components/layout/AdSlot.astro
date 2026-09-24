@@ -1,0 +1,35 @@
+---
+/**
+ * A reserved ad space. The box always keeps its height, so an ad loading
+ * (or not loading) never pushes content around: this protects Core Web
+ * Vitals (CLS), which Google uses for ranking.
+ *
+ * With PUBLIC_ADSENSE_CLIENT unset (local dev, before approval) it renders
+ * a labelled placeholder so the layout can be reviewed with ads in place.
+ */
+import { ADSENSE_CLIENT } from '@/config/site';
+
+interface Props {
+  /** AdSense ad unit ID for this placement. */
+  slot?: string;
+  /** Reserved height in px. Match it to the ad size served here. */
+  height?: number;
+  class?: string;
+}
+const { slot = '', height = 250, class: className = '' } = Astro.props;
+const live = Boolean(ADSENSE_CLIENT && slot);
+---
+
+<aside class:list={['ad-slot flex items-center justify-center overflow-hidden', className]} style={`min-height:${height}px`} aria-label="Advertisement">
+  {
+    live ? (
+      <ins class="adsbygoogle block w-full" style={`min-height:${height}px`} data-ad-client={ADSENSE_CLIENT} data-ad-slot={slot} data-ad-format="auto" data-full-width-responsive="true" />
+    ) : (
+      <div class="grid h-full w-full place-items-center rounded-xl border border-dashed border-line text-xs tracking-wide text-muted uppercase" style={`min-height:${height}px`}>
+        Ad space
+      </div>
+    )
+  }
+</aside>
+
+{live && <script is:inline>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>}

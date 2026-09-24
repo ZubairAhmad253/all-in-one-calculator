@@ -1,0 +1,67 @@
+---
+import { SITE } from '@/config/site';
+import { CATEGORIES } from '@/data/categories';
+import { CALCULATORS } from '@/data/calculators';
+import Icon from '@/components/ui/Icon.astro';
+import SearchDialog from '@/components/layout/SearchDialog';
+
+const searchIndex = CALCULATORS.map(({ slug, name, category, status, summary, keywords }) => ({
+  slug,
+  name,
+  category: CATEGORIES.find((c) => c.id === category)!.name,
+  live: status === 'live',
+  summary,
+  keywords: keywords ?? [],
+}));
+---
+
+<header class="sticky top-0 z-40 border-b border-line bg-bg/85 backdrop-blur supports-[backdrop-filter]:bg-bg/70">
+  <div class="container-page flex h-16 items-center gap-4">
+    <a href="/" class="flex shrink-0 items-center gap-2 font-semibold tracking-tight">
+      <img src="/favicon.svg" alt="" width="28" height="28" />
+      <span class="hidden sm:inline">{SITE.name}</span>
+    </a>
+
+    <nav aria-label="Categories" class="hidden flex-1 items-center gap-1 text-sm text-muted lg:flex">
+      {
+        CATEGORIES.slice(0, 5).map((c) => (
+          <a href={`/category/${c.id}`} class="rounded-lg px-3 py-2 hover:bg-surface-2 hover:text-fg">
+            {c.name}
+          </a>
+        ))
+      }
+      <a href="/blog" class="rounded-lg px-3 py-2 hover:bg-surface-2 hover:text-fg">Blog</a>
+    </nav>
+
+    <div class="ml-auto flex items-center gap-2 lg:ml-0">
+      <SearchDialog client:idle items={searchIndex} />
+      <button
+        type="button"
+        id="theme-toggle"
+        class="grid size-10 place-items-center rounded-xl border border-line bg-surface text-muted hover:text-fg"
+        aria-label="Toggle dark mode"
+      >
+        <Icon name="moon" class="size-5 dark-hide" />
+        <Icon name="sun" class="size-5 light-hide" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<style is:global>
+  :root[data-theme='dark'] .dark-hide,
+  :root:not([data-theme='dark']) .light-hide {
+    display: none;
+  }
+</style>
+
+<script>
+  const btn = document.getElementById('theme-toggle');
+  btn?.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {}
+  });
+</script>

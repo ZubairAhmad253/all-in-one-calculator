@@ -1,0 +1,21 @@
+---
+import type { CalculatorEntry } from '@/data/calculators';
+interface Props {
+  calc: CalculatorEntry;
+}
+const { calc } = Astro.props;
+---
+
+{
+  calc.status === 'live' ? (
+    <a href={`/${calc.slug}`} class="card group block p-5 transition hover:-translate-y-0.5 hover:border-brand/40">
+      <p class="font-semibold group-hover:text-brand">{calc.name}</p>
+      <p class="mt-1.5 text-sm text-muted">{calc.summary}</p>
+    </a>
+  ) : (
+    <div class="rounded-2xl border border-dashed border-line p-5">
+      <p class="font-semibold text-muted">{calc.name}</p>
+      <p class="mt-1.5 text-xs font-medium tracking-wide text-muted uppercase">Coming soon</p>
+    </div>
+  )
+}

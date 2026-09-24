@@ -1,0 +1,94 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Icon from '@/components/ui/Icon.astro';
+import CalculatorCard from '@/components/ui/CalculatorCard.astro';
+import AdSlot from '@/components/layout/AdSlot.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '@/config/site';
+import { CATEGORIES } from '@/data/categories';
+import { CALCULATORS, liveCalculators } from '@/data/calculators';
+
+const live = liveCalculators();
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.name,
+    url: Astro.site?.href,
+    description: SITE.description,
+  },
+];
+---
+
+<BaseLayout title={SITE.name} description={SITE.description} jsonLd={jsonLd}>
+  <section class="container-page pt-14 pb-10 text-center sm:pt-20">
+    <h1 class="mx-auto max-w-3xl text-4xl font-bold tracking-tight text-balance sm:text-5xl">Free calculators for money, health, maths and everyday life</h1>
+    <p class="mx-auto mt-5 max-w-2xl text-lg text-muted text-pretty">
+      Instant answers as you type, with a clear explanation of how each result is worked out. No sign-up needed.
+    </p>
+    <p class="mt-6 text-sm text-muted">
+      Press <kbd class="rounded-md border border-line bg-surface px-1.5 py-0.5 text-xs font-medium">Ctrl K</kbd> to search {CALCULATORS.length} calculators
+    </p>
+  </section>
+
+  {
+    live.length > 0 && (
+      <section class="container-page" aria-labelledby="popular-heading">
+        <h2 id="popular-heading" class="text-xl font-semibold tracking-tight">Popular calculators</h2>
+        <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {live.slice(0, 6).map((c) => <CalculatorCard calc={c} />)}
+        </div>
+      </section>
+    )
+  }
+
+  <section class="container-page mt-16" aria-labelledby="categories-heading">
+    <h2 id="categories-heading" class="text-xl font-semibold tracking-tight">Browse by category</h2>
+    <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        CATEGORIES.map((cat) => {
+          const count = CALCULATORS.filter((c) => c.category === cat.id).length;
+          return (
+            <a href={`/category/${cat.id}`} class="card group flex gap-4 p-5 transition hover:-translate-y-0.5 hover:border-brand/40">
+              <span class="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand">
+                <Icon name={cat.icon} class="size-5.5" />
+              </span>
+              <span>
+                <span class="block font-semibold group-hover:text-brand">{cat.name}</span>
+                <span class="mt-1 block text-sm text-muted">{cat.description}</span>
+                <span class="mt-2 block text-xs font-medium text-muted">{count} calculators</span>
+              </span>
+            </a>
+          );
+        })
+      }
+    </div>
+  </section>
+
+  <div class="container-page mt-14">
+    <AdSlot height={100} class="mx-auto max-w-[728px]" />
+  </div>
+
+  {
+    posts.length > 0 && (
+      <section class="container-page mt-14" aria-labelledby="blog-heading">
+        <div class="flex items-end justify-between">
+          <h2 id="blog-heading" class="text-xl font-semibold tracking-tight">From the blog</h2>
+          <a href="/blog" class="text-sm font-medium text-brand">All articles →</a>
+        </div>
+        <div class="mt-5 grid gap-4 md:grid-cols-3">
+          {posts.map((p) => (
+            <a href={`/blog/${p.id}`} class="card group block p-5">
+              <p class="font-semibold group-hover:text-brand">{p.data.title}</p>
+              <p class="mt-2 text-sm text-muted">{p.data.description}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>
