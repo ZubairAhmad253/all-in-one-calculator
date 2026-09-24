@@ -4,7 +4,7 @@ A fast, SEO-focused website of free online calculators (finance, math, health, c
 
 > **"All-in-One Calculator" is a placeholder name.** Change it in [`src/config/site.ts`](src/config/site.ts) and it updates everywhere.
 
-**Status:** foundation built. **11 of 111** planned calculators are live: [mortgage](src/pages/mortgage-calculator.astro), [loan](src/pages/loan-calculator.astro), [EMI](src/pages/emi-calculator.astro), [compound interest](src/pages/compound-interest-calculator.astro), [SIP](src/pages/sip-calculator.astro), [sales tax / VAT](src/pages/sales-tax-calculator.astro), [discount](src/pages/discount-calculator.astro), [tip](src/pages/tip-calculator.astro), [currency converter](src/pages/currency-converter.astro), [basic](src/pages/basic-calculator.astro) and [scientific](src/pages/scientific-calculator.astro) calculators. See [Roadmap](#roadmap).
+**Status:** foundation built. **13 of 111** planned calculators are live: [mortgage](src/pages/mortgage-calculator.astro), [loan](src/pages/loan-calculator.astro), [EMI](src/pages/emi-calculator.astro), [compound interest](src/pages/compound-interest-calculator.astro), [SIP](src/pages/sip-calculator.astro), [sales tax / VAT](src/pages/sales-tax-calculator.astro), [discount](src/pages/discount-calculator.astro), [tip](src/pages/tip-calculator.astro), [currency converter](src/pages/currency-converter.astro), [basic](src/pages/basic-calculator.astro), [scientific](src/pages/scientific-calculator.astro), [percentage](src/pages/percentage-calculator.astro) and [fraction](src/pages/fraction-calculator.astro) calculators. See [Roadmap](#roadmap).
 
 ## Features
 
