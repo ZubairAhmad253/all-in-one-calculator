@@ -4,7 +4,7 @@ A fast, SEO-focused website of free online calculators (finance, math, health, c
 
 > **"All-in-One Calculator" is a placeholder name.** Change it in [`src/config/site.ts`](src/config/site.ts) and it updates everywhere.
 
-**Status:** foundation built. **1 of 111** planned calculators is live (the [mortgage calculator](src/pages/mortgage-calculator.astro)), and it serves as the template for the rest. See [Roadmap](#roadmap).
+**Status:** foundation built. **3 of 111** planned calculators are live: [mortgage](src/pages/mortgage-calculator.astro), [loan](src/pages/loan-calculator.astro) and [EMI](src/pages/emi-calculator.astro). See [Roadmap](#roadmap).
 
 ## Features
 

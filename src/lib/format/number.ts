@@ -26,9 +26,12 @@ const fmt = (key: string, make: () => Intl.NumberFormat) => {
   return f;
 };
 
+/** Rupee amounts read naturally in lakh/crore grouping (12,34,567). */
+export const localeFor = (currency: string) => (currency === 'INR' ? 'en-IN' : 'en');
+
 export function formatMoney(value: number, currency: string, decimals = 0): string {
   return fmt(`m:${currency}:${decimals}`, () =>
-    new Intl.NumberFormat('en', {
+    new Intl.NumberFormat(localeFor(currency), {
       style: 'currency',
       currency,
       minimumFractionDigits: decimals,
@@ -40,7 +43,7 @@ export function formatMoney(value: number, currency: string, decimals = 0): stri
 /** Compact money for chart axes, e.g. $1.2M. */
 export function formatMoneyCompact(value: number, currency: string): string {
   return fmt(`c:${currency}`, () =>
-    new Intl.NumberFormat('en', { style: 'currency', currency, notation: 'compact', maximumFractionDigits: 1 }),
+    new Intl.NumberFormat(localeFor(currency), { style: 'currency', currency, notation: 'compact', maximumFractionDigits: 1 }),
   ).format(value);
 }
 
@@ -52,8 +55,8 @@ export function currencySymbol(currency: string): string {
   );
 }
 
-export function formatNumber(value: number, maxDecimals = 2): string {
-  return fmt(`n:${maxDecimals}`, () => new Intl.NumberFormat('en', { maximumFractionDigits: maxDecimals })).format(value);
+export function formatNumber(value: number, maxDecimals = 2, locale = 'en'): string {
+  return fmt(`n:${locale}:${maxDecimals}`, () => new Intl.NumberFormat(locale, { maximumFractionDigits: maxDecimals })).format(value);
 }
 
 /** Parse user input like "1,250.50" or "  300000 " into a number. */
