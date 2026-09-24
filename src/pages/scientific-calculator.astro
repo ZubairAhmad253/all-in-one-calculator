@@ -1,0 +1,84 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import ScientificCalculator from '@/components/calculators/ScientificCalculator';
+
+const faqs = [
+  {
+    q: 'Should I use degrees or radians?',
+    a: 'Use degrees (Deg) for most everyday geometry, where a full turn is 360°. Use radians (Rad) in calculus, physics and programming, where a full turn is 2π. The current mode is shown in the top left of the display, and sin(30) is 0.5 in degrees but about −0.988 in radians.',
+  },
+  {
+    q: 'How do I calculate inverse sine, cosine or tangent?',
+    a: 'Press 2nd, then sin, cos or tan to get sin⁻¹, cos⁻¹ or tan⁻¹. The answer is an angle in the current mode: sin⁻¹(0.5) = 30 in degrees.',
+  },
+  {
+    q: 'What is the difference between log and ln?',
+    a: 'log is the common logarithm (base 10): log(1000) = 3 because 10³ = 1000. ln is the natural logarithm (base e ≈ 2.71828): ln(e) = 1. Press 2nd to get their inverses, 10ˣ and eˣ.',
+  },
+  {
+    q: 'How do I enter numbers in scientific notation?',
+    a: 'Type the number, press EXP, then type the power of ten. For 6.022 × 10²³, type 6.022, EXP, 23. The display shows 6.022E23. Very large or small answers are also shown this way.',
+  },
+  {
+    q: 'What does the Ans key do?',
+    a: 'Ans inserts the answer to your previous calculation, so you can use it in the next one. For example, work out √2, then type Ans × 3.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="scientific-calculator"
+  title="Scientific Calculator – Free Online Scientific Calculator"
+  description="Free online scientific calculator with trigonometry in degrees or radians, logarithms, powers, roots, factorials, scientific notation and keyboard shortcuts."
+  intro="A full scientific calculator in your browser: trigonometry in degrees or radians, logarithms, powers, roots, factorials, brackets and scientific notation."
+  faqs={faqs}
+  updated="2026-09-24"
+>
+  <ScientificCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the scientific calculator</h2>
+    <ul>
+      <li><strong>Type a whole expression,</strong> like <code>2 × sin(30) + √(16)</code>, then press =. The line above the display previews the answer as you type.</li>
+      <li><strong>Functions open a bracket</strong> for you, and brackets left open at the end are closed automatically.</li>
+      <li><strong>2nd</strong> switches to inverse and alternative functions: sin⁻¹, cos⁻¹, tan⁻¹, eˣ, 10ˣ, ∛ and x³.</li>
+      <li><strong>Deg / Rad</strong> sets the angle unit for trigonometry.</li>
+      <li><strong>You can skip ×</strong> in front of brackets, π and functions: <code>2π</code> and <code>3(4 + 1)</code> both work.</li>
+    </ul>
+
+    <h2>Function reference</h2>
+    <table>
+      <thead><tr><th>Key</th><th>What it does</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>sin, cos, tan</td><td>Trigonometric functions</td><td>sin(30) = 0.5 (Deg)</td></tr>
+        <tr><td>sin⁻¹, cos⁻¹, tan⁻¹</td><td>Inverse trig (press 2nd)</td><td>tan⁻¹(1) = 45 (Deg)</td></tr>
+        <tr><td>ln</td><td>Natural logarithm (base e)</td><td>ln(e) = 1</td></tr>
+        <tr><td>log</td><td>Common logarithm (base 10)</td><td>log(1000) = 3</td></tr>
+        <tr><td>eˣ, 10ˣ</td><td>Exponentials (press 2nd)</td><td>10^(3) = 1,000</td></tr>
+        <tr><td>√, ∛</td><td>Square and cube roots</td><td>√(2) = 1.41421356237</td></tr>
+        <tr><td>x², x³, xʸ</td><td>Powers</td><td>2^10 = 1,024</td></tr>
+        <tr><td>n!</td><td>Factorial</td><td>5! = 120</td></tr>
+        <tr><td>1/x</td><td>Reciprocal</td><td>4^(−1) = 0.25</td></tr>
+        <tr><td>|x|</td><td>Absolute value</td><td>abs(−7) = 7</td></tr>
+        <tr><td>EXP</td><td>× 10 to the power</td><td>1.5E3 = 1,500</td></tr>
+        <tr><td>π, e</td><td>Constants</td><td>π ≈ 3.14159265359</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Degrees and radians</h2>
+    <p>A full circle is <strong>360 degrees</strong> or <strong>2π radians</strong>, so:</p>
+    <div class="formula">Radians = Degrees × π ÷ 180 &nbsp;&nbsp; Degrees = Radians × 180 ÷ π</div>
+    <p>
+      In degree mode, the calculator gives exact answers at whole multiples of 90°: sin(180) = 0 and cos(90) = 0, with no tiny rounding errors. tan(90°) is undefined, so it shows an
+      error rather than a huge meaningless number.
+    </p>
+
+    <h2>Worked examples</h2>
+    <h3>Height of a ramp</h3>
+    <p>A 5 m ramp rises at 12°. Its height is 5 × sin(12). In Deg mode, type <code>5 × sin(12)</code> to get about <strong>1.04 m</strong>.</p>
+    <h3>Compound growth</h3>
+    <p>$1,000 growing 7% a year for 10 years is 1000 × 1.07¹⁰. Type <code>1000 × 1.07 ^ 10</code> to get <strong>1,967.15</strong>. For more detail, use the <a href="/compound-interest-calculator">compound interest calculator</a>.</p>
+    <h3>Arrangements</h3>
+    <p>6 people can stand in a line in 6! ways. Type <code>6!</code> to get <strong>720</strong>.</p>
+  </Fragment>
+</CalculatorLayout>
