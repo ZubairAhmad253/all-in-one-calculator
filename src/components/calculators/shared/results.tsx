@@ -229,3 +229,28 @@ export function GrowthPanel({ yearly, currency, note, depositLabel = 'Total depo
     </div>
   );
 }
+
+export interface ReceiptLine {
+  label: string;
+  value: string;
+  /** Shown in muted text, e.g. a discount or a sub-line. */
+  muted?: boolean;
+}
+
+/** Itemised breakdown ending in a bold total, like a till receipt. */
+export function Receipt({ lines, total }: { lines: ReceiptLine[]; total: ReceiptLine }) {
+  return (
+    <dl className="tabular rounded-xl border border-line bg-surface p-4 text-sm sm:p-5">
+      {lines.map((l) => (
+        <div key={l.label} className="flex items-baseline justify-between gap-4 py-1.5">
+          <dt className="text-muted">{l.label}</dt>
+          <dd className={`font-medium ${l.muted ? 'text-muted' : ''}`}>{l.value}</dd>
+        </div>
+      ))}
+      <div className="mt-2 flex items-baseline justify-between gap-4 border-t border-dashed border-line pt-3">
+        <dt className="font-semibold">{total.label}</dt>
+        <dd className="text-lg font-bold">{total.value}</dd>
+      </div>
+    </dl>
+  );
+}

@@ -1,0 +1,84 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import TipCalculator from '@/components/calculators/TipCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate a tip?',
+    a: 'Multiply the bill by the tip percentage and divide by 100. For an $85 bill with an 18% tip: 85 × 18 ÷ 100 = $15.30, so the total is $100.30. A quick mental shortcut for 20%: move the decimal point one place left and double it.',
+  },
+  {
+    q: 'How much should I tip?',
+    a: 'Customs vary by country. In the US, 15–20% is standard at sit-down restaurants, with 18–20% common for good service. In the UK and much of Europe, 10–12.5% is usual and a service charge is often already added. In many parts of Asia tipping is not expected. Check the bill for a service charge before adding a tip.',
+  },
+  {
+    q: 'Should I tip on the amount before or after tax?',
+    a: 'Etiquette guides usually suggest tipping on the pre-tax amount, but many people tip on the total for simplicity. The difference is small. Enter whichever amount you prefer as the bill.',
+  },
+  {
+    q: 'How do I split a bill with a tip?',
+    a: 'Add the tip to the bill, then divide by the number of people. $85 plus an 18% tip is $100.30; split three ways, that’s $33.43 each. Choose “Round each person up” to make it $34 each, which is easier to pay in cash.',
+  },
+  {
+    q: 'Does rounding up change the tip percentage?',
+    a: 'Yes, slightly. Rounding each share of the $85 bill above up to $34 makes the total $102, so the tip becomes $17, which is 20% of the bill rather than 18%. The calculator shows the new tip percentage whenever rounding changes it.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="tip-calculator"
+  title="Tip Calculator – Tip Amount & Split the Bill"
+  description="Free tip calculator. Work out the tip and total for any bill, split it between people, and round up each share or the whole bill."
+  intro="Work out the tip and total for any bill, split it between friends, and round up to an easy amount to pay."
+  faqs={faqs}
+  updated="2026-09-24"
+>
+  <TipCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the tip calculator</h2>
+    <ol>
+      <li><strong>Bill amount:</strong> the total on your bill.</li>
+      <li><strong>Tip:</strong> type a percentage or tap a common one.</li>
+      <li><strong>Split between:</strong> the number of people paying.</li>
+      <li><strong>Rounding</strong> (optional): round each person’s share, or the whole bill, up to a whole amount.</li>
+    </ol>
+
+    <h2>Tip formula</h2>
+    <div class="formula">Tip = Bill × Tip % ÷ 100 &nbsp;&nbsp; Total = Bill + Tip</div>
+    <div class="formula">Each person pays = Total ÷ Number of people</div>
+
+    <h3>Worked example</h3>
+    <p>
+      Three friends have an <strong>$85</strong> bill and want to leave <strong>18%</strong>. The tip is 85 × 0.18 = <strong>$15.30</strong>, making the total <strong>$100.30</strong>, or
+      <strong>$33.43 each</strong>. Rounding each share up to $34 brings the total to $102, a $17 tip (20%).
+    </p>
+
+    <h2>Quick tip table</h2>
+    <table>
+      <thead><tr><th>Bill</th><th>15%</th><th>18%</th><th>20%</th></tr></thead>
+      <tbody>
+        <tr><td>$20</td><td>$3.00</td><td>$3.60</td><td>$4.00</td></tr>
+        <tr><td>$50</td><td>$7.50</td><td>$9.00</td><td>$10.00</td></tr>
+        <tr><td>$75</td><td>$11.25</td><td>$13.50</td><td>$15.00</td></tr>
+        <tr><td>$100</td><td>$15.00</td><td>$18.00</td><td>$20.00</td></tr>
+        <tr><td>$150</td><td>$22.50</td><td>$27.00</td><td>$30.00</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Tipping customs around the world</h2>
+    <table>
+      <thead><tr><th>Country or region</th><th>Typical restaurant tip</th></tr></thead>
+      <tbody>
+        <tr><td>United States</td><td>15–20%</td></tr>
+        <tr><td>Canada</td><td>15–18%</td></tr>
+        <tr><td>United Kingdom</td><td>10–12.5% (check for a service charge)</td></tr>
+        <tr><td>Europe (most countries)</td><td>5–10%, or round up</td></tr>
+        <tr><td>Middle East</td><td>10–15% (check for a service charge)</td></tr>
+        <tr><td>Japan and South Korea</td><td>Not expected</td></tr>
+      </tbody>
+    </table>
+    <p>These are general guides only. Customs vary by city and by type of service.</p>
+  </Fragment>
+</CalculatorLayout>

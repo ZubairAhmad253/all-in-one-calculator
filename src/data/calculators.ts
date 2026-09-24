@@ -25,7 +25,7 @@ export interface CalculatorEntry {
 
 type Row = [slug: string, name: string, phase: 1 | 2, summary: string, keywords?: string[]];
 
-const LIVE = new Set(['mortgage-calculator', 'loan-calculator', 'emi-calculator', 'compound-interest-calculator', 'sip-calculator']);
+const LIVE = new Set(['mortgage-calculator', 'loan-calculator', 'emi-calculator', 'compound-interest-calculator', 'sip-calculator', 'sales-tax-calculator', 'discount-calculator', 'tip-calculator']);
 
 const group = (category: CategoryId, rows: Row[]): CalculatorEntry[] =>
   rows.map(([slug, name, phase, summary, keywords]) => ({
