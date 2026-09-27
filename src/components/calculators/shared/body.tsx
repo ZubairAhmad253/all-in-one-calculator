@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { useId, type ReactNode } from 'react';
 import { cmFromFtIn, ftInFromCm, kgFromLb, lbFromKg } from '@/lib/calculators/health';
 import { NumberField, Tabs } from '@/components/ui/fields';
 
@@ -95,5 +95,34 @@ export function DateField({ label, value, onChange, hint, max }: { label: string
       />
       {hint && <p className="mt-1.5 text-xs text-muted">{hint}</p>}
     </div>
+  );
+}
+
+/** Sex tabs and an age field side by side, as used by the body calculators. */
+export function SexAgeFields({ sex, age, onSex, onAge, minAge = 15, maxAge = 100 }: { sex: string; age: number; onSex: (v: 'male' | 'female') => void; onAge: (v: number) => void; minAge?: number; maxAge?: number }) {
+  return (
+    <div className="grid grid-cols-2 items-end gap-3">
+      <div>
+        <p className="mb-1.5 text-sm font-medium">Sex</p>
+        <Tabs
+          value={sex === 'female' ? 'female' : 'male'}
+          onChange={onSex}
+          tabs={[
+            { value: 'male', label: 'Male' },
+            { value: 'female', label: 'Female' },
+          ]}
+        />
+      </div>
+      <NumberField label="Age" value={age} onChange={onAge} suffix="years" min={minAge} max={maxAge} decimals={0} />
+    </div>
+  );
+}
+
+/** The standard health disclaimer shown under body calculators. */
+export function HealthNote({ children }: { children?: ReactNode }) {
+  return (
+    <p className="border-t border-line px-5 py-3 text-xs text-muted sm:px-7">
+      {children} This is an estimate, not medical advice. If you’re pregnant, under 18 or managing a health condition, ask a doctor or dietitian.
+    </p>
   );
 }
