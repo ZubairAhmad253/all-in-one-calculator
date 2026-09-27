@@ -1,0 +1,71 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import FlooringCalculator from '@/components/calculators/FlooringCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate how much flooring I need?',
+    a: 'Multiply each room’s length by its width, add the rooms together and add 5–10% for waste. Two rooms of 4.5 × 3.6 m and 3.2 × 3 m are 25.8 m²; with 10% waste you need 28.38 m².',
+  },
+  {
+    q: 'How much extra flooring should I buy?',
+    a: 'About 5–10% for straight laminate, vinyl or wood planks, and 15% for diagonal or herringbone layouts. Rooms with many corners, alcoves or doorways need more.',
+  },
+  {
+    q: 'How many boxes of flooring do I need?',
+    a: 'Divide the area including waste by the coverage printed on the box, and round up. 28.38 m² at 2.2 m² per box is 12.9, so you need 13 boxes.',
+  },
+  {
+    q: 'How do I measure an L-shaped room?',
+    a: 'Split it into rectangles, measure each one, and add them as separate rooms. The calculator totals them for you.',
+  },
+  {
+    q: 'Should I include the area under kitchen cabinets?',
+    a: 'Usually not for fitted kitchens, where flooring stops at the plinth. Floating floors should never go under heavy fixed units, because they need room to expand.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="flooring-calculator"
+  title="Flooring Calculator – Area, Boxes & Cost"
+  description="Free flooring calculator. Work out the square metres or square feet of flooring you need for one or more rooms, with waste, the number of boxes and total cost."
+  intro="Work out how much flooring you need for one or more rooms, with waste, the number of boxes to buy and the total cost including fitting."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <FlooringCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the flooring calculator</h2>
+    <ol>
+      <li><strong>Choose metric or US units</strong> and add each room’s length and width.</li>
+      <li><strong>Set a waste allowance</strong> for your layout.</li>
+      <li><strong>Enter the coverage per box and prices</strong> to see how many boxes to buy and the cost.</li>
+    </ol>
+
+    <h2>Flooring formula</h2>
+    <div class="formula">Flooring = Σ (length × width) × (1 + waste %) &nbsp;&nbsp; Boxes = flooring ÷ coverage per box, rounded up</div>
+
+    <h3>Worked examples</h3>
+    <table>
+      <thead><tr><th>Rooms</th><th>Area</th><th>+ waste</th><th>Boxes</th><th>Cost</th></tr></thead>
+      <tbody>
+        <tr><td>4.5 × 3.6 m + 3.2 × 3 m</td><td>25.8 m²</td><td>28.38 m² (10%)</td><td>13 of 2.2 m²</td><td>$715 at $25/m²</td></tr>
+        <tr><td>14 × 12 ft</td><td>168 ft²</td><td>184.8 ft² (10%)</td><td>10 of 20 ft²</td><td>$700 at $3.50/ft²</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Choosing a waste allowance</h2>
+    <table>
+      <thead><tr><th>Layout</th><th>Waste</th></tr></thead>
+      <tbody>
+        <tr><td>Straight planks, simple room</td><td>5–7%</td></tr>
+        <tr><td>Straight planks, average room</td><td>10%</td></tr>
+        <tr><td>Diagonal or herringbone</td><td>15%</td></tr>
+        <tr><td>Patterned carpet or complex room</td><td>15–20%</td></tr>
+      </tbody>
+    </table>
+    <p>Tiling instead? Use the <a href="/tile-calculator">tile calculator</a>. For walls, see the <a href="/paint-calculator">paint calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
