@@ -1,0 +1,71 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import LogarithmCalculator from '@/components/calculators/LogarithmCalculator';
+
+const faqs = [
+  {
+    q: 'What is a logarithm?',
+    a: 'A logarithm answers “what power do I raise the base to, to get this number?”. log₁₀(1000) = 3 because 10³ = 1000, and log₂(8) = 3 because 2³ = 8.',
+  },
+  {
+    q: 'What is the difference between log and ln?',
+    a: '“log” usually means base 10 (the common logarithm), used in science and engineering scales. “ln” is the natural logarithm, base e ≈ 2.71828, used in growth, decay and calculus.',
+  },
+  {
+    q: 'How do I calculate a logarithm in any base?',
+    a: 'Use the change-of-base formula: log_b(x) = ln(x) ÷ ln(b), or log(x) ÷ log(b). For log₂(50): ln(50) ÷ ln(2) = 3.912 ÷ 0.693 ≈ 5.644.',
+  },
+  {
+    q: 'Can you take the log of zero or a negative number?',
+    a: 'Not with real numbers. No power of a positive base gives zero or a negative number, so log(0) and log of negatives are undefined.',
+  },
+  {
+    q: 'What are logarithms used for?',
+    a: 'Measuring things that vary hugely in size: earthquake magnitude, sound in decibels, acidity (pH), star brightness, and working out doubling times and compound interest periods.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="logarithm-calculator"
+  title="Logarithm Calculator – log, ln & Any Base"
+  description="Free logarithm calculator. Find the logarithm of any number in base 10, base e (ln), base 2 or any base you choose, with the change-of-base working."
+  intro="Find the logarithm of any positive number in base 10, base e (natural log), base 2 or any other base, with a check and the change-of-base working."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <LogarithmCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the logarithm calculator</h2>
+    <p>Enter the number and the base, or tap 10, e or 2. You’ll see the result, a check that the base raised to it gives your number, and the common, natural and binary logs side by side.</p>
+
+    <h2>Logarithm definition and rules</h2>
+    <div class="formula">log_b(x) = y means bʸ = x &nbsp;&nbsp; log_b(x) = ln(x) ÷ ln(b)</div>
+    <table>
+      <thead><tr><th>Rule</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>log(xy) = log x + log y</td><td>log(20) = log 2 + log 10 ≈ 1.301</td></tr>
+        <tr><td>log(x ÷ y) = log x − log y</td><td>log(5) = log 10 − log 2 ≈ 0.699</td></tr>
+        <tr><td>log(xⁿ) = n × log x</td><td>log(1000) = 3 × log 10 = 3</td></tr>
+        <tr><td>log_b(b) = 1, log_b(1) = 0</td><td>ln(e) = 1, log(1) = 0</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked example</h3>
+    <p>How many times must you double $1 to reach $1,000? That’s log₂(1000) = ln(1000) ÷ ln(2) ≈ 6.908 ÷ 0.693 ≈ <strong>9.97</strong>, so just under 10 doublings.</p>
+
+    <h2>Common values</h2>
+    <table>
+      <thead><tr><th>x</th><th>log₁₀</th><th>ln</th><th>log₂</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>2</td><td>0.30103</td><td>0.69315</td><td>1</td></tr>
+        <tr><td>10</td><td>1</td><td>2.30259</td><td>3.32193</td></tr>
+        <tr><td>100</td><td>2</td><td>4.60517</td><td>6.64386</td></tr>
+        <tr><td>1,000</td><td>3</td><td>6.90776</td><td>9.96578</td></tr>
+      </tbody>
+    </table>
+    <p>To raise numbers to powers, use the <a href="/exponent-calculator">exponent calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
