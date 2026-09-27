@@ -1,0 +1,70 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import OvulationCalculator from '@/components/calculators/OvulationCalculator';
+
+const faqs = [
+  {
+    q: 'When do I ovulate?',
+    a: 'Usually about 14 days before your next period starts, not 14 days after the last one. In a 28-day cycle that’s day 14; in a 32-day cycle it’s around day 18, and in a 24-day cycle around day 10.',
+  },
+  {
+    q: 'What is the fertile window?',
+    a: 'The 6 days ending the day after ovulation: the 5 days before ovulation plus ovulation day itself. Sperm can survive up to 5 days, while an egg lives about 12–24 hours, so the 2–3 days before ovulation are the most fertile.',
+  },
+  {
+    q: 'How accurate is an ovulation calculator?',
+    a: 'It’s a good estimate for regular cycles, but ovulation can shift by several days from month to month. Ovulation test strips (LH tests), basal body temperature and cervical mucus changes confirm it more precisely.',
+  },
+  {
+    q: 'What if my cycles are irregular?',
+    a: 'Use your average cycle length, and treat the dates as a rough guide. If your cycles vary by more than 7–9 days, or are shorter than 21 or longer than 35 days, talk to a doctor.',
+  },
+  {
+    q: 'When should I take a pregnancy test?',
+    a: 'From the day your period is due, about 14 days after ovulation. Testing earlier can give a false negative because pregnancy hormone levels are still low.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="ovulation-calculator"
+  title="Ovulation Calculator – Fertile Window & Ovulation Date"
+  description="Free ovulation calculator. Find your most fertile days, ovulation date and next period from your last period and cycle length, with a calendar for the next 6 cycles."
+  intro="Find your fertile window, likely ovulation date and next period from the start of your last period, shown on a calendar for the next 6 cycles."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <OvulationCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the ovulation calculator</h2>
+    <ol>
+      <li><strong>Pick the first day of your last period.</strong></li>
+      <li><strong>Enter your average cycle length.</strong> Count from the first day of one period to the day before the next.</li>
+      <li><strong>Optionally adjust</strong> your period length and luteal phase if you know them.</li>
+    </ol>
+
+    <h2>How ovulation is estimated</h2>
+    <div class="formula">Ovulation = last period + cycle length − luteal phase (usually 14 days)</div>
+    <p>The fertile window is the 5 days before ovulation, ovulation day and the day after.</p>
+
+    <h3>Worked examples (last period on 1 September)</h3>
+    <table>
+      <thead><tr><th>Cycle length</th><th>Ovulation</th><th>Fertile window</th><th>Next period</th></tr></thead>
+      <tbody>
+        <tr><td>24 days</td><td>11 Sep</td><td>6–12 Sep</td><td>25 Sep</td></tr>
+        <tr><td>28 days</td><td>15 Sep</td><td>10–16 Sep</td><td>29 Sep</td></tr>
+        <tr><td>32 days</td><td>19 Sep</td><td>14–20 Sep</td><td>3 Oct</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Signs of ovulation</h2>
+    <ul>
+      <li>Clear, stretchy cervical mucus, like raw egg white</li>
+      <li>A small rise in basal body temperature (about 0.2–0.5 °C) after ovulation</li>
+      <li>A positive LH (ovulation) test 24–36 hours before</li>
+      <li>Mild one-sided pelvic pain for some people</li>
+    </ul>
+    <p>Already pregnant? Use the <a href="/pregnancy-due-date-calculator">pregnancy due date calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
