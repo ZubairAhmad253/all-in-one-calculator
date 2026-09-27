@@ -1,0 +1,78 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import UnitConverter from '@/components/calculators/UnitConverter';
+
+const faqs = [
+  {
+    q: 'How many litres are in a gallon?',
+    a: 'A US gallon is exactly 3.785411784 litres. An imperial (UK) gallon is bigger: exactly 4.54609 litres, about 1.2 US gallons. Check which one a recipe or fuel price uses.',
+  },
+  {
+    q: 'How many millilitres are in a cup?',
+    a: 'A US cup is 236.59 ml (8 US fluid ounces). Many recipes outside the US use a metric cup of 250 ml, and older UK recipes an imperial cup of about 284 ml.',
+  },
+  {
+    q: 'Is a UK pint the same as a US pint?',
+    a: 'No. A UK pint is 568.26 ml (20 UK fluid ounces) while a US pint is 473.18 ml (16 US fluid ounces). So a pint of beer in London is about 20% bigger than one in New York.',
+  },
+  {
+    q: 'How many fluid ounces are in a litre?',
+    a: 'About 33.81 US fluid ounces or 35.20 UK fluid ounces. A 500 ml bottle holds about 16.9 US fl oz.',
+  },
+  {
+    q: 'How many teaspoons are in a tablespoon?',
+    a: 'Three. A US tablespoon is 14.79 ml and a teaspoon 4.93 ml. Metric spoons are rounded to 15 ml and 5 ml, which is close enough for cooking.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="volume-converter"
+  title="Volume Converter – Litres, Gallons, Cups & More"
+  description="Free volume converter. Convert litres, millilitres, US and UK gallons, pints, cups, fluid ounces, tablespoons, teaspoons, cubic metres and cubic feet."
+  intro="Convert between litres, millilitres, US and UK gallons, pints, cups, fluid ounces, spoons, cubic metres and cubic feet, in either direction."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <UnitConverter quantity="volume" client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the volume converter</h2>
+    <ol>
+      <li><strong>Pick the units</strong> to convert from and to. US and UK units are listed separately.</li>
+      <li><strong>Type a value in either box</strong> to convert in either direction.</li>
+      <li><strong>See every unit at once</strong> in the list below.</li>
+    </ol>
+
+    <h2>Volume conversion factors</h2>
+    <table>
+      <thead><tr><th>Unit</th><th>Millilitres</th><th>Litres</th></tr></thead>
+      <tbody>
+        <tr><td>Teaspoon (US)</td><td>4.929</td><td>0.004929</td></tr>
+        <tr><td>Tablespoon (US)</td><td>14.787</td><td>0.014787</td></tr>
+        <tr><td>Fluid ounce (US)</td><td>29.574</td><td>0.029574</td></tr>
+        <tr><td>Fluid ounce (UK)</td><td>28.413</td><td>0.028413</td></tr>
+        <tr><td>Cup (US)</td><td>236.588</td><td>0.236588</td></tr>
+        <tr><td>Pint (US)</td><td>473.176</td><td>0.473176</td></tr>
+        <tr><td>Pint (UK)</td><td>568.261</td><td>0.568261</td></tr>
+        <tr><td>Gallon (US)</td><td>3,785.41</td><td>3.785411784 (exact)</td></tr>
+        <tr><td>Gallon (UK)</td><td>4,546.09</td><td>4.54609 (exact)</td></tr>
+        <tr><td>Cubic foot</td><td>28,316.8</td><td>28.3168</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked examples</h3>
+    <ul>
+      <li>A <strong>15-gallon</strong> (US) fuel tank holds 15 × 3.7854 = <strong>56.78 litres</strong>.</li>
+      <li><strong>2 litres</strong> of water is about <strong>8.45 US cups</strong>.</li>
+      <li>A <strong>500 ml</strong> bottle is <strong>16.9 US fl oz</strong>.</li>
+    </ul>
+
+    <h2>US and imperial measures</h2>
+    <p>
+      Both systems use gallons, quarts, pints and fluid ounces, but the sizes differ. A US gallon is 128 US fl oz; an imperial gallon is 160 UK fl oz. The US fluid ounce is slightly
+      larger than the UK one, but the UK pint and gallon are larger overall.
+    </p>
+    <p>Converting recipe amounts, including cups of flour to grams? Try the <a href="/cooking-converter">cooking converter</a>. For the volume of a shape, see the <a href="/volume-calculator">volume calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
