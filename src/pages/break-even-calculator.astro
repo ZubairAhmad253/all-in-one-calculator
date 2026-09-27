@@ -1,0 +1,69 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import BreakEvenCalculator from '@/components/calculators/BreakEvenCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate the break-even point?',
+    a: 'Divide your fixed costs by the contribution per unit (price minus variable cost). With $10,000 of fixed costs, a $50 price and a $30 variable cost, you break even at 10,000 ÷ 20 = 500 units, or $25,000 of sales.',
+  },
+  {
+    q: 'What is contribution margin?',
+    a: 'It’s what each sale contributes towards fixed costs and profit: price minus variable cost. As a percentage of the price, it’s the contribution margin ratio: $20 on a $50 price is 40%.',
+  },
+  {
+    q: 'What’s the difference between fixed and variable costs?',
+    a: 'Fixed costs stay the same whatever you sell, such as rent, salaries and software. Variable costs rise with each unit, such as materials, packaging, shipping and sales commission.',
+  },
+  {
+    q: 'How many units do I need to sell for a target profit?',
+    a: 'Add the target profit to your fixed costs before dividing: (fixed costs + target profit) ÷ contribution per unit. For $5,000 profit in the example: 15,000 ÷ 20 = 750 units.',
+  },
+  {
+    q: 'How can I lower my break-even point?',
+    a: 'Raise the price, cut the variable cost per unit, or reduce fixed costs. Raising the price from $50 to $55 in the example lowers break-even from 500 to 400 units.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="break-even-calculator"
+  title="Break-Even Calculator – Units & Sales to Cover Costs"
+  description="Free break-even calculator. Find the units and sales revenue you need to cover your fixed costs, or to reach a target profit, with a cost vs revenue chart."
+  intro="Find how many units you need to sell, and how much revenue, to cover your costs or reach a profit target, with a chart of revenue against total cost."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <BreakEvenCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the break-even calculator</h2>
+    <ol>
+      <li><strong>Enter your fixed costs</strong> for the period (a month or a year).</li>
+      <li><strong>Enter the price and variable cost per unit.</strong></li>
+      <li><strong>Optionally, add a target profit</strong> to see the sales needed to reach it.</li>
+    </ol>
+
+    <h2>Break-even formulas</h2>
+    <div class="formula">Break-even units = Fixed costs ÷ (Price − Variable cost per unit)</div>
+    <div class="formula">Break-even sales = Break-even units × Price = Fixed costs ÷ Contribution margin ratio</div>
+
+    <h3>Worked example</h3>
+    <p>
+      A small business has <strong>$10,000</strong> of monthly fixed costs. It sells a product for <strong>$50</strong> that costs <strong>$30</strong> to make, so each sale
+      contributes $20. It breaks even at 10,000 ÷ 20 = <strong>500 units</strong> a month, or <strong>$25,000</strong> in sales. To make $5,000 profit, it needs 750 units.
+    </p>
+
+    <h2>How price changes the break-even point</h2>
+    <table>
+      <thead><tr><th>Price (variable cost $30)</th><th>Contribution</th><th>Break-even units</th></tr></thead>
+      <tbody>
+        <tr><td>$45</td><td>$15</td><td>667</td></tr>
+        <tr><td>$50</td><td>$20</td><td>500</td></tr>
+        <tr><td>$55</td><td>$25</td><td>400</td></tr>
+        <tr><td>$60</td><td>$30</td><td>334</td></tr>
+      </tbody>
+    </table>
+    <p>Small price changes move the break-even point a lot. Check your pricing with the <a href="/profit-margin-calculator">profit margin calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
