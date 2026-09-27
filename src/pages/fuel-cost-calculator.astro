@@ -1,0 +1,61 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import FuelCostCalculator from '@/components/calculators/FuelCostCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate the fuel cost of a trip?',
+    a: 'Work out the fuel needed, then multiply by the price. For 350 km in a car using 7 L/100 km: 350 × 7 ÷ 100 = 24.5 litres, and at €1.75 a litre that’s €42.88.',
+  },
+  {
+    q: 'How do I calculate gas cost with mpg?',
+    a: 'Divide the distance by the mpg to get gallons, then multiply by the price per gallon. 300 miles at 30 mpg is 10 gallons; at $3.50 a gallon that’s $35.',
+  },
+  {
+    q: 'Does it matter if I use US or UK mpg?',
+    a: 'Yes. A UK (imperial) gallon is about 20% bigger than a US gallon, so UK mpg figures are higher for the same car. UK fuel is also sold by the litre, so choose “UK mpg” with a price “per litre”.',
+  },
+  {
+    q: 'How can I reduce fuel costs?',
+    a: 'Keep tyres at the right pressure, drive smoothly, keep to moderate motorway speeds (fuel use rises quickly above about 90 km/h / 55 mph), remove roof racks when not in use and avoid long idling.',
+  },
+  {
+    q: 'How do I split fuel costs with passengers?',
+    a: 'Set “Split between” to the number of people sharing. For a round trip, choose Round trip so the distance is doubled before splitting.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="fuel-cost-calculator"
+  title="Fuel Cost Calculator – Trip Gas & Petrol Cost"
+  description="Free fuel cost calculator. Work out how much fuel a trip needs and what it costs, in L/100 km, km/L, US or UK mpg, with round trips and cost per person."
+  intro="Work out the fuel a trip needs and what it will cost, in L/100 km, km/L or US or UK mpg, with round trips and the cost per passenger."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <FuelCostCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the fuel cost calculator</h2>
+    <ol>
+      <li><strong>Enter the distance</strong> in kilometres or miles, and choose one way or round trip.</li>
+      <li><strong>Enter your car’s fuel economy</strong> in whichever unit you know.</li>
+      <li><strong>Enter the fuel price</strong>, per litre or per gallon, and the number of people sharing.</li>
+    </ol>
+
+    <h2>Fuel cost formulas</h2>
+    <div class="formula">Metric: cost = km × (L/100 km) ÷ 100 × price per litre &nbsp;&nbsp; US: cost = miles ÷ mpg × price per gallon</div>
+
+    <h3>Worked examples</h3>
+    <table>
+      <thead><tr><th>Trip</th><th>Economy</th><th>Price</th><th>Fuel</th><th>Cost</th></tr></thead>
+      <tbody>
+        <tr><td>350 km</td><td>7 L/100 km</td><td>€1.75/L</td><td>24.5 L</td><td>€42.88</td></tr>
+        <tr><td>300 miles</td><td>30 mpg (US)</td><td>$3.50/gal</td><td>10 US gal</td><td>$35.00</td></tr>
+        <tr><td>200 miles</td><td>45 mpg (UK)</td><td>£1.45/L</td><td>20.2 L</td><td>£29.30</td></tr>
+      </tbody>
+    </table>
+    <p>Need to compare fuel economy figures? Use the <a href="/fuel-economy-converter">fuel economy converter</a>. Thinking about a car loan too? See the <a href="/auto-loan-calculator">auto loan calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
