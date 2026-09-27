@@ -1,0 +1,71 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import RomanNumeralConverter from '@/components/calculators/RomanNumeralConverter';
+
+const faqs = [
+  {
+    q: 'How do Roman numerals work?',
+    a: 'Seven letters stand for values: I = 1, V = 5, X = 10, L = 50, C = 100, D = 500 and M = 1,000. Write them from largest to smallest and add them up, so MDCLXVI = 1,000 + 500 + 100 + 50 + 10 + 5 + 1 = 1,666.',
+  },
+  {
+    q: 'Why is 4 written IV and not IIII?',
+    a: 'Standard Roman numerals use subtraction to avoid four of the same letter in a row: a smaller numeral before a larger one is subtracted. IV = 5 − 1 = 4 and IX = 9. Only I, X and C are used this way, before the next two larger letters (IV, IX, XL, XC, CD, CM). Clock faces often show IIII by tradition.',
+  },
+  {
+    q: 'How do you write 2026 in Roman numerals?',
+    a: 'MMXXVI: MM (2,000) + XX (20) + VI (6).',
+  },
+  {
+    q: 'What is the largest Roman numeral?',
+    a: 'In standard form, 3,999 (MMMCMXCIX), because no letter repeats more than three times. Larger numbers were written with a bar over a numeral to multiply it by 1,000, but that isn’t part of the standard system.',
+  },
+  {
+    q: 'Is there a Roman numeral for zero?',
+    a: 'No. The Romans had no numeral for zero. Medieval scholars sometimes wrote N (for nulla, “nothing”), but it was never part of the numeral system.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="roman-numeral-converter"
+  title="Roman Numeral Converter – Numbers to Roman Numerals"
+  description="Free Roman numeral converter. Convert numbers from 1 to 3,999 into Roman numerals and back, with a step-by-step breakdown and a check for standard form."
+  intro="Convert numbers from 1 to 3,999 into Roman numerals, or Roman numerals back into numbers, with a breakdown of how each one is built."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <RomanNumeralConverter client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the Roman numeral converter</h2>
+    <ol>
+      <li><strong>Choose a direction:</strong> number to Roman, or Roman to number.</li>
+      <li><strong>Type the number or numeral.</strong> Lower case is fine.</li>
+      <li><strong>See the breakdown</strong> showing how each part adds up. Non-standard numerals like IIII are flagged with the correct form.</li>
+    </ol>
+
+    <h2>Roman numeral rules</h2>
+    <ul>
+      <li><strong>Add</strong> numerals written from largest to smallest: VIII = 5 + 1 + 1 + 1 = 8.</li>
+      <li><strong>Subtract</strong> a smaller numeral written before a larger one: XC = 100 − 10 = 90.</li>
+      <li><strong>Repeat</strong> a numeral at most three times in a row: III = 3, but 4 is IV.</li>
+      <li><strong>Never repeat</strong> V, L or D.</li>
+    </ul>
+
+    <h2>Roman numerals chart</h2>
+    <table>
+      <thead><tr><th>Number</th><th>Roman</th><th>Number</th><th>Roman</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>I</td><td>40</td><td>XL</td></tr>
+        <tr><td>4</td><td>IV</td><td>49</td><td>XLIX</td></tr>
+        <tr><td>9</td><td>IX</td><td>90</td><td>XC</td></tr>
+        <tr><td>14</td><td>XIV</td><td>99</td><td>XCIX</td></tr>
+        <tr><td>400</td><td>CD</td><td>444</td><td>CDXLIV</td></tr>
+        <tr><td>1,000</td><td>M</td><td>1,987</td><td>MCMLXXXVII</td></tr>
+        <tr><td>1,994</td><td>MCMXCIV</td><td>2,000</td><td>MM</td></tr>
+        <tr><td>2,026</td><td>MMXXVI</td><td>3,999</td><td>MMMCMXCIX</td></tr>
+      </tbody>
+    </table>
+    <p>Working with other number systems? Try the <a href="/number-base-converter">number base converter</a>.</p>
+  </Fragment>
+</CalculatorLayout>
