@@ -55,6 +55,14 @@ npm run dev        # http://localhost:4321
 
 > TypeScript is pinned to v6 because `astro check` does not support TypeScript 7 yet.
 
+### Troubleshooting
+
+**Calculators don't appear in `npm run dev`; the pages show only text.** The browser console will show `_jsxDEV is not a function`. The dev server's pre-bundled React is the production copy. Builds now use a separate cache (`node_modules/.vite-build`, set in `astro.config.mjs`), so this shouldn't recur. If it does, stop the dev server and restart it with a fresh cache:
+
+```bash
+npm run dev -- --force
+```
+
 ### Environment variables
 
 Copy `.env.example` to `.env`:
