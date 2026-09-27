@@ -1,0 +1,66 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import OneRepMaxCalculator from '@/components/calculators/OneRepMaxCalculator';
+
+const faqs = [
+  {
+    q: 'What is a one-rep max?',
+    a: 'Your one-rep max (1RM) is the heaviest weight you can lift once with good form for a given exercise. Coaches use it to set training weights as percentages, such as 3 sets of 5 at 85%.',
+  },
+  {
+    q: 'How do I estimate my 1RM without maxing out?',
+    a: 'Lift a weight for as many good reps as you can (ideally 3–10) and plug it into a formula. The Epley formula is 1RM = weight × (1 + reps ÷ 30), so 100 kg for 5 reps gives about 116.7 kg.',
+  },
+  {
+    q: 'Which one-rep max formula is most accurate?',
+    a: 'It depends on the lifter and the exercise. Epley and Brzycki are the most widely used and agree closely at low reps. Averaging several formulas, as this calculator does, smooths out their differences.',
+  },
+  {
+    q: 'Why are high-rep estimates less accurate?',
+    a: 'With more reps, endurance matters more than maximal strength, and people differ a lot in how many reps they can do at a given %. Estimates from sets of 10 or fewer reps are much more reliable.',
+  },
+  {
+    q: 'What percentage of my 1RM should I train at?',
+    a: 'For strength, about 80–95% for 2–6 reps. For muscle size, 65–80% for 8–15 reps. For technique and speed work, 50–70%. The table shows each percentage converted to a weight.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="one-rep-max-calculator"
+  title="One Rep Max Calculator – Estimate Your 1RM"
+  description="Free one rep max calculator. Estimate your 1RM from any set with 7 formulas including Epley and Brzycki, plus a training table of weights from 65% to 100%."
+  intro="Estimate your one-rep max from any set using seven formulas, and get training weights for every percentage of your max, rounded for plates."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <OneRepMaxCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the one rep max calculator</h2>
+    <ol>
+      <li><strong>Choose kilograms or pounds.</strong></li>
+      <li><strong>Enter the weight and reps</strong> from a hard set with good form.</li>
+      <li><strong>Read your estimated 1RM</strong> and the training weights table.</li>
+    </ol>
+
+    <h2>One rep max formulas</h2>
+    <table>
+      <thead><tr><th>Formula</th><th>Equation</th><th>100 kg × 5</th></tr></thead>
+      <tbody>
+        <tr><td>Epley</td><td>w × (1 + r ÷ 30)</td><td>116.7 kg</td></tr>
+        <tr><td>Brzycki</td><td>w × 36 ÷ (37 − r)</td><td>112.5 kg</td></tr>
+        <tr><td>Lombardi</td><td>w × r^0.10</td><td>117.5 kg</td></tr>
+        <tr><td>Lander</td><td>100w ÷ (101.3 − 2.67123r)</td><td>113.7 kg</td></tr>
+        <tr><td>O’Conner</td><td>w × (1 + 0.025r)</td><td>112.5 kg</td></tr>
+        <tr><td>Wathan</td><td>100w ÷ (48.8 + 53.8e^(−0.075r))</td><td>116.6 kg</td></tr>
+        <tr><td>Mayhew</td><td>100w ÷ (52.2 + 41.9e^(−0.055r))</td><td>119.0 kg</td></tr>
+      </tbody>
+    </table>
+    <p>Average: <strong>115.5 kg</strong>. From that, 90% is about 104 kg, 80% about 92 kg and 70% about 81 kg.</p>
+
+    <h3>Another example</h3>
+    <p>A bench press of 225 lb for 8 reps gives an average estimate of <strong>280.6 lb</strong>, with the formulas ranging from 270 to 287 lb.</p>
+    <p>Fuel your training with the <a href="/protein-calculator">protein calculator</a> and <a href="/macro-calculator">macro calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
