@@ -109,3 +109,35 @@ export function neededOnFinal(current: number, gradedWeight: number, finalWeight
   if (!(finalWeight > 0)) return Number.NaN;
   return (target * (gradedWeight + finalWeight) - current * gradedWeight) / finalWeight;
 }
+
+// ------------------------------------------------------------------ CGPA
+
+export interface Term {
+  gpa: number;
+  /** Credits in the term; leave 0 to weight every term equally. */
+  credits: number;
+}
+
+/** Cumulative GPA: credit-weighted when every term has credits, else a plain average. */
+export function cgpa(terms: Term[]): { cgpa: number; credits: number; weighted: boolean } {
+  const valid = terms.filter((t) => Number.isFinite(t.gpa) && t.gpa >= 0);
+  if (!valid.length) return { cgpa: Number.NaN, credits: 0, weighted: false };
+  const weighted = valid.every((t) => t.credits > 0);
+  if (!weighted) return { cgpa: valid.reduce((a, t) => a + t.gpa, 0) / valid.length, credits: 0, weighted };
+  const credits = valid.reduce((a, t) => a + t.credits, 0);
+  return { cgpa: valid.reduce((a, t) => a + t.gpa * t.credits, 0) / credits, credits, weighted };
+}
+
+/** Common CGPA → percentage conventions. */
+export const CGPA_SCALES = [
+  { id: 'x9.5', label: '10-point, × 9.5 (CBSE and many Indian universities)', max: 10, toPct: (g: number) => g * 9.5, fromPct: (p: number) => p / 9.5 },
+  { id: 'x10', label: '10-point, × 10', max: 10, toPct: (g: number) => g * 10, fromPct: (p: number) => p / 10 },
+  { id: 'minus7.5', label: '10-point, × 10 − 7.5 (Mumbai University, some others)', max: 10, toPct: (g: number) => g * 10 - 7.5, fromPct: (p: number) => (p + 7.5) / 10 },
+  { id: '4pt', label: '4-point scale (share of 4.0)', max: 4, toPct: (g: number) => (g / 4) * 100, fromPct: (p: number) => (p / 100) * 4 },
+] as const;
+export type CgpaScaleId = (typeof CGPA_SCALES)[number]['id'];
+
+// ----------------------------------------------------------------- marks
+
+/** Percentage from marks, with NaN for a zero or negative total. */
+export const marksPercent = (obtained: number, total: number) => (total > 0 ? (obtained / total) * 100 : Number.NaN);
