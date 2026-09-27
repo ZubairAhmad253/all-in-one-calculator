@@ -1,0 +1,66 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import ScientificNotationCalculator from '@/components/calculators/ScientificNotationCalculator';
+
+const faqs = [
+  {
+    q: 'What is scientific notation?',
+    a: 'A way of writing very large or very small numbers as a number between 1 and 10 multiplied by a power of 10. 602,200,000,000,000,000,000,000 becomes 6.022 × 10²³, and 0.00042 becomes 4.2 × 10⁻⁴.',
+  },
+  {
+    q: 'How do I convert a number to scientific notation?',
+    a: 'Move the decimal point until one non-zero digit is left of it. Count how many places you moved: that’s the exponent, positive if you moved left (big numbers) and negative if you moved right (small numbers).',
+  },
+  {
+    q: 'What does E mean in a number like 3.2E5?',
+    a: 'E means “× 10 to the power of”. Calculators and spreadsheets use it because they can’t show superscripts, so 3.2E5 = 3.2 × 10⁵ = 320,000.',
+  },
+  {
+    q: 'What is engineering notation?',
+    a: 'Like scientific notation, but the exponent is always a multiple of 3, so it lines up with prefixes such as kilo (10³), mega (10⁶) and micro (10⁻⁶). 45,000 is 45 × 10³, or 45 k.',
+  },
+  {
+    q: 'How do I multiply numbers in scientific notation?',
+    a: 'Multiply the mantissas and add the exponents. (3.2 × 10⁵) × (4 × 10⁻²) = 12.8 × 10³, which normalises to 1.28 × 10⁴. To divide, divide the mantissas and subtract the exponents.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="scientific-notation-calculator"
+  title="Scientific Notation Calculator – Convert & Calculate"
+  description="Free scientific notation calculator. Convert numbers to and from scientific, E and engineering notation, and add, subtract, multiply or divide in scientific notation."
+  intro="Convert any number to scientific, E or engineering notation and back, or add, subtract, multiply and divide numbers written in scientific notation."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <ScientificNotationCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the scientific notation calculator</h2>
+    <p>Type a number in any form: <code>0.00042</code>, <code>6.022e23</code> or <code>6.022 × 10^23</code>. You’ll see it in scientific, E and engineering notation plus its full decimal form. Switch to <strong>Arithmetic</strong> to work with two numbers, and set significant figures to round the answer.</p>
+
+    <h2>The format</h2>
+    <div class="formula">a × 10ⁿ &nbsp; where 1 ≤ |a| &lt; 10 and n is a whole number</div>
+    <p><strong>a</strong> is the mantissa (or coefficient) and <strong>n</strong> is the exponent.</p>
+
+    <h3>Worked examples</h3>
+    <table>
+      <thead><tr><th>Decimal</th><th>Scientific</th><th>E notation</th><th>Engineering</th></tr></thead>
+      <tbody>
+        <tr><td>320,000</td><td>3.2 × 10⁵</td><td>3.2e5</td><td>320 × 10³</td></tr>
+        <tr><td>0.00042</td><td>4.2 × 10⁻⁴</td><td>4.2e-4</td><td>420 × 10⁻⁶</td></tr>
+        <tr><td>602,200,000,000,000,000,000,000</td><td>6.022 × 10²³</td><td>6.022e23</td><td>602.2 × 10²¹</td></tr>
+        <tr><td>299,792,458</td><td>2.99792458 × 10⁸</td><td>2.99792458e8</td><td>299.792458 × 10⁶</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Arithmetic rules</h2>
+    <ul>
+      <li><strong>Multiply:</strong> multiply the mantissas, add the exponents.</li>
+      <li><strong>Divide:</strong> divide the mantissas, subtract the exponents. (6 × 10⁸) ÷ (2 × 10³) = 3 × 10⁵.</li>
+      <li><strong>Add or subtract:</strong> rewrite both numbers with the same exponent first. 3 × 10⁴ + 5 × 10³ = 3 × 10⁴ + 0.5 × 10⁴ = 3.5 × 10⁴.</li>
+    </ul>
+    <p>Always finish by normalising so the mantissa is between 1 and 10. To round the mantissa, see the <a href="/rounding-calculator">rounding calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
