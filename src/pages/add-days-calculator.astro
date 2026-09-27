@@ -1,0 +1,68 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import AddDaysCalculator from '@/components/calculators/AddDaysCalculator';
+
+const faqs = [
+  {
+    q: 'What date is 90 days from today?',
+    a: 'Enter today’s date (it’s filled in for you), choose Add, and type 90 days. For example, 90 days after 15 January 2026 is Wednesday 15 April 2026.',
+  },
+  {
+    q: 'Does the start date count as day one?',
+    a: 'No. The count starts the day after, which is how deadlines are normally worked out: 1 day after Monday is Tuesday. If your rule counts the start day, subtract one from the number of days.',
+  },
+  {
+    q: 'How do I add business days?',
+    a: 'Choose “Business days” as the unit. Weekends are skipped, so 10 business days after Thursday 15 January 2026 is Thursday 29 January. Public holidays aren’t skipped; use the working days calculator to exclude them.',
+  },
+  {
+    q: 'What happens when I add a month to 31 January?',
+    a: 'You get the last day of February (28 February, or 29 in a leap year) rather than spilling into March. Adding months keeps the same day of the month whenever that day exists.',
+  },
+  {
+    q: 'Is adding 1 month the same as adding 30 days?',
+    a: 'No. Months have 28 to 31 days, so 15 January + 1 month is 15 February (31 days later), while 15 January + 30 days is 14 February. Contracts and billing usually use calendar months.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="add-days-calculator"
+  title="Add or Subtract Days Calculator – Date Calculator"
+  description="Free date calculator. Add or subtract days, business days, weeks, months or years from any date to find the resulting date, weekday and day of the year."
+  intro="Find the date a number of days, business days, weeks, months or years before or after any date, with the weekday and day of the year."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <AddDaysCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the add or subtract days calculator</h2>
+    <ol>
+      <li><strong>Pick a start date.</strong> It starts as today.</li>
+      <li><strong>Choose Add or Subtract.</strong></li>
+      <li><strong>Enter the amount and unit:</strong> days, business days, weeks, months or years.</li>
+    </ol>
+
+    <h2>Worked examples (from Thursday 15 January 2026)</h2>
+    <table>
+      <thead><tr><th>Calculation</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>+ 30 days</td><td>Saturday 14 February 2026</td></tr>
+        <tr><td>+ 90 days</td><td>Wednesday 15 April 2026</td></tr>
+        <tr><td>+ 100 days</td><td>Saturday 25 April 2026</td></tr>
+        <tr><td>+ 10 business days</td><td>Thursday 29 January 2026</td></tr>
+        <tr><td>+ 6 months</td><td>Wednesday 15 July 2026</td></tr>
+        <tr><td>− 45 days</td><td>Monday 1 December 2025</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Tips</h2>
+    <ul>
+      <li><strong>Deadlines:</strong> check whether your rule counts calendar days or business days, and whether the first day counts.</li>
+      <li><strong>Months:</strong> 31 January + 1 month is 28 February 2026, or 29 February in a leap year such as 2028.</li>
+      <li><strong>Long spans:</strong> leap years are handled automatically.</li>
+    </ul>
+    <p>To count the days between two dates, use the <a href="/date-difference-calculator">date difference calculator</a>. To skip holidays too, try the <a href="/working-days-calculator">working days calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>

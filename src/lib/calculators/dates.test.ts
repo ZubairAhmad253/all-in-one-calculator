@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { addMonths, daysInMonth, formatHM, isIsoDate, isLeapYear, nextBirthday, parseTime, shiftMinutes, span, weekday, workingDays } from './dates';
+import { addMonths, addWorkDays, countWorkDays, daysInMonth, formatHM, isIsoDate, isLeapYear, nextBirthday, parseTime, shiftMinutes, span, weekday, workingDays } from './dates';
 
 describe('calendar basics', () => {
   it('knows leap years and month lengths', () => {
@@ -107,5 +107,23 @@ describe('shifts', () => {
   it('formats hours and minutes', () => {
     expect(formatHM(450)).toBe('7 h 30 min');
     expect(formatHM(2405)).toBe('40 h 05 min');
+  });
+});
+
+describe('flexible working days', () => {
+  it('counts work days with custom weekends and holidays', () => {
+    // September 2026: 1 Sep is a Tuesday.
+    expect(countWorkDays('2026-09-01', '2026-09-30').workDays).toBe(22);
+    expect(countWorkDays('2026-09-01', '2026-09-30', { weekend: [0, 6], holidays: ['2026-09-07'] })).toEqual({ workDays: 21, weekendDays: 8, holidays: 1 });
+    expect(countWorkDays('2026-09-01', '2026-09-30', { weekend: [5, 6] }).workDays).toBe(22);
+    expect(countWorkDays('2026-09-30', '2026-09-01').workDays).toBe(22);
+    expect(countWorkDays('2026-09-01', '2026-09-30', undefined, false).workDays).toBe(21);
+  });
+  it('adds and subtracts work days', () => {
+    expect(addWorkDays('2026-09-25', 1)).toBe('2026-09-28'); // Friday + 1 → Monday
+    expect(addWorkDays('2026-09-28', -1)).toBe('2026-09-25');
+    expect(addWorkDays('2026-09-01', 10)).toBe('2026-09-15');
+    expect(addWorkDays('2026-09-04', 1, { weekend: [0, 6], holidays: ['2026-09-07'] })).toBe('2026-09-08');
+    expect(addWorkDays('2026-09-01', 0)).toBe('2026-09-01');
   });
 });
