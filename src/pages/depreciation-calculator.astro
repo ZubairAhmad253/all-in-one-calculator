@@ -1,0 +1,72 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import DepreciationCalculator from '@/components/calculators/DepreciationCalculator';
+
+const faqs = [
+  {
+    q: 'What is depreciation?',
+    a: 'Depreciation spreads the cost of an asset, such as a machine, vehicle or computer, over the years it’s used. Each year’s depreciation is recorded as an expense, and the asset’s book value falls by the same amount.',
+  },
+  {
+    q: 'How do I calculate straight-line depreciation?',
+    a: 'Subtract the salvage value from the cost and divide by the useful life. A $10,000 asset worth $1,000 after 5 years depreciates by (10,000 − 1,000) ÷ 5 = $1,800 a year.',
+  },
+  {
+    q: 'What is double declining balance?',
+    a: 'An accelerated method that charges twice the straight-line rate on the remaining book value each year. For a 5-year life that’s 40% a year: $4,000 in year one on a $10,000 asset, then 40% of $6,000 in year two, and so on.',
+  },
+  {
+    q: 'Why use an accelerated method?',
+    a: 'Many assets, like cars and computers, lose most of their value early. Accelerated methods match that and give bigger deductions in the first years, which can help cash flow where tax rules allow it.',
+  },
+  {
+    q: 'Can depreciation go below the salvage value?',
+    a: 'No. The asset is only depreciated down to its salvage value. With declining-balance methods, the calculator switches to straight-line for the remaining years when that gives more, so the book value lands exactly on the salvage value.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="depreciation-calculator"
+  title="Depreciation Calculator – Straight-Line & Declining Balance"
+  description="Free depreciation calculator. Get a year-by-year schedule using straight-line, double declining balance or 150% declining balance, with book values and a chart."
+  intro="Work out yearly depreciation and book value using straight-line, double declining balance or 150% declining balance, with a full schedule and a comparison chart."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <DepreciationCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the depreciation calculator</h2>
+    <ol>
+      <li><strong>Enter the asset’s cost, salvage value and useful life.</strong></li>
+      <li><strong>Choose a method.</strong> The chart compares all three.</li>
+    </ol>
+
+    <h2>Depreciation formulas</h2>
+    <div class="formula">Straight-line = (Cost − Salvage) ÷ Life</div>
+    <div class="formula">Declining balance = Book value × (Factor ÷ Life), with factor 2 for double declining or 1.5 for 150%</div>
+
+    <h3>Worked example</h3>
+    <p>A <strong>$10,000</strong> asset with a <strong>$1,000</strong> salvage value and a <strong>5-year</strong> life:</p>
+    <table>
+      <thead><tr><th>Year</th><th>Straight-line</th><th>Double declining</th><th>150% declining</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>$1,800</td><td>$4,000</td><td>$3,000</td></tr>
+        <tr><td>2</td><td>$1,800</td><td>$2,400</td><td>$2,100</td></tr>
+        <tr><td>3</td><td>$1,800</td><td>$1,440</td><td>$1,470</td></tr>
+        <tr><td>4</td><td>$1,800</td><td>$864</td><td>$1,215</td></tr>
+        <tr><td>5</td><td>$1,800</td><td>$296</td><td>$1,215</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>$9,000</strong></td><td><strong>$9,000</strong></td><td><strong>$9,000</strong></td></tr>
+      </tbody>
+    </table>
+    <p>Every method depreciates the same $9,000 in total; they only differ in timing. The 150% method switches to straight-line in year 4.</p>
+
+    <h2>Choosing a method</h2>
+    <ul>
+      <li><strong>Straight-line:</strong> simple and even, for assets that wear out steadily, like furniture or buildings.</li>
+      <li><strong>Declining balance:</strong> front-loaded, for assets that lose value fast, like vehicles and technology.</li>
+    </ul>
+    <p>Tax depreciation often follows set rules (such as MACRS in the US or capital allowances in the UK), so check the rules where you file.</p>
+  </Fragment>
+</CalculatorLayout>
