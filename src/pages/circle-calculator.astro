@@ -1,0 +1,65 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import CircleCalculator from '@/components/calculators/CircleCalculator';
+
+const faqs = [
+  {
+    q: 'How do I find the area of a circle?',
+    a: 'Multiply π by the radius squared: A = πr². A circle with a radius of 5 cm has an area of π × 25 ≈ 78.54 cm².',
+  },
+  {
+    q: 'How do I find the circumference?',
+    a: 'Multiply the diameter by π, or twice the radius by π: C = πd = 2πr. A 5 cm radius gives 2 × π × 5 ≈ 31.42 cm.',
+  },
+  {
+    q: 'How do I find the radius from the circumference?',
+    a: 'Divide the circumference by 2π: r = C ÷ 2π. A circumference of 31.4 cm gives a radius of about 4.997 cm.',
+  },
+  {
+    q: 'How do I find the radius from the area?',
+    a: 'Divide the area by π and take the square root: r = √(A ÷ π). An area of 50 m² gives a radius of about 3.989 m.',
+  },
+  {
+    q: 'How do I find the area of a sector?',
+    a: 'Take the fraction of the circle the angle covers and multiply it by the full area: A = πr² × θ ÷ 360. A 90° slice of a 5 cm radius circle is a quarter of 78.54, which is 19.63 cm².',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="circle-calculator"
+  title="Circle Calculator – Area, Circumference, Radius & Diameter"
+  description="Free circle calculator. Enter the radius, diameter, circumference or area to find the rest, plus arc length, sector area and chord length for any angle."
+  intro="Enter any one of radius, diameter, circumference or area to get the other three, plus the arc length, sector area and chord for any angle."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <CircleCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the circle calculator</h2>
+    <ol>
+      <li><strong>Choose what you know:</strong> radius, diameter, circumference or area.</li>
+      <li><strong>Enter the value</strong> in any unit.</li>
+      <li><strong>Optionally set a sector angle</strong> to get the arc length and the area of a slice.</li>
+    </ol>
+
+    <h2>Circle formulas</h2>
+    <table>
+      <thead><tr><th>Find</th><th>From radius</th><th>From other values</th></tr></thead>
+      <tbody>
+        <tr><td>Diameter</td><td>d = 2r</td><td>d = C ÷ π</td></tr>
+        <tr><td>Circumference</td><td>C = 2πr</td><td>C = πd</td></tr>
+        <tr><td>Area</td><td>A = πr²</td><td>A = πd² ÷ 4</td></tr>
+        <tr><td>Radius</td><td>r = d ÷ 2</td><td>r = C ÷ 2π, r = √(A ÷ π)</td></tr>
+        <tr><td>Arc length</td><td colspan="2">2πr × θ ÷ 360</td></tr>
+        <tr><td>Chord</td><td colspan="2">2r × sin(θ ÷ 2)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked example: a 30 cm pizza</h3>
+    <p>A pizza 30 cm across has a radius of 15 cm, so its area is π × 15² ≈ <strong>706.86 cm²</strong> and its crust is π × 30 ≈ <strong>94.25 cm</strong> long. Cut into 8 slices, each covers 45° and about 88.36 cm².</p>
+    <p>Handy fact: doubling the diameter quadruples the area, so one 40 cm pizza has more topping than three 20 cm ones.</p>
+    <p>For other flat shapes, see the <a href="/area-calculator">area calculator</a>; for cylinders and spheres, the <a href="/volume-calculator">volume calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
