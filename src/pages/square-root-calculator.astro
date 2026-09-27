@@ -1,0 +1,72 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import SquareRootCalculator from '@/components/calculators/SquareRootCalculator';
+
+const faqs = [
+  {
+    q: 'What is a square root?',
+    a: 'The square root of a number is the value that, multiplied by itself, gives the number. √144 = 12 because 12 × 12 = 144. Every positive number has two square roots (12 and −12); √ means the positive one.',
+  },
+  {
+    q: 'How do I simplify a square root?',
+    a: 'Take out the largest perfect-square factor. 72 = 36 × 2, so √72 = √36 × √2 = 6√2. The calculator does this for any whole number.',
+  },
+  {
+    q: 'What is a cube root?',
+    a: 'The number that, multiplied by itself three times, gives the original: ∛27 = 3 because 3 × 3 × 3 = 27. Unlike square roots, cube roots of negative numbers are real: ∛−27 = −3.',
+  },
+  {
+    q: 'What is the square root of a negative number?',
+    a: 'It isn’t a real number. In complex numbers, √−1 = i, so √−16 = 4i.',
+  },
+  {
+    q: 'How can I estimate a square root without a calculator?',
+    a: 'Find the perfect squares either side. √50 lies between √49 = 7 and √64 = 8, much closer to 7, so it’s a little over 7 (it’s 7.071).',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="square-root-calculator"
+  title="Square Root Calculator – Square, Cube & Nth Roots"
+  description="Free square root calculator. Find square roots, cube roots and any nth root, simplify radicals like √72 = 6√2, and check for perfect squares."
+  intro="Find the square root, cube root or any nth root of a number, simplify radicals, and see whether it’s a perfect square."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <SquareRootCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the square root calculator</h2>
+    <p>Enter a number and pick the root: square, cube or any other. For whole numbers you’ll also see the simplified radical form and the nearest perfect powers.</p>
+
+    <h2>Root formulas</h2>
+    <div class="formula">ⁿ√x = x^(1/n) &nbsp;&nbsp; √(a × b) = √a × √b</div>
+
+    <h3>Worked examples</h3>
+    <ul>
+      <li><strong>√144 = 12</strong>, a perfect square.</li>
+      <li><strong>√72 = 6√2 ≈ 8.485</strong>, because 72 = 36 × 2.</li>
+      <li><strong>∛54 = 3∛2 ≈ 3.780</strong>, because 54 = 27 × 2.</li>
+      <li><strong>√2 ≈ 1.41421356</strong>, an irrational number whose decimals never end or repeat.</li>
+    </ul>
+
+    <h2>Perfect squares</h2>
+    <table>
+      <thead><tr><th>n</th><th>n²</th><th>n</th><th>n²</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>1</td><td>11</td><td>121</td></tr>
+        <tr><td>2</td><td>4</td><td>12</td><td>144</td></tr>
+        <tr><td>3</td><td>9</td><td>13</td><td>169</td></tr>
+        <tr><td>4</td><td>16</td><td>14</td><td>196</td></tr>
+        <tr><td>5</td><td>25</td><td>15</td><td>225</td></tr>
+        <tr><td>6</td><td>36</td><td>16</td><td>256</td></tr>
+        <tr><td>7</td><td>49</td><td>17</td><td>289</td></tr>
+        <tr><td>8</td><td>64</td><td>18</td><td>324</td></tr>
+        <tr><td>9</td><td>81</td><td>19</td><td>361</td></tr>
+        <tr><td>10</td><td>100</td><td>20</td><td>400</td></tr>
+      </tbody>
+    </table>
+    <p>For powers, see the <a href="/exponent-calculator">exponent calculator</a>; for right triangles, the <a href="/pythagorean-theorem-calculator">Pythagorean theorem calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
