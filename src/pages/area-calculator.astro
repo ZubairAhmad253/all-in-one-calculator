@@ -1,0 +1,77 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import ShapeCalculator from '@/components/calculators/ShapeCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate the area of a room?',
+    a: 'Multiply the length by the width. A room 12 ft by 15 ft is 180 ft² (about 16.72 m²). For an L-shaped room, split it into rectangles, work out each one and add them.',
+  },
+  {
+    q: 'How do I find the area of a triangle?',
+    a: 'Half the base times the height: A = ½ × b × h. The height must be perpendicular to the base. A triangle with a 10 cm base and 6 cm height is 30 cm².',
+  },
+  {
+    q: 'How do I find the area of a trapezoid?',
+    a: 'Average the two parallel sides and multiply by the height: A = ½ × (a + b) × h. With parallel sides of 6 and 10 and a height of 4, the area is 32.',
+  },
+  {
+    q: 'How many square feet are in an acre?',
+    a: 'One acre is 43,560 square feet, or about 4,047 m². A hectare is 10,000 m², about 2.471 acres.',
+  },
+  {
+    q: 'How do I convert square metres to square feet?',
+    a: 'Multiply by 10.7639. A 96 m² apartment is about 1,033 ft². Note that you square the length conversion: 1 m = 3.28 ft, so 1 m² = 3.28² ≈ 10.76 ft².',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="area-calculator"
+  title="Area Calculator – Rectangle, Triangle, Circle & More"
+  description="Free area calculator for 10 shapes: rectangle, square, triangle, circle, trapezoid, parallelogram, ellipse, rhombus, sector and hexagon, in m², ft², acres and hectares."
+  intro="Find the area and perimeter of 10 common shapes in any unit, with the result converted to square metres, square feet, acres and hectares."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <ShapeCalculator kind="area" client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the area calculator</h2>
+    <ol>
+      <li><strong>Pick a shape.</strong></li>
+      <li><strong>Choose your unit</strong>: metric or imperial.</li>
+      <li><strong>Enter the measurements.</strong> The area appears in your unit squared, plus common conversions.</li>
+    </ol>
+
+    <h2>Area formulas</h2>
+    <table>
+      <thead><tr><th>Shape</th><th>Area</th><th>Example</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>Rectangle</td><td>l × w</td><td>12 × 8</td><td>96</td></tr>
+        <tr><td>Square</td><td>s²</td><td>5²</td><td>25</td></tr>
+        <tr><td>Triangle</td><td>½ × b × h</td><td>½ × 10 × 6</td><td>30</td></tr>
+        <tr><td>Circle</td><td>πr²</td><td>π × 4²</td><td>50.27</td></tr>
+        <tr><td>Trapezoid</td><td>½ × (a + b) × h</td><td>½ × (6 + 10) × 4</td><td>32</td></tr>
+        <tr><td>Parallelogram</td><td>b × h</td><td>10 × 6</td><td>60</td></tr>
+        <tr><td>Ellipse</td><td>πab</td><td>π × 6 × 4</td><td>75.40</td></tr>
+        <tr><td>Rhombus</td><td>d₁ × d₂ ÷ 2</td><td>6 × 8 ÷ 2</td><td>24</td></tr>
+        <tr><td>Sector</td><td>πr² × θ ÷ 360</td><td>r = 4, θ = 60°</td><td>8.38</td></tr>
+        <tr><td>Regular hexagon</td><td>(3√3 ÷ 2) × s²</td><td>s = 5</td><td>64.95</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Area unit conversions</h2>
+    <table>
+      <thead><tr><th>Unit</th><th>Equals</th></tr></thead>
+      <tbody>
+        <tr><td>1 m²</td><td>10.7639 ft² = 1.19599 yd²</td></tr>
+        <tr><td>1 ft²</td><td>144 in² = 0.092903 m²</td></tr>
+        <tr><td>1 acre</td><td>43,560 ft² = 4,046.86 m²</td></tr>
+        <tr><td>1 hectare</td><td>10,000 m² = 2.47105 acres</td></tr>
+        <tr><td>1 km²</td><td>100 hectares = 0.386102 mi²</td></tr>
+      </tbody>
+    </table>
+    <p>For circles in detail, use the <a href="/circle-calculator">circle calculator</a>; for 3D shapes, the <a href="/volume-calculator">volume calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
