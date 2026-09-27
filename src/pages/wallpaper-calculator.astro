@@ -1,0 +1,66 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import WallpaperCalculator from '@/components/calculators/WallpaperCalculator';
+
+const faqs = [
+  {
+    q: 'How many rolls of wallpaper do I need?',
+    a: 'Work out how many drops (full-height strips) fit across the walls and how many drops you get from each roll. A 4.5 × 3.5 m room with 2.4 m walls, one door and one window needs 28 drops; a standard 10.05 m roll gives 4 drops, so you need 7 rolls.',
+  },
+  {
+    q: 'How does pattern repeat affect wallpaper?',
+    a: 'Each drop has to start at the same point in the pattern, so its length is rounded up to a whole number of repeats. With a 53 cm repeat, a 2.4 m wall needs 2.65 m drops, only 3 fit on a roll, and the same room needs 10 rolls instead of 7.',
+  },
+  {
+    q: 'What size is a roll of wallpaper?',
+    a: 'A standard European roll is 10.05 m long and 53 cm wide (about 5.3 m²). Wide rolls are 70 cm. In the US, wallpaper is often priced per single roll but sold in double rolls of about 27 ft × 20.5 in.',
+  },
+  {
+    q: 'Should I subtract doors and windows?',
+    a: 'Doors, yes: they take out a full drop each. Windows only partly, because you still paper above and below them. The calculator deducts a full drop’s width for each door and about half for each window.',
+  },
+  {
+    q: 'Should I buy an extra roll?',
+    a: 'It’s wise, especially for patterned paper or awkward rooms. Rolls from a later batch can differ slightly in colour, so buy all you need, plus a spare, with the same batch number.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="wallpaper-calculator"
+  title="Wallpaper Calculator – How Many Rolls Do I Need?"
+  description="Free wallpaper calculator. Work out how many rolls of wallpaper a room needs from its size, doors, windows, roll size and pattern repeat, in metric or US units."
+  intro="Work out how many rolls of wallpaper a room needs from its size, doors and windows, the roll size and the pattern repeat."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <WallpaperCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the wallpaper calculator</h2>
+    <ol>
+      <li><strong>Enter the room’s length, width and wall height</strong> in metres or feet.</li>
+      <li><strong>Add the number of doors and windows.</strong></li>
+      <li><strong>Choose the roll size</strong> and enter the pattern repeat from the label (0 for plain paper).</li>
+    </ol>
+
+    <h2>How it’s worked out</h2>
+    <ol>
+      <li><strong>Drop length</strong> = wall height, rounded up to a whole pattern repeat.</li>
+      <li><strong>Drops per roll</strong> = roll length ÷ drop length, rounded down.</li>
+      <li><strong>Drops needed</strong> = wall width to cover ÷ roll width, rounded up.</li>
+      <li><strong>Rolls</strong> = drops needed ÷ drops per roll, rounded up.</li>
+    </ol>
+
+    <h3>Worked examples (4.5 × 3.5 m room, 2.4 m walls, 1 door, 1 window)</h3>
+    <table>
+      <thead><tr><th>Roll</th><th>Repeat</th><th>Drop</th><th>Drops per roll</th><th>Rolls</th></tr></thead>
+      <tbody>
+        <tr><td>10.05 m × 53 cm</td><td>none</td><td>2.40 m</td><td>4</td><td>7</td></tr>
+        <tr><td>10.05 m × 53 cm</td><td>53 cm</td><td>2.65 m</td><td>3</td><td>10</td></tr>
+        <tr><td>US double roll (27 ft)</td><td>none</td><td>8 ft</td><td>3</td><td>10 (14 × 12 ft room)</td></tr>
+      </tbody>
+    </table>
+    <p>Painting instead? Use the <a href="/paint-calculator">paint calculator</a>. For flooring the same room, see the <a href="/flooring-calculator">flooring calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
