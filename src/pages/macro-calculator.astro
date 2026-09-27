@@ -1,0 +1,67 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import MacroCalculator from '@/components/calculators/MacroCalculator';
+
+const faqs = [
+  {
+    q: 'What are macros?',
+    a: 'Macronutrients are the three nutrients that provide calories: protein and carbohydrates have 4 kcal per gram, and fat has 9. Counting macros means hitting daily gram targets for each, not just a calorie total.',
+  },
+  {
+    q: 'How do I calculate my macros?',
+    a: 'Work out your daily calories, choose a percentage split, then convert each share to grams. For 2,000 kcal at 30% protein, 40% carbs and 30% fat: 600 ÷ 4 = 150 g protein, 800 ÷ 4 = 200 g carbs and 600 ÷ 9 ≈ 67 g fat.',
+  },
+  {
+    q: 'What is the best macro split for weight loss?',
+    a: 'The calorie deficit matters most, but a higher protein share (around 30–40%) helps you keep muscle and feel full. A split of 40% protein, 35% carbs and 25% fat is a common starting point.',
+  },
+  {
+    q: 'What are keto macros?',
+    a: 'Keto is very low carb and high fat, typically about 5% carbs (under 20–50 g a day), 25% protein and 70% fat. On 2,000 kcal that’s about 25 g carbs, 125 g protein and 156 g fat.',
+  },
+  {
+    q: 'Should I count macros per meal?',
+    a: 'Daily totals matter most. Spreading protein across meals (roughly 20–40 g each) may help muscle building, so the calculator also shows a per-meal breakdown.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="macro-calculator"
+  title="Macro Calculator – Protein, Carbs & Fat Grams"
+  description="Free macro calculator. Get daily protein, carb and fat targets in grams for your calories and goal, with balanced, high-protein, low-carb, keto or custom splits."
+  intro="Get daily protein, carb and fat targets in grams for your body, activity and goal, with ready-made splits or your own percentages."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <MacroCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the macro calculator</h2>
+    <ol>
+      <li><strong>Enter your details and activity level</strong>, or type your own daily calorie target.</li>
+      <li><strong>Choose a goal</strong>: lose, maintain or build muscle.</li>
+      <li><strong>Pick a diet style</strong> or set a custom split that adds up to 100%.</li>
+      <li><strong>Read your grams</strong> per day, per meal and per kg of body weight.</li>
+    </ol>
+
+    <h2>Macro formula</h2>
+    <div class="formula">grams = calories × share % ÷ kcal per gram &nbsp;&nbsp; (protein 4, carbs 4, fat 9)</div>
+
+    <h3>Diet splits on 2,000 kcal</h3>
+    <table>
+      <thead><tr><th>Style</th><th>Protein / carbs / fat</th><th>Protein</th><th>Carbs</th><th>Fat</th></tr></thead>
+      <tbody>
+        <tr><td>Balanced</td><td>30 / 40 / 30</td><td>150 g</td><td>200 g</td><td>67 g</td></tr>
+        <tr><td>High protein</td><td>40 / 35 / 25</td><td>200 g</td><td>175 g</td><td>56 g</td></tr>
+        <tr><td>Low carb</td><td>35 / 25 / 40</td><td>175 g</td><td>125 g</td><td>89 g</td></tr>
+        <tr><td>Keto</td><td>25 / 5 / 70</td><td>125 g</td><td>25 g</td><td>156 g</td></tr>
+        <tr><td>Low fat</td><td>25 / 55 / 20</td><td>125 g</td><td>275 g</td><td>44 g</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked example</h3>
+    <p>A moderately active 30-year-old man (175 cm, 70 kg) maintains on about 2,556 kcal. A balanced split gives <strong>192 g protein, 256 g carbs and 85 g fat</strong> a day.</p>
+    <p>Need your calories first? Use the <a href="/calorie-calculator">calorie calculator</a>. For protein alone, try the <a href="/protein-calculator">protein calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
