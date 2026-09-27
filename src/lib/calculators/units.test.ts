@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { LENGTH, TEMPERATURE, WEIGHT, belowMinimum, convert, formatValue, joinCompound, splitCompound } from './units';
+import { LENGTH, QUANTITIES, TEMPERATURE, WEIGHT, belowMinimum, convert, formatValue, joinCompound, splitCompound } from './units';
 
 describe('length', () => {
   it('uses exact definitions', () => {
@@ -85,5 +85,34 @@ describe('formatValue', () => {
     expect(formatValue(1e-9)).toBe('1E-9');
     expect(formatValue(5e20)).toBe('5E20');
     expect(formatValue(Number.NaN)).toBe('—');
+  });
+});
+
+describe('more quantities', () => {
+  const c = (q: string, v: number, from: string, to: string) => convert(QUANTITIES[q], v, from, to);
+  it('converts area', () => {
+    expect(c('area', 1, 'ac', 'ft2')).toBeCloseTo(43_560, 6);
+    expect(c('area', 1, 'ha', 'ac')).toBeCloseTo(2.4710538, 6);
+    expect(c('area', 1, 'm2', 'ft2')).toBeCloseTo(10.7639104, 6);
+    expect(c('area', 1, 'mi2', 'ac')).toBeCloseTo(640, 6);
+  });
+  it('converts volume', () => {
+    expect(c('volume', 1, 'gal', 'l')).toBeCloseTo(3.785411784, 12);
+    expect(c('volume', 1, 'gal', 'in3')).toBeCloseTo(231, 9);
+    expect(c('volume', 1, 'cup', 'floz')).toBeCloseTo(8, 12);
+    expect(c('volume', 1, 'tbsp', 'tsp')).toBeCloseTo(3, 12);
+    expect(c('volume', 1, 'pt-uk', 'floz-uk')).toBeCloseTo(20, 12);
+    expect(c('volume', 1, 'ft3', 'l')).toBeCloseTo(28.316846592, 9);
+  });
+  it('converts speed, time, data and pressure', () => {
+    expect(c('speed', 100, 'kph', 'mph')).toBeCloseTo(62.1371192, 6);
+    expect(c('speed', 1, 'kn', 'kph')).toBeCloseTo(1.852, 12);
+    expect(c('time', 1, 'yr', 'd')).toBeCloseTo(365.2425, 9);
+    expect(c('time', 1, 'wk', 'h')).toBe(168);
+    expect(c('data', 1, 'gib', 'mb')).toBeCloseTo(1073.741824, 9);
+    expect(c('data', 100, 'mbit', 'mb')).toBe(12.5);
+    expect(c('pressure', 1, 'bar', 'psi')).toBeCloseTo(14.5037738, 6);
+    expect(c('pressure', 1, 'atm', 'mmhg')).toBeCloseTo(760, 3); // mmHg is 133.322387415 Pa, not exactly 1 torr
+    expect(c('pressure', 1, 'atm', 'torr')).toBeCloseTo(760, 9);
   });
 });

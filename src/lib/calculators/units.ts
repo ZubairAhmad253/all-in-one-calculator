@@ -134,7 +134,208 @@ export const TEMPERATURE: Quantity = {
   minBase: 0,
 };
 
-export const QUANTITIES: Record<string, Quantity> = { length: LENGTH, weight: WEIGHT, temperature: TEMPERATURE };
+const FT = 12 * IN;
+const MI = 63_360 * IN;
+const US_GAL = 3.785411784; // litres, exact
+const UK_GAL = 4.54609; // litres, exact
+
+export const AREA: Quantity = {
+  id: 'area',
+  noun: 'area',
+  // Base unit: square metre.
+  units: [
+    linear('mm2', 'Square millimetres', 'mm²', 1e-6),
+    linear('cm2', 'Square centimetres', 'cm²', 1e-4),
+    linear('m2', 'Square metres', 'm²', 1),
+    linear('ha', 'Hectares', 'ha', 10_000),
+    linear('km2', 'Square kilometres', 'km²', 1e6),
+    linear('in2', 'Square inches', 'in²', IN * IN),
+    linear('ft2', 'Square feet', 'ft²', FT * FT),
+    linear('yd2', 'Square yards', 'yd²', 9 * FT * FT),
+    linear('ac', 'Acres', 'ac', 43_560 * FT * FT),
+    linear('mi2', 'Square miles', 'mi²', MI * MI),
+  ],
+  defaults: { value: 1, from: 'm2', to: 'ft2' },
+  popular: [
+    ['m2', 'ft2'],
+    ['ft2', 'm2'],
+    ['ac', 'ha'],
+    ['ha', 'ac'],
+    ['ac', 'ft2'],
+    ['km2', 'mi2'],
+    ['cm2', 'in2'],
+    ['yd2', 'm2'],
+  ],
+  positiveOnly: true,
+};
+
+export const VOLUME: Quantity = {
+  id: 'volume',
+  noun: 'volume',
+  // Base unit: litre.
+  units: [
+    linear('ml', 'Millilitres', 'ml', 0.001),
+    linear('l', 'Litres', 'L', 1),
+    linear('m3', 'Cubic metres', 'm³', 1000),
+    linear('tsp', 'Teaspoons (US)', 'tsp', US_GAL / 768),
+    linear('tbsp', 'Tablespoons (US)', 'tbsp', US_GAL / 256),
+    linear('floz', 'Fluid ounces (US)', 'fl oz', US_GAL / 128),
+    linear('cup', 'Cups (US)', 'cup', US_GAL / 16),
+    linear('pt', 'Pints (US)', 'pt', US_GAL / 8),
+    linear('qt', 'Quarts (US)', 'qt', US_GAL / 4),
+    linear('gal', 'Gallons (US)', 'gal', US_GAL),
+    linear('floz-uk', 'Fluid ounces (UK)', 'UK fl oz', UK_GAL / 160),
+    linear('pt-uk', 'Pints (UK)', 'UK pt', UK_GAL / 8),
+    linear('gal-uk', 'Gallons (UK)', 'UK gal', UK_GAL),
+    linear('in3', 'Cubic inches', 'in³', (IN * 10) ** 3),
+    linear('ft3', 'Cubic feet', 'ft³', (FT * 10) ** 3),
+  ],
+  defaults: { value: 1, from: 'l', to: 'gal' },
+  popular: [
+    ['l', 'gal'],
+    ['gal', 'l'],
+    ['ml', 'floz'],
+    ['floz', 'ml'],
+    ['cup', 'ml'],
+    ['l', 'pt-uk'],
+    ['gal-uk', 'l'],
+    ['m3', 'ft3'],
+  ],
+  positiveOnly: true,
+};
+
+export const SPEED: Quantity = {
+  id: 'speed',
+  noun: 'speed',
+  // Base unit: metres per second.
+  units: [
+    linear('mps', 'Metres per second', 'm/s', 1),
+    linear('kph', 'Kilometres per hour', 'km/h', 1 / 3.6),
+    linear('mph', 'Miles per hour', 'mph', MI / 3600),
+    linear('kn', 'Knots', 'kn', 1852 / 3600),
+    linear('fps', 'Feet per second', 'ft/s', FT),
+    linear('mach', 'Mach (sea level, 15 °C)', 'Mach', 340.294),
+  ],
+  defaults: { value: 100, from: 'kph', to: 'mph' },
+  popular: [
+    ['kph', 'mph'],
+    ['mph', 'kph'],
+    ['mps', 'kph'],
+    ['kn', 'kph'],
+    ['kn', 'mph'],
+    ['fps', 'mph'],
+  ],
+  positiveOnly: true,
+};
+
+const DAY = 86_400;
+
+export const TIME: Quantity = {
+  id: 'time',
+  noun: 'time',
+  // Base unit: second. Months and years are Gregorian-calendar averages.
+  units: [
+    linear('us', 'Microseconds', 'µs', 1e-6),
+    linear('ms', 'Milliseconds', 'ms', 0.001),
+    linear('s', 'Seconds', 's', 1),
+    linear('min', 'Minutes', 'min', 60),
+    linear('h', 'Hours', 'h', 3600),
+    linear('d', 'Days', 'd', DAY),
+    linear('wk', 'Weeks', 'wk', 7 * DAY),
+    linear('mo', 'Months (average)', 'mo', (365.2425 / 12) * DAY),
+    linear('yr', 'Years (average)', 'yr', 365.2425 * DAY),
+    linear('dec', 'Decades', 'decades', 3652.425 * DAY),
+    linear('cen', 'Centuries', 'centuries', 36_524.25 * DAY),
+  ],
+  defaults: { value: 1, from: 'd', to: 'h' },
+  popular: [
+    ['h', 'min'],
+    ['min', 's'],
+    ['d', 'h'],
+    ['wk', 'd'],
+    ['yr', 'd'],
+    ['h', 's'],
+    ['mo', 'd'],
+    ['s', 'ms'],
+  ],
+  positiveOnly: true,
+};
+
+export const DATA: Quantity = {
+  id: 'data',
+  noun: 'data size',
+  // Base unit: byte. Decimal (SI) and binary (IEC) prefixes.
+  units: [
+    linear('bit', 'Bits', 'bit', 1 / 8),
+    linear('b', 'Bytes', 'B', 1),
+    linear('kb', 'Kilobytes', 'KB', 1e3),
+    linear('mb', 'Megabytes', 'MB', 1e6),
+    linear('gb', 'Gigabytes', 'GB', 1e9),
+    linear('tb', 'Terabytes', 'TB', 1e12),
+    linear('pb', 'Petabytes', 'PB', 1e15),
+    linear('kib', 'Kibibytes', 'KiB', 1024),
+    linear('mib', 'Mebibytes', 'MiB', 1024 ** 2),
+    linear('gib', 'Gibibytes', 'GiB', 1024 ** 3),
+    linear('tib', 'Tebibytes', 'TiB', 1024 ** 4),
+    linear('mbit', 'Megabits', 'Mb', 1e6 / 8),
+    linear('gbit', 'Gigabits', 'Gb', 1e9 / 8),
+  ],
+  defaults: { value: 1, from: 'gb', to: 'mb' },
+  popular: [
+    ['gb', 'mb'],
+    ['tb', 'gb'],
+    ['mb', 'kb'],
+    ['gb', 'gib'],
+    ['tb', 'tib'],
+    ['mbit', 'mb'],
+    ['b', 'bit'],
+    ['mib', 'mb'],
+  ],
+  positiveOnly: true,
+};
+
+export const PRESSURE: Quantity = {
+  id: 'pressure',
+  noun: 'pressure',
+  // Base unit: pascal.
+  units: [
+    linear('pa', 'Pascals', 'Pa', 1),
+    linear('hpa', 'Hectopascals', 'hPa', 100),
+    linear('kpa', 'Kilopascals', 'kPa', 1000),
+    linear('mpa', 'Megapascals', 'MPa', 1e6),
+    linear('mbar', 'Millibar', 'mbar', 100),
+    linear('bar', 'Bar', 'bar', 1e5),
+    linear('psi', 'Pounds per square inch', 'psi', (LB * 9.80665) / (IN * IN)),
+    linear('atm', 'Standard atmospheres', 'atm', 101_325),
+    linear('mmhg', 'Millimetres of mercury', 'mmHg', 133.322387415),
+    linear('inhg', 'Inches of mercury', 'inHg', 3386.389),
+    linear('torr', 'Torr', 'Torr', 101_325 / 760),
+  ],
+  defaults: { value: 1, from: 'bar', to: 'psi' },
+  popular: [
+    ['bar', 'psi'],
+    ['psi', 'bar'],
+    ['psi', 'kpa'],
+    ['kpa', 'psi'],
+    ['atm', 'pa'],
+    ['mmhg', 'kpa'],
+    ['hpa', 'inhg'],
+    ['mbar', 'hpa'],
+  ],
+  positiveOnly: true,
+};
+
+export const QUANTITIES: Record<string, Quantity> = {
+  length: LENGTH,
+  weight: WEIGHT,
+  temperature: TEMPERATURE,
+  area: AREA,
+  volume: VOLUME,
+  speed: SPEED,
+  time: TIME,
+  data: DATA,
+  pressure: PRESSURE,
+};
 
 export function findUnit(q: Quantity, id: string): Unit | undefined {
   return q.units.find((u) => u.id === id);
