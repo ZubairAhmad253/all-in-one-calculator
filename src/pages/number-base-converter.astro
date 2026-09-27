@@ -1,0 +1,75 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import NumberBaseConverter from '@/components/calculators/NumberBaseConverter';
+
+const faqs = [
+  {
+    q: 'How do I convert decimal to binary?',
+    a: 'Divide by 2 repeatedly and write down the remainders, then read them from bottom to top. For 42: 42 ÷ 2 = 21 r0, 21 ÷ 2 = 10 r1, 10 ÷ 2 = 5 r0, 5 ÷ 2 = 2 r1, 2 ÷ 2 = 1 r0, 1 ÷ 2 = 0 r1, giving 101010.',
+  },
+  {
+    q: 'How do I convert binary to decimal?',
+    a: 'Multiply each digit by its place value (1, 2, 4, 8, 16, … from the right) and add. 101101 = 32 + 8 + 4 + 1 = 45.',
+  },
+  {
+    q: 'How do I convert hex to decimal?',
+    a: 'Each hex digit is worth 16 times the one to its right, with A–F standing for 10–15. 2A = 2 × 16 + 10 = 42, and FF = 15 × 16 + 15 = 255.',
+  },
+  {
+    q: 'Why do programmers use hexadecimal?',
+    a: 'One hex digit is exactly 4 binary digits (bits), so a byte is always two hex digits. FF is 1111 1111. Hex is much shorter than binary and converts to it at a glance, which suits memory addresses and colours like #FF8800.',
+  },
+  {
+    q: 'What bases does this converter support?',
+    a: 'Any base from 2 to 36, using the digits 0–9 and then the letters A–Z. Numbers can be any length: the converter uses exact integer arithmetic, so there’s no rounding even for very large values.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="number-base-converter"
+  title="Number Base Converter – Binary, Octal, Decimal & Hex"
+  description="Free number base converter. Convert whole numbers between binary, octal, decimal, hexadecimal and any base from 2 to 36, exactly, with grouped digits and bit count."
+  intro="Convert whole numbers between binary, octal, decimal and hexadecimal, or any base from 2 to 36, exactly and at any size."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <NumberBaseConverter client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the number base converter</h2>
+    <ol>
+      <li><strong>Choose the base</strong> your number is written in.</li>
+      <li><strong>Type the number.</strong> Prefixes like 0x and spaces between digit groups are fine.</li>
+      <li><strong>Read or copy</strong> the number in binary, octal, decimal, hex and one more base of your choice.</li>
+    </ol>
+
+    <h2>How place values work</h2>
+    <div class="formula">value = Σ digit × base^position &nbsp;&nbsp; (positions count from 0 on the right)</div>
+    <p>For example, hex <strong>3E8</strong> = 3 × 16² + 14 × 16 + 8 = 768 + 224 + 8 = <strong>1,000</strong>.</p>
+
+    <h2>Conversion table</h2>
+    <table>
+      <thead><tr><th>Decimal</th><th>Binary</th><th>Octal</th><th>Hex</th></tr></thead>
+      <tbody>
+        <tr><td>10</td><td>1010</td><td>12</td><td>A</td></tr>
+        <tr><td>42</td><td>10 1010</td><td>52</td><td>2A</td></tr>
+        <tr><td>100</td><td>110 0100</td><td>144</td><td>64</td></tr>
+        <tr><td>255</td><td>1111 1111</td><td>377</td><td>FF</td></tr>
+        <tr><td>1,000</td><td>11 1110 1000</td><td>1750</td><td>3E8</td></tr>
+        <tr><td>4,096</td><td>1 0000 0000 0000</td><td>10000</td><td>1000</td></tr>
+        <tr><td>65,535</td><td>1111 1111 1111 1111</td><td>177777</td><td>FFFF</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Hex digits</h2>
+    <table>
+      <thead><tr><th>Hex</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr></thead>
+      <tbody>
+        <tr><td>Decimal</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr>
+        <tr><td>Binary</td><td>1010</td><td>1011</td><td>1100</td><td>1101</td><td>1110</td><td>1111</td></tr>
+      </tbody>
+    </table>
+    <p>For file sizes in bytes, KB and GB, use the <a href="/data-storage-converter">data storage converter</a>. For another number system, try the <a href="/roman-numeral-converter">Roman numeral converter</a>.</p>
+  </Fragment>
+</CalculatorLayout>
