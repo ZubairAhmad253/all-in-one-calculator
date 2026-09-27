@@ -152,3 +152,53 @@ export const formatHM = (minutes: number) => {
 
 /** Minutes as decimal hours, e.g. 450 → 7.5. */
 export const decimalHours = (minutes: number) => minutes / 60;
+
+// -------------------------------------------------- flexible working days
+
+export interface WorkWeek {
+  /** Weekday numbers treated as the weekend (0 = Sunday … 6 = Saturday). */
+  weekend: number[];
+  /** Extra non-working dates, e.g. public holidays. */
+  holidays?: IsoDate[];
+}
+
+export const SAT_SUN: WorkWeek = { weekend: [0, 6] };
+
+const isWorkDay = (d: IsoDate, w: WorkWeek) => !w.weekend.includes(weekday(d)) && !(w.holidays ?? []).includes(d);
+
+/**
+ * Working days from `from` to `to` (in either order), counting both ends
+ * if `inclusive`, skipping weekend days and holidays.
+ */
+export function countWorkDays(from: IsoDate, to: IsoDate, w: WorkWeek = SAT_SUN, inclusive = true): { workDays: number; weekendDays: number; holidays: number } {
+  let [a, b] = toUtc(to) < toUtc(from) ? [to, from] : [from, to];
+  if (!inclusive) b = addDays(b, -1);
+  const total = daysBetween(a, b) + 1;
+  let workDays = 0;
+  let weekendDays = 0;
+  let holidays = 0;
+  // Capped at about 300 years to keep the loop bounded.
+  for (let i = 0; i < Math.min(total, 110_000); i++) {
+    const d = addDays(a, i);
+    if (w.weekend.includes(weekday(d))) weekendDays++;
+    else if ((w.holidays ?? []).includes(d)) holidays++;
+    else workDays++;
+  }
+  return { workDays, weekendDays, holidays };
+}
+
+/**
+ * The date `n` working days after (or, for negative n, before) `start`.
+ * The start day itself is not counted.
+ */
+export function addWorkDays(start: IsoDate, n: number, w: WorkWeek = SAT_SUN): IsoDate {
+  if (w.weekend.length >= 7) return start;
+  const step = n < 0 ? -1 : 1;
+  let d = start;
+  let left = Math.abs(Math.round(n));
+  while (left > 0) {
+    d = addDays(d, step);
+    if (isWorkDay(d, w)) left--;
+  }
+  return d;
+}
