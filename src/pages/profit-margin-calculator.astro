@@ -1,0 +1,70 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import ProfitMarginCalculator from '@/components/calculators/ProfitMarginCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate profit margin?',
+    a: 'Subtract the cost from the selling price to get the profit, then divide the profit by the selling price and multiply by 100. Selling for $100 something that costs $60 gives a $40 profit and a 40% margin.',
+  },
+  {
+    q: 'What is the difference between margin and markup?',
+    a: 'Both use the same profit, but margin divides it by the price and markup divides it by the cost. The $40 profit on a $60 cost and $100 price is a 40% margin but a 66.7% markup. Margin can never reach 100%; markup can be any size.',
+  },
+  {
+    q: 'How do I price a product for a target margin?',
+    a: 'Divide the cost by (1 − margin). For a 40% margin on a $60 cost: 60 ÷ 0.6 = $100. Adding 40% to the cost ($84) would only give a 28.6% margin.',
+  },
+  {
+    q: 'What is a good profit margin?',
+    a: 'It varies widely by industry. Grocery and retail gross margins are often 20–40%, while software and services can be 60–80% or more. Compare with businesses like yours rather than a single number.',
+  },
+  {
+    q: 'What is the difference between gross and net margin?',
+    a: 'Gross margin uses only the direct cost of the product. Net margin also takes off overheads such as rent, wages, marketing and tax. Enter all costs as the “cost” to see a net margin.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="profit-margin-calculator"
+  title="Profit Margin Calculator – Margin, Markup & Price"
+  description="Free profit margin calculator. Work out profit, margin and markup from cost and price, or the selling price you need for a target margin."
+  intro="Work out your profit, margin and markup from cost and selling price, or find the price you need to charge for a target margin."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <ProfitMarginCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the profit margin calculator</h2>
+    <ol>
+      <li><strong>Find my margin:</strong> enter your cost and selling price.</li>
+      <li><strong>Price for a margin:</strong> enter your cost and the margin you want, to get the price to charge.</li>
+    </ol>
+
+    <h2>Profit margin formulas</h2>
+    <div class="formula">Profit = Price − Cost &nbsp;&nbsp; Margin = Profit ÷ Price × 100 &nbsp;&nbsp; Markup = Profit ÷ Cost × 100</div>
+    <div class="formula">Price for a margin = Cost ÷ (1 − Margin ÷ 100)</div>
+
+    <h3>Worked example</h3>
+    <p>
+      A product costs <strong>$60</strong> and sells for <strong>$100</strong>. Profit is <strong>$40</strong>, the margin is 40 ÷ 100 = <strong>40%</strong>, and the markup is
+      40 ÷ 60 = <strong>66.7%</strong>.
+    </p>
+
+    <h2>Margin vs markup</h2>
+    <table>
+      <thead><tr><th>Margin</th><th>Same as a markup of</th><th>Price for a $60 cost</th></tr></thead>
+      <tbody>
+        <tr><td>20%</td><td>25%</td><td>$75.00</td></tr>
+        <tr><td>30%</td><td>42.9%</td><td>$85.71</td></tr>
+        <tr><td>40%</td><td>66.7%</td><td>$100.00</td></tr>
+        <tr><td>50%</td><td>100%</td><td>$120.00</td></tr>
+        <tr><td>60%</td><td>150%</td><td>$150.00</td></tr>
+      </tbody>
+    </table>
+    <p>A common pricing mistake is adding the target margin to the cost. That gives a markup, not a margin, and a lower profit than planned.</p>
+    <p>Pricing from cost? See the <a href="/markup-calculator">markup calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
