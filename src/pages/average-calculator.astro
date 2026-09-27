@@ -1,0 +1,67 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import AverageCalculator from '@/components/calculators/AverageCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate an average?',
+    a: 'Add all the numbers and divide by how many there are. For 12, 15, 11, 15, 20, 17, 15 and 9 the sum is 114 and there are 8 numbers, so the average is 114 ÷ 8 = 14.25.',
+  },
+  {
+    q: 'What is the difference between mean, median and mode?',
+    a: 'The mean is the sum divided by the count. The median is the middle value when the numbers are sorted. The mode is the value that appears most often. For 12, 15, 11, 15, 20, 17, 15, 9: mean 14.25, median 15, mode 15.',
+  },
+  {
+    q: 'When should I use the median instead of the mean?',
+    a: 'When a few extreme values would distort the mean, such as house prices or salaries. One billionaire in a room raises the mean income enormously but barely moves the median.',
+  },
+  {
+    q: 'How do I calculate a weighted average?',
+    a: 'Multiply each value by its weight, add the results, and divide by the total of the weights. Scores of 85, 90, 78 and 92 with weights 3, 2, 1 and 4 give 881 ÷ 10 = 88.1.',
+  },
+  {
+    q: 'What if there are two modes or none?',
+    a: 'A data set can have several modes (bimodal, multimodal) if values tie for most frequent, or no mode at all if every value appears once. The calculator lists every mode.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="average-calculator"
+  title="Average Calculator – Mean, Median, Mode & Weighted Average"
+  description="Free average calculator. Find the mean, median, mode, range, geometric and harmonic mean of a list of numbers, or calculate a weighted average."
+  intro="Paste a list of numbers to get the mean, median, mode, range and more, or switch to weighted average for grades, prices and scores."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <AverageCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the average calculator</h2>
+    <p>Type or paste your numbers, separated by commas, spaces or new lines (a spreadsheet column works). Results update as you type. For a weighted average, enter the values and their weights in the same order.</p>
+
+    <h2>Average formulas</h2>
+    <div class="formula">Mean = Σx ÷ n &nbsp;&nbsp; Weighted mean = Σ(x × w) ÷ Σw</div>
+    <ul>
+      <li><strong>Median:</strong> sort the numbers; take the middle one, or the mean of the two middle ones if the count is even.</li>
+      <li><strong>Mode:</strong> the most frequent value.</li>
+      <li><strong>Range:</strong> largest − smallest.</li>
+      <li><strong>Geometric mean:</strong> the nth root of the product, used for growth rates.</li>
+      <li><strong>Harmonic mean:</strong> n ÷ Σ(1/x), used for average speeds and rates.</li>
+    </ul>
+
+    <h3>Worked example</h3>
+    <p>For <strong>4, 8, 15, 16, 23, 42</strong>:</p>
+    <table>
+      <thead><tr><th>Measure</th><th>Working</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>Mean</td><td>108 ÷ 6</td><td>18</td></tr>
+        <tr><td>Median</td><td>(15 + 16) ÷ 2</td><td>15.5</td></tr>
+        <tr><td>Mode</td><td>every value appears once</td><td>none</td></tr>
+        <tr><td>Range</td><td>42 − 4</td><td>38</td></tr>
+      </tbody>
+    </table>
+    <p>Why the harmonic mean matters: drive somewhere at 60 km/h and back at 40 km/h, and your average speed is not 50 but the harmonic mean, <strong>48 km/h</strong>, because you spend longer at the slower speed.</p>
+    <p>To measure how spread out the numbers are, use the <a href="/standard-deviation-calculator">standard deviation calculator</a>. For grades, try the <a href="/gpa-calculator">GPA calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
