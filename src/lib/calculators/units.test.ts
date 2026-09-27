@@ -127,3 +127,15 @@ describe('energy', () => {
     expect(c(2000, 'kcal', 'kwh')).toBeCloseTo(2.32444, 5);
   });
 });
+
+describe('fuel economy', () => {
+  const c = (v: number, from: string, to: string) => convert(QUANTITIES.fuel, v, from, to);
+  it('handles the inverse relationship with L/100 km', () => {
+    expect(c(30, 'mpg', 'l100')).toBeCloseTo(7.84049, 5);
+    expect(c(5, 'l100', 'mpg')).toBeCloseTo(47.0429, 4);
+    expect(c(5, 'l100', 'mpg-uk')).toBeCloseTo(56.4962, 4);
+    expect(c(10, 'kmpl', 'l100')).toBeCloseTo(10, 12);
+    expect(c(1, 'mpg', 'mpg-uk')).toBeCloseTo(1.20095, 5);
+    expect(c(7, 'l100', 'l100')).toBe(7);
+  });
+});
