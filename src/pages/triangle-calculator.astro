@@ -1,0 +1,70 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import TriangleCalculator from '@/components/calculators/TriangleCalculator';
+
+const faqs = [
+  {
+    q: 'How do I find the area of a triangle from three sides?',
+    a: 'Use Heron’s formula. Work out the semi-perimeter s = (a + b + c) ÷ 2, then area = √(s(s − a)(s − b)(s − c)). For sides 7, 8 and 9: s = 12, area = √(12 × 5 × 4 × 3) = √720 ≈ 26.83.',
+  },
+  {
+    q: 'How do I find the angles of a triangle from its sides?',
+    a: 'Use the law of cosines: cos A = (b² + c² − a²) ÷ 2bc. For sides 7, 8 and 9, angle A = 48.19°, B = 58.41° and C = 73.40°, which add up to 180°.',
+  },
+  {
+    q: 'Why does SSA sometimes give two triangles?',
+    a: 'With two sides and an angle that isn’t between them, the third side can sometimes swing into two positions. This is called the ambiguous case. For a = 6, b = 8 and A = 35°, angle B could be 49.89° or 130.11°, so the calculator shows both.',
+  },
+  {
+    q: 'What makes three lengths a valid triangle?',
+    a: 'The triangle inequality: each side must be shorter than the other two combined. 3, 4 and 8 can’t make a triangle because 3 + 4 is less than 8.',
+  },
+  {
+    q: 'What are the types of triangle?',
+    a: 'By sides: equilateral (all equal), isosceles (two equal) and scalene (none equal). By angles: acute (all under 90°), right (one exactly 90°) and obtuse (one over 90°).',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="triangle-calculator"
+  title="Triangle Calculator – Sides, Angles & Area (SSS, SAS, ASA)"
+  description="Free triangle calculator. Solve any triangle from three sides, two sides and an angle, or two angles and a side: every side, angle, area, perimeter and height."
+  intro="Solve any triangle from three sides, two sides and an angle, or two angles and a side, and get every side, angle, the area, perimeter, heights and type."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <TriangleCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the triangle calculator</h2>
+    <ol>
+      <li><strong>Pick what you know:</strong> three sides, two sides and an angle, or two angles and a side.</li>
+      <li><strong>Enter the values.</strong> Side a is opposite angle A, and so on. Angles are in degrees.</li>
+      <li><strong>Read the solved triangle:</strong> a scale diagram, all sides and angles, area, perimeter, heights and radii.</li>
+    </ol>
+
+    <h2>Triangle formulas</h2>
+    <table>
+      <thead><tr><th>Rule</th><th>Formula</th><th>Used for</th></tr></thead>
+      <tbody>
+        <tr><td>Angle sum</td><td>A + B + C = 180°</td><td>The third angle</td></tr>
+        <tr><td>Law of sines</td><td>a ÷ sin A = b ÷ sin B = c ÷ sin C</td><td>ASA, AAS, SSA</td></tr>
+        <tr><td>Law of cosines</td><td>c² = a² + b² − 2ab cos C</td><td>SSS, SAS</td></tr>
+        <tr><td>Heron’s formula</td><td>√(s(s − a)(s − b)(s − c))</td><td>Area from sides</td></tr>
+        <tr><td>Area from SAS</td><td>½ ab sin C</td><td>Area from two sides</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked examples</h3>
+    <table>
+      <thead><tr><th>Given</th><th>Found</th><th>Area</th></tr></thead>
+      <tbody>
+        <tr><td>a = 7, b = 8, c = 9</td><td>A = 48.19°, B = 58.41°, C = 73.40°</td><td>26.83</td></tr>
+        <tr><td>a = 5, b = 7, C = 60°</td><td>c = 6.245, A = 43.90°, B = 76.10°</td><td>15.16</td></tr>
+        <tr><td>A = 40°, B = 60°, c = 10</td><td>C = 80°, a = 6.527, b = 8.794</td><td>28.26</td></tr>
+      </tbody>
+    </table>
+    <p>For right triangles there’s a quicker tool: the <a href="/pythagorean-theorem-calculator">Pythagorean theorem calculator</a>. For other shapes, see the <a href="/area-calculator">area calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
