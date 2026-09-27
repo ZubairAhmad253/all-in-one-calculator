@@ -1,0 +1,70 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import PythagoreanTheoremCalculator from '@/components/calculators/PythagoreanTheoremCalculator';
+
+const faqs = [
+  {
+    q: 'What is the Pythagorean theorem?',
+    a: 'In any right triangle, the square of the hypotenuse (the side opposite the right angle) equals the sum of the squares of the other two sides: a² + b² = c².',
+  },
+  {
+    q: 'How do I find the hypotenuse?',
+    a: 'Square both legs, add them, and take the square root. With legs 3 and 4: 3² + 4² = 9 + 16 = 25, and √25 = 5.',
+  },
+  {
+    q: 'How do I find a missing leg?',
+    a: 'Subtract the square of the known leg from the square of the hypotenuse, then take the square root. With hypotenuse 13 and leg 12: 169 − 144 = 25, so the other leg is 5.',
+  },
+  {
+    q: 'Does the Pythagorean theorem work for all triangles?',
+    a: 'No, only right triangles. For other triangles use the law of cosines, c² = a² + b² − 2ab·cos C, which reduces to Pythagoras when C = 90°. The triangle calculator handles any triangle.',
+  },
+  {
+    q: 'How do builders use the 3-4-5 rule?',
+    a: 'To check a corner is square, measure 3 units along one side and 4 along the other. If the diagonal between those points is exactly 5, the corner is a true 90°. Multiples like 6-8-10 work for bigger layouts.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="pythagorean-theorem-calculator"
+  title="Pythagorean Theorem Calculator – Find the Missing Side"
+  description="Free Pythagorean theorem calculator. Find the hypotenuse or a missing leg of a right triangle with a² + b² = c², plus the angles, area and perimeter, with working."
+  intro="Find the hypotenuse or a missing leg of a right triangle using a² + b² = c², with the angles, area, perimeter and step-by-step working."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <PythagoreanTheoremCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the Pythagorean theorem calculator</h2>
+    <ol>
+      <li><strong>Choose the side to solve for:</strong> the hypotenuse c, or leg a or b.</li>
+      <li><strong>Enter the two sides you know.</strong> Any unit works, as long as both use the same one.</li>
+      <li><strong>Read the missing side</strong>, the working, and the triangle’s angles, area and perimeter.</li>
+    </ol>
+
+    <h2>The formula</h2>
+    <div class="formula">a² + b² = c² &nbsp;&nbsp; c = √(a² + b²) &nbsp;&nbsp; a = √(c² − b²)</div>
+
+    <h3>Worked example: a ladder</h3>
+    <p>A 5 m ladder leans against a wall with its foot 1.5 m from the wall. How high does it reach?</p>
+    <p>a = √(5² − 1.5²) = √(25 − 2.25) = √22.75 ≈ <strong>4.77 m</strong>.</p>
+
+    <h2>Common Pythagorean triples</h2>
+    <p>Whole-number sides that fit a² + b² = c² exactly:</p>
+    <table>
+      <thead><tr><th>a</th><th>b</th><th>c</th></tr></thead>
+      <tbody>
+        <tr><td>3</td><td>4</td><td>5</td></tr>
+        <tr><td>5</td><td>12</td><td>13</td></tr>
+        <tr><td>8</td><td>15</td><td>17</td></tr>
+        <tr><td>7</td><td>24</td><td>25</td></tr>
+        <tr><td>20</td><td>21</td><td>29</td></tr>
+        <tr><td>9</td><td>40</td><td>41</td></tr>
+      </tbody>
+    </table>
+    <p>Any multiple of a triple is also a triple: 6-8-10, 9-12-15 and so on.</p>
+    <p>For triangles without a right angle, use the <a href="/triangle-calculator">triangle calculator</a>. For square roots on their own, see the <a href="/square-root-calculator">square root calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
