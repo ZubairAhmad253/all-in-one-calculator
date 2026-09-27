@@ -1,0 +1,74 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import GradeCalculator from '@/components/calculators/GradeCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate a weighted grade?',
+    a: 'Multiply each score by its weight, add the results, and divide by the total weight. Scores of 92% (15%), 85% (15%) and 78% (30%) give (92×15 + 85×15 + 78×30) ÷ 60 = 83.25%.',
+  },
+  {
+    q: 'What score do I need on my final exam?',
+    a: 'Use: needed = (target × total weight − current grade × graded weight) ÷ final weight. With 83.25% on 60% of the course and a final worth 40%, reaching 85% needs (85 × 100 − 83.25 × 60) ÷ 40 = 87.6% on the final.',
+  },
+  {
+    q: 'What if I need more than 100%?',
+    a: 'Then the target can’t be reached through the final alone, unless there is extra credit. The calculator shows the highest grade you could still reach with a perfect final.',
+  },
+  {
+    q: 'What if my weights don’t add up to 100%?',
+    a: 'The current grade is still correct for the work you’ve entered: it’s an average weighted over what’s been graded. The “needed on the final” figure assumes the graded work plus the final make up the whole course, so check your syllabus if the total isn’t 100%.',
+  },
+  {
+    q: 'Which letter grade does my percentage get?',
+    a: 'On the common US scale, 93% or more is an A, 90–92% an A−, 87–89% a B+, 83–86% a B, and so on down to below 60% for an F. Your school’s cut-offs may differ.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="grade-calculator"
+  title="Grade Calculator – Weighted Grade & Final Exam Score"
+  description="Free grade calculator. Work out your weighted course grade from assignments and exams, and the score you need on your final exam to reach your target grade."
+  intro="Work out your current weighted grade from your assignments, quizzes and exams, and find the score you need on the final to reach the grade you want."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <GradeCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the grade calculator</h2>
+    <ol>
+      <li><strong>Add each graded item</strong> with your score (as a percentage) and its weight in the course.</li>
+      <li><strong>Enter the final exam’s weight</strong> and the overall grade you want.</li>
+    </ol>
+    <p>You’ll see your current grade, the letter it corresponds to, and exactly what you need on the final.</p>
+
+    <h2>Weighted grade formula</h2>
+    <div class="formula">Current grade = Σ (score × weight) ÷ Σ weight</div>
+    <div class="formula">Needed on final = (target × (graded weight + final weight) − current × graded weight) ÷ final weight</div>
+
+    <h3>Worked example</h3>
+    <table>
+      <thead><tr><th>Item</th><th>Score</th><th>Weight</th><th>Score × weight</th></tr></thead>
+      <tbody>
+        <tr><td>Homework</td><td>92%</td><td>15%</td><td>1,380</td></tr>
+        <tr><td>Quizzes</td><td>85%</td><td>15%</td><td>1,275</td></tr>
+        <tr><td>Midterm</td><td>78%</td><td>30%</td><td>2,340</td></tr>
+        <tr><td><strong>Total</strong></td><td></td><td><strong>60%</strong></td><td><strong>4,995</strong></td></tr>
+      </tbody>
+    </table>
+    <p>
+      Current grade: 4,995 ÷ 60 = <strong>83.25%</strong> (a B). The final is worth the remaining <strong>40%</strong>. To finish with <strong>85%</strong>, you need
+      (85 × 100 − 83.25 × 60) ÷ 40 = <strong>87.6%</strong> on the final. To reach 90%, you’d need 100.1%, so a 90% overall is just out of reach.
+    </p>
+
+    <h2>Tips for your final</h2>
+    <ul>
+      <li><strong>Know the weights:</strong> check your syllabus so the calculation matches your course.</li>
+      <li><strong>Prioritise heavily weighted work:</strong> a 40% final matters more than a 5% quiz.</li>
+      <li><strong>Try a few targets</strong> to see what’s realistic, then plan your revision.</li>
+    </ul>
+    <p>Want to see how your course grades affect your overall average? Try the <a href="/gpa-calculator">GPA calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
