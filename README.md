@@ -4,7 +4,7 @@ A fast, SEO-focused website of free online calculators (finance, math, health, c
 
 > **"All-in-One Calculator" is a placeholder name.** Change it in [`src/config/site.ts`](src/config/site.ts) and it updates everywhere.
 
-**Status:** 53 of 111 planned calculators are live, including all 25 launch (`phase: 1`) calculators. The `LIVE` set in [`src/data/calculators.ts`](src/data/calculators.ts) is the up-to-date list. See [Roadmap](#roadmap).
+**Status:** 54 of 111 planned calculators are live, including all 25 launch (`phase: 1`) calculators. The `LIVE` set in [`src/data/calculators.ts`](src/data/calculators.ts) is the up-to-date list. See [Roadmap](#roadmap).
 
 ## Features
 
