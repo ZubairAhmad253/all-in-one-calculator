@@ -1,0 +1,71 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import UnitConverter from '@/components/calculators/UnitConverter';
+
+const faqs = [
+  {
+    q: 'How many seconds are in a day?',
+    a: '86,400: 24 hours × 60 minutes × 60 seconds. A week has 604,800 seconds.',
+  },
+  {
+    q: 'How many days are in a year?',
+    a: 'A common year has 365 days and a leap year 366. Averaged over the 400-year Gregorian cycle, a year is 365.2425 days, which is the value this converter uses for years.',
+  },
+  {
+    q: 'How many days are in a month?',
+    a: 'Months have 28 to 31 days. On average a month is 365.2425 ÷ 12 = 30.436875 days, which is what the converter uses. For exact dates, use the date difference calculator.',
+  },
+  {
+    q: 'How do I convert minutes to hours?',
+    a: 'Divide by 60. 90 minutes is 1.5 hours, and 135 minutes is 2.25 hours (2 hours 15 minutes). To convert hours to minutes, multiply by 60.',
+  },
+  {
+    q: 'How long is a billion seconds?',
+    a: 'About 31.7 years. A million seconds is about 11.6 days, so the jump from a million to a billion is much bigger than it sounds.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="time-converter"
+  title="Time Converter – Seconds, Minutes, Hours, Days & Years"
+  description="Free time converter. Convert milliseconds, seconds, minutes, hours, days, weeks, months, years, decades and centuries, using average month and year lengths."
+  intro="Convert between milliseconds, seconds, minutes, hours, days, weeks, months, years, decades and centuries, in either direction."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <UnitConverter quantity="time" client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the time converter</h2>
+    <ol>
+      <li><strong>Pick the units</strong> to convert from and to.</li>
+      <li><strong>Type a value in either box</strong> to convert in either direction.</li>
+      <li><strong>See every unit at once</strong> in the list below.</li>
+    </ol>
+    <p>Months and years use Gregorian-calendar averages (30.436875 and 365.2425 days), so results are exact for averages but not for any specific month.</p>
+
+    <h2>Time conversion table</h2>
+    <table>
+      <thead><tr><th>Unit</th><th>Equals</th></tr></thead>
+      <tbody>
+        <tr><td>1 minute</td><td>60 seconds</td></tr>
+        <tr><td>1 hour</td><td>60 minutes = 3,600 seconds</td></tr>
+        <tr><td>1 day</td><td>24 hours = 1,440 minutes = 86,400 seconds</td></tr>
+        <tr><td>1 week</td><td>7 days = 168 hours = 10,080 minutes</td></tr>
+        <tr><td>1 month (average)</td><td>30.436875 days</td></tr>
+        <tr><td>1 year (average)</td><td>365.2425 days = 8,765.82 hours = 31,556,952 seconds</td></tr>
+        <tr><td>1 decade</td><td>10 years</td></tr>
+        <tr><td>1 century</td><td>100 years</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked examples</h3>
+    <ul>
+      <li><strong>1,000 hours</strong> is 1,000 ÷ 24 = <strong>41.67 days</strong>.</li>
+      <li><strong>1 million seconds</strong> is about <strong>11.57 days</strong>.</li>
+      <li><strong>1 billion seconds</strong> is about <strong>31.69 years</strong>.</li>
+    </ul>
+    <p>To count time between two dates, use the <a href="/date-difference-calculator">date difference calculator</a>. For hours worked between two clock times, try the <a href="/hours-calculator">hours calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
