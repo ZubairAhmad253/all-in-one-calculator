@@ -1,0 +1,72 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import FactorialCalculator from '@/components/calculators/FactorialCalculator';
+
+const faqs = [
+  {
+    q: 'What is a factorial?',
+    a: 'n! (read “n factorial”) is the product of every whole number from 1 to n. 5! = 5 × 4 × 3 × 2 × 1 = 120. It counts how many ways you can arrange n different things in order.',
+  },
+  {
+    q: 'Why is 0! equal to 1?',
+    a: 'There is exactly one way to arrange nothing, and defining 0! = 1 keeps formulas such as n! = n × (n − 1)! and the combinations formula working for every n.',
+  },
+  {
+    q: 'How many ways can a deck of cards be shuffled?',
+    a: '52! ≈ 8.07 × 10⁶⁷, a 68-digit number. That’s so large that any well-shuffled deck is almost certainly in an order that has never existed before.',
+  },
+  {
+    q: 'How do I find the number of trailing zeros in n!?',
+    a: 'Count the factors of 5, since each pairs with a 2 to make a 10: add n ÷ 5, n ÷ 25, n ÷ 125 and so on, rounding down. 100! has 20 + 4 = 24 trailing zeros.',
+  },
+  {
+    q: 'Can you take the factorial of a negative number or a decimal?',
+    a: 'Not with the ordinary factorial, which is only defined for whole numbers 0 and above. The gamma function extends the idea to decimals, where Γ(n + 1) = n!.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="factorial-calculator"
+  title="Factorial Calculator – n! with Exact Digits"
+  description="Free factorial calculator. Work out n! exactly for any whole number up to 3,000, with every digit, the number of digits, trailing zeros and scientific notation."
+  intro="Work out n! for any whole number up to 3,000, with the exact value to every digit, how many digits it has, and its trailing zeros."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <FactorialCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the factorial calculator</h2>
+    <p>Enter a whole number. The result appears in scientific notation, with the full exact value underneath for large numbers. Tap “Copy all digits” to copy it.</p>
+
+    <h2>Factorial formula</h2>
+    <div class="formula">n! = n × (n − 1) × (n − 2) × … × 2 × 1 &nbsp;&nbsp; 0! = 1</div>
+
+    <h2>Factorials of small numbers</h2>
+    <table>
+      <thead><tr><th>n</th><th>n!</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>1</td></tr>
+        <tr><td>1</td><td>1</td></tr>
+        <tr><td>2</td><td>2</td></tr>
+        <tr><td>3</td><td>6</td></tr>
+        <tr><td>4</td><td>24</td></tr>
+        <tr><td>5</td><td>120</td></tr>
+        <tr><td>6</td><td>720</td></tr>
+        <tr><td>7</td><td>5,040</td></tr>
+        <tr><td>8</td><td>40,320</td></tr>
+        <tr><td>9</td><td>362,880</td></tr>
+        <tr><td>10</td><td>3,628,800</td></tr>
+      </tbody>
+    </table>
+    <p>Factorials grow incredibly fast: 20! is already 2,432,902,008,176,640,000 (19 digits), and 100! has 158 digits.</p>
+
+    <h2>Where factorials are used</h2>
+    <ul>
+      <li><strong>Arrangements:</strong> 6 people can line up in 6! = 720 different orders.</li>
+      <li><strong>Combinations and permutations:</strong> choosing and ordering items. See the <a href="/permutation-combination-calculator">permutation and combination calculator</a>.</li>
+      <li><strong>Probability and statistics:</strong> binomial and Poisson distributions.</li>
+    </ul>
+  </Fragment>
+</CalculatorLayout>
