@@ -1,0 +1,78 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import HoursWorkedCalculator from '@/components/calculators/HoursWorkedCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate hours worked?',
+    a: 'Subtract the start time from the end time, then take off any unpaid break. For 9:00 am to 5:30 pm with a 30-minute lunch: 8 hours 30 minutes − 30 minutes = 8 hours.',
+  },
+  {
+    q: 'How do I convert minutes to decimal hours?',
+    a: 'Divide the minutes by 60. 7 hours 30 minutes is 7.5 hours, 7 hours 15 minutes is 7.25 hours, and 7 hours 45 minutes is 7.75 hours. Payroll usually uses decimal hours, so multiply decimal hours by the hourly rate to get pay.',
+  },
+  {
+    q: 'How are overnight shifts counted?',
+    a: 'If the end time is earlier than the start time, the shift is treated as running past midnight. 10:00 pm to 6:00 am is 8 hours; with a 45-minute break, that’s 7 hours 15 minutes.',
+  },
+  {
+    q: 'What counts as overtime?',
+    a: 'Rules vary by country and contract. In the US, non-exempt employees are generally paid overtime for hours over 40 in a week. The calculator shows any hours over 40 so you can check; confirm the rules that apply to you.',
+  },
+  {
+    q: 'Are breaks paid?',
+    a: 'It depends on your employer and local law. Enter only unpaid breaks in the break box. If your breaks are paid, leave it at 0.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="hours-calculator"
+  title="Hours Worked Calculator – Timesheet with Breaks"
+  description="Free hours worked calculator. Add up shifts with start and end times and unpaid breaks, including overnight shifts, in hours and minutes or decimal hours, with pay."
+  intro="Add up the hours you’ve worked across several shifts, with unpaid breaks and overnight shifts, and see the total in hours and minutes, decimal hours and pay."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <HoursWorkedCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the hours calculator</h2>
+    <ol>
+      <li><strong>Enter each shift’s start and end time</strong> and any unpaid break in minutes.</li>
+      <li><strong>Add more shifts</strong> for a whole week or pay period, or tap “5-day week” to start from a standard week.</li>
+      <li><strong>Add your hourly rate</strong> (optional) to see your pay before tax.</li>
+    </ol>
+
+    <h2>Hours worked formula</h2>
+    <div class="formula">Hours worked = End time − Start time − Unpaid break</div>
+    <div class="formula">Decimal hours = Hours + Minutes ÷ 60 &nbsp;&nbsp; Pay = Decimal hours × Hourly rate</div>
+
+    <h3>Worked example</h3>
+    <p>
+      Five shifts of <strong>9:00 to 17:30</strong> with a <strong>30-minute</strong> unpaid lunch are 8 hours each, so <strong>40 hours</strong> for the week. At
+      <strong>$20 an hour</strong>, that’s <strong>$800</strong> before tax.
+    </p>
+
+    <h2>Minutes to decimal hours</h2>
+    <table>
+      <thead><tr><th>Minutes</th><th>Decimal</th><th>Minutes</th><th>Decimal</th></tr></thead>
+      <tbody>
+        <tr><td>5</td><td>0.08</td><td>35</td><td>0.58</td></tr>
+        <tr><td>10</td><td>0.17</td><td>40</td><td>0.67</td></tr>
+        <tr><td>15</td><td>0.25</td><td>45</td><td>0.75</td></tr>
+        <tr><td>20</td><td>0.33</td><td>50</td><td>0.83</td></tr>
+        <tr><td>25</td><td>0.42</td><td>55</td><td>0.92</td></tr>
+        <tr><td>30</td><td>0.50</td><td>60</td><td>1.00</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Tips for accurate timesheets</h2>
+    <ul>
+      <li><strong>Record times as you go</strong> rather than from memory at the end of the week.</li>
+      <li><strong>Only subtract unpaid breaks.</strong></li>
+      <li><strong>Check how your employer rounds time,</strong> for example to the nearest 15 minutes.</li>
+    </ul>
+    <p>Want to turn your hourly rate into a yearly salary? A salary calculator is coming soon; for now, the <a href="/percentage-calculator">percentage calculator</a> helps with pay rises.</p>
+  </Fragment>
+</CalculatorLayout>

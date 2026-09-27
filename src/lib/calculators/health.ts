@@ -3,6 +3,11 @@
  * Pure functions only. Results are general estimates, not medical advice.
  */
 
+import { addDays, daysBetween, type IsoDate } from './dates';
+
+/** Date helpers, re-exported for existing callers. */
+export { addDays, daysBetween, isIsoDate, type IsoDate } from './dates';
+
 // ---------------------------------------------------------------- units
 
 export const LB_PER_KG = 2.2046226218;
@@ -108,18 +113,6 @@ export function calorieGoals(maintenance: number, sex: Sex, steps: { label: stri
 
 // ------------------------------------------------------------ pregnancy
 
-/** A calendar date as YYYY-MM-DD. Arithmetic is done in UTC so time zones and DST never shift a day. */
-export type IsoDate = string;
-
-const toUtc = (d: IsoDate) => {
-  const [y, m, day] = d.split('-').map(Number);
-  return Date.UTC(y, m - 1, day);
-};
-const DAY = 86_400_000;
-
-export const isIsoDate = (d: string) => /^\d{4}-\d{2}-\d{2}$/.test(d) && !Number.isNaN(toUtc(d));
-export const addDays = (d: IsoDate, days: number): IsoDate => new Date(toUtc(d) + days * DAY).toISOString().slice(0, 10);
-export const daysBetween = (from: IsoDate, to: IsoDate) => Math.round((toUtc(to) - toUtc(from)) / DAY);
 
 export type DueDateMethod = 'lmp' | 'conception' | 'ivf3' | 'ivf5';
 

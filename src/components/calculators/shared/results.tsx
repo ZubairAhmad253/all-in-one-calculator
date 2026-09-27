@@ -45,12 +45,12 @@ export function StatGrid({ items }: { items: [label: string, value: string][] })
 }
 
 /** Headline result with an optional action on the right. */
-export function Headline({ label, value, action }: { label: string; value: string; action?: React.ReactNode }) {
+export function Headline({ label, value, action, compact = false }: { label: string; value: string; action?: React.ReactNode; /** Smaller text on phones, for long values. */ compact?: boolean }) {
   return (
     <div className="flex items-start justify-between gap-4">
       <div>
         <p className="text-sm font-medium text-muted">{label}</p>
-        <p className="tabular mt-1 text-4xl font-bold tracking-tight sm:text-5xl">{value}</p>
+        <p className={`tabular mt-1 font-bold tracking-tight ${compact ? 'text-3xl whitespace-nowrap sm:text-5xl' : 'text-4xl sm:text-5xl'}`}>{value}</p>
       </div>
       {action}
     </div>

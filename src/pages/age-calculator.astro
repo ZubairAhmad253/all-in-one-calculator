@@ -1,0 +1,78 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import AgeCalculator from '@/components/calculators/AgeCalculator';
+
+const faqs = [
+  {
+    q: 'How is exact age calculated?',
+    a: 'Count the whole years since the birth date, then the whole months after the last birthday, then the remaining days. Someone born on 15 May 1990 is 36 years, 4 months and 12 days old on 27 September 2026.',
+  },
+  {
+    q: 'How do people born on 29 February count their age?',
+    a: 'In years without a 29 February, the birthday is usually treated as 28 February (some countries use 1 March for legal purposes). This calculator uses 28 February, so the age goes up on 28 February in non-leap years and on 29 February in leap years.',
+  },
+  {
+    q: 'Can I find my age on a past or future date?',
+    a: 'Yes. Change the “Age on” date to any day, for example to see how old you were on your wedding day or how old you’ll be on a future date. Press “Use today” to go back.',
+  },
+  {
+    q: 'How many days old am I?',
+    a: 'The calculator shows your total age in days, weeks, months and hours. For example, someone born on 15 May 1990 is 13,284 days old on 27 September 2026.',
+  },
+  {
+    q: 'Does this work for ages in other calendars?',
+    a: 'It uses the Gregorian calendar, the standard civil calendar in most of the world. Ages in lunar calendars, such as the traditional East Asian age system, are counted differently.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="age-calculator"
+  title="Age Calculator – Exact Age in Years, Months and Days"
+  description="Free age calculator. Find your exact age in years, months and days, your age in total days and weeks, and a countdown to your next birthday."
+  intro="Find your exact age in years, months and days, how many days old you are, and how long until your next birthday, from today or on any date you choose."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <AgeCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the age calculator</h2>
+    <ol>
+      <li><strong>Enter the date of birth.</strong></li>
+      <li><strong>Leave “Age on” as today,</strong> or pick another date to see the age on that day.</li>
+    </ol>
+    <p>You’ll see the age in years, months and days, the total in months, weeks, days and hours, the next birthday and the day of the week you were born.</p>
+
+    <h2>How exact age is worked out</h2>
+    <ol>
+      <li><strong>Years:</strong> count the birthdays that have passed.</li>
+      <li><strong>Months:</strong> count whole months since the last birthday.</li>
+      <li><strong>Days:</strong> count the days left over.</li>
+    </ol>
+
+    <h3>Worked example</h3>
+    <p>
+      Born <strong>15 May 1990</strong>, on <strong>27 September 2026</strong>: the 36th birthday was on 15 May 2026, four whole months later is 15 September, and 12 days after that is
+      27 September. So the age is <strong>36 years, 4 months and 12 days</strong>, or 13,284 days in total.
+    </p>
+
+    <h3>Month-end birthdays</h3>
+    <p>
+      When a month is shorter than the birth day, the month counts as complete on its last day. Someone born on 31 January is a month older on 28 February (29 in a leap year),
+      not on 3 March.
+    </p>
+
+    <h2>Age milestones</h2>
+    <table>
+      <thead><tr><th>Milestone</th><th>Age</th></tr></thead>
+      <tbody>
+        <tr><td>10,000 days old</td><td>About 27 years, 4 months</td></tr>
+        <tr><td>1 billion seconds old</td><td>About 31 years, 8 months</td></tr>
+        <tr><td>20,000 days old</td><td>About 54 years, 9 months</td></tr>
+        <tr><td>1,000 months old</td><td>83 years, 4 months</td></tr>
+      </tbody>
+    </table>
+    <p>Want the gap between any two dates instead? Use the <a href="/date-difference-calculator">date difference calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
