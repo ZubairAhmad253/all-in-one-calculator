@@ -1,0 +1,75 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import UnitConverter from '@/components/calculators/UnitConverter';
+
+const faqs = [
+  {
+    q: 'How do I convert km/h to mph?',
+    a: 'Multiply by 0.621371 (or divide by 1.609344). 100 km/h is about 62.1 mph, and 120 km/h is about 74.6 mph.',
+  },
+  {
+    q: 'How do I convert mph to km/h?',
+    a: 'Multiply by 1.609344. 70 mph is about 112.7 km/h. A quick mental estimate is to add 60%: 50 mph ≈ 80 km/h.',
+  },
+  {
+    q: 'What is a knot?',
+    a: 'One nautical mile per hour: exactly 1.852 km/h, or about 1.151 mph. Knots are used at sea and in aviation. A ship doing 30 knots travels at 55.56 km/h.',
+  },
+  {
+    q: 'How do I convert m/s to km/h?',
+    a: 'Multiply by 3.6, because there are 3,600 seconds in an hour and 1,000 metres in a kilometre. 10 m/s is 36 km/h. To go the other way, divide by 3.6: 100 km/h is 27.78 m/s.',
+  },
+  {
+    q: 'How fast is Mach 1?',
+    a: 'The speed of sound, which depends on air temperature. At sea level at 15 °C it’s about 340.3 m/s, or 1,225 km/h (761 mph). It’s lower at the colder temperatures where jets cruise.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="speed-converter"
+  title="Speed Converter – km/h, mph, Knots & m/s"
+  description="Free speed converter. Convert kilometres per hour, miles per hour, knots, metres per second, feet per second and Mach with exact factors."
+  intro="Convert between km/h, mph, knots, metres per second, feet per second and Mach, in either direction."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <UnitConverter quantity="speed" client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the speed converter</h2>
+    <ol>
+      <li><strong>Pick the units</strong> to convert from and to.</li>
+      <li><strong>Type a speed in either box</strong> to convert in either direction.</li>
+      <li><strong>See every unit at once</strong> in the list below.</li>
+    </ol>
+
+    <h2>Speed conversion factors</h2>
+    <table>
+      <thead><tr><th>From</th><th>To</th><th>Multiply by</th></tr></thead>
+      <tbody>
+        <tr><td>mph</td><td>km/h</td><td>1.609344 (exact)</td></tr>
+        <tr><td>km/h</td><td>mph</td><td>0.621371</td></tr>
+        <tr><td>m/s</td><td>km/h</td><td>3.6 (exact)</td></tr>
+        <tr><td>mph</td><td>m/s</td><td>0.44704 (exact)</td></tr>
+        <tr><td>Knots</td><td>km/h</td><td>1.852 (exact)</td></tr>
+        <tr><td>Knots</td><td>mph</td><td>1.150779</td></tr>
+        <tr><td>ft/s</td><td>km/h</td><td>1.09728 (exact)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Speed limit chart</h2>
+    <table>
+      <thead><tr><th>mph</th><th>km/h</th><th>km/h</th><th>mph</th></tr></thead>
+      <tbody>
+        <tr><td>20</td><td>32.2</td><td>30</td><td>18.6</td></tr>
+        <tr><td>30</td><td>48.3</td><td>50</td><td>31.1</td></tr>
+        <tr><td>50</td><td>80.5</td><td>80</td><td>49.7</td></tr>
+        <tr><td>60</td><td>96.6</td><td>100</td><td>62.1</td></tr>
+        <tr><td>70</td><td>112.7</td><td>120</td><td>74.6</td></tr>
+        <tr><td>80</td><td>128.7</td><td>130</td><td>80.8</td></tr>
+      </tbody>
+    </table>
+    <p>For running and cycling speeds as pace, use the <a href="/pace-calculator">pace calculator</a>. For distances alone, see the <a href="/length-converter">length converter</a>.</p>
+  </Fragment>
+</CalculatorLayout>
