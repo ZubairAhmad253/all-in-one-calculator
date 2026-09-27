@@ -1,0 +1,64 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import ProteinCalculator from '@/components/calculators/ProteinCalculator';
+
+const faqs = [
+  {
+    q: 'How much protein do I need a day?',
+    a: 'The RDA for adults is 0.8 g per kg of body weight: 56 g for a 70 kg person. That’s a minimum to avoid deficiency. Active people usually benefit from 1.2–1.6 g/kg, and people building muscle from 1.6–2.2 g/kg.',
+  },
+  {
+    q: 'How much protein do I need to build muscle?',
+    a: 'Research reviews point to about 1.6 g per kg a day, with benefits up to about 2.2 g/kg. For a 70 kg person that’s 112–154 g a day, alongside resistance training.',
+  },
+  {
+    q: 'Do I need more protein when losing weight?',
+    a: 'Yes. In a calorie deficit, a higher intake of about 1.8–2.7 g/kg helps preserve muscle and keeps you fuller. The upper end is mostly for lean athletes cutting hard.',
+  },
+  {
+    q: 'How much protein can the body absorb in one meal?',
+    a: 'Your body absorbs nearly all the protein you eat; there’s no hard 30 g limit. For muscle building, spreading intake over 3–5 meals of roughly 0.4 g/kg each (20–40 g) is a sensible approach.',
+  },
+  {
+    q: 'Is too much protein harmful?',
+    a: 'For healthy adults, intakes up to about 2 g/kg appear safe long term. People with kidney disease should follow their doctor’s advice, as they may need to limit protein.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="protein-calculator"
+  title="Protein Calculator – How Much Protein Do I Need?"
+  description="Free protein calculator. Find how many grams of protein you need a day for your weight and goal, from the RDA to muscle building and fat loss, with per-meal targets."
+  intro="Find how many grams of protein you need each day for your body weight and goal, with a per-meal target and what that looks like in food."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <ProteinCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the protein calculator</h2>
+    <ol>
+      <li><strong>Enter your body weight</strong> in kilograms or pounds.</li>
+      <li><strong>Choose your goal.</strong></li>
+      <li><strong>Read your daily range</strong>, the per-meal amount, and food servings that would provide it.</li>
+    </ol>
+
+    <h2>Protein by goal</h2>
+    <table>
+      <thead><tr><th>Goal</th><th>g per kg</th><th>g per lb</th><th>70 kg person</th></tr></thead>
+      <tbody>
+        <tr><td>Minimum (RDA), sedentary</td><td>0.8</td><td>0.36</td><td>56 g</td></tr>
+        <tr><td>Endurance training</td><td>1.2–1.4</td><td>0.54–0.64</td><td>84–98 g</td></tr>
+        <tr><td>Active, general fitness</td><td>1.2–1.6</td><td>0.54–0.73</td><td>84–112 g</td></tr>
+        <tr><td>Older adult (65+)</td><td>1.0–1.2</td><td>0.45–0.54</td><td>70–84 g</td></tr>
+        <tr><td>Building muscle</td><td>1.6–2.2</td><td>0.73–1.0</td><td>112–154 g</td></tr>
+        <tr><td>Losing fat, keeping muscle</td><td>1.8–2.7</td><td>0.82–1.22</td><td>126–189 g</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked example</h3>
+    <p>An 80 kg (176 lb) person building muscle needs 1.6–2.2 × 80 = <strong>128–176 g of protein a day</strong>. Over 4 meals that’s 32–44 g each, about a chicken breast or a scoop of whey plus a pot of Greek yogurt.</p>
+    <p>To set carbs and fat as well, use the <a href="/macro-calculator">macro calculator</a>. For your total calories, see the <a href="/calorie-calculator">calorie calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
