@@ -1,0 +1,73 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import RandomNumberGenerator from '@/components/calculators/RandomNumberGenerator';
+
+const faqs = [
+  {
+    q: 'Are these numbers truly random?',
+    a: 'They come from your browser’s cryptographically secure random number generator (crypto.getRandomValues), the same kind of source used for security keys. The numbers are unpredictable and every number in the range is equally likely.',
+  },
+  {
+    q: 'What does “no repeats” mean?',
+    a: 'Each number can only be drawn once, like pulling tickets from a hat. Use it for raffles, lotteries and picking winners. With repeats allowed, each draw is independent, like rolling a die several times.',
+  },
+  {
+    q: 'Can I use this to pick a winner for a giveaway?',
+    a: 'Yes. Number your entries from 1 to the total, set the range to match, and draw one number (or several with no repeats). For transparency, you can screen-record the draw.',
+  },
+  {
+    q: 'What are the odds of winning a 6-from-49 lottery?',
+    a: 'There are 13,983,816 possible combinations of 6 numbers from 49, so the chance of matching all six with one ticket is 1 in 13,983,816.',
+  },
+  {
+    q: 'Can I generate negative numbers?',
+    a: 'Yes. Set the minimum to a negative number, for example −10 to 10. The range can include up to about 4.29 billion values, and you can draw up to 1,000 numbers at a time.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="random-number-generator"
+  title="Random Number Generator – Pick Random Numbers"
+  description="Free random number generator. Pick one or many random numbers in any range, with or without repeats, sorted or as drawn, using a secure and fair method."
+  intro="Pick random numbers in any range: one number, or many with or without repeats. Great for games, raffles, lotteries, sampling and decisions."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <RandomNumberGenerator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the random number generator</h2>
+    <ol>
+      <li><strong>Set the minimum and maximum.</strong> Both numbers are included.</li>
+      <li><strong>Choose how many numbers</strong> and whether they can repeat.</li>
+      <li><strong>Pick the order:</strong> as drawn, or sorted.</li>
+      <li><strong>Press Generate.</strong> Tap a quick pick for dice, coins or lottery numbers.</li>
+    </ol>
+
+    <h2>How the numbers are chosen</h2>
+    <p>
+      Each number is drawn with your browser’s secure random generator. A common shortcut (taking a random number and using the remainder after dividing by the range size)
+      makes some numbers slightly more likely than others. This generator avoids that by discarding the few raw values that would cause the imbalance, so the result is
+      perfectly fair. Draws without repeats use a shuffle, like shuffling a deck and dealing from the top.
+    </p>
+
+    <h2>Common uses</h2>
+    <table>
+      <thead><tr><th>Use</th><th>Settings</th></tr></thead>
+      <tbody>
+        <tr><td>Roll a die</td><td>1 to 6, 1 number</td></tr>
+        <tr><td>Flip a coin</td><td>0 to 1 (0 = heads, 1 = tails)</td></tr>
+        <tr><td>Pick a raffle winner</td><td>1 to number of tickets, no repeats</td></tr>
+        <tr><td>Lottery numbers</td><td>1 to 49, 6 numbers, no repeats, sorted</td></tr>
+        <tr><td>Random sample</td><td>1 to population size, sample size, no repeats</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Probability basics</h2>
+    <p>
+      With repeats allowed, every draw is independent: a 6 is just as likely after three 6s in a row. Choosing 6 numbers from 49 without repeats has
+      <strong>13,983,816</strong> possible combinations.
+    </p>
+  </Fragment>
+</CalculatorLayout>
