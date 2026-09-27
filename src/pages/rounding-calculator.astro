@@ -1,0 +1,79 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import RoundingCalculator from '@/components/calculators/RoundingCalculator';
+
+const faqs = [
+  {
+    q: 'How do I round to 2 decimal places?',
+    a: 'Look at the third decimal place. If it’s 5 or more, round the second decimal up; otherwise leave it. 3.14159 → 3.14, and 2.346 → 2.35.',
+  },
+  {
+    q: 'What are significant figures?',
+    a: 'The digits that carry meaning, starting from the first non-zero digit. 0.004560 has four significant figures (4, 5, 6 and the final 0). Rounding 123,456 to 3 significant figures gives 123,000.',
+  },
+  {
+    q: 'What is banker’s rounding?',
+    a: 'Rounding half to even: when a number is exactly halfway, it rounds to the nearest even digit. 2.5 → 2 and 3.5 → 4. It avoids a slight upward bias when rounding many numbers, so it’s used in finance and statistics.',
+  },
+  {
+    q: 'Why do some calculators round 1.005 to 1.00?',
+    a: 'Computers store decimals in binary, and 1.005 is actually stored as 1.00499999…. This calculator rounds the number as written, so 1.005 correctly becomes 1.01.',
+  },
+  {
+    q: 'What is the difference between rounding down and truncating?',
+    a: 'For positive numbers they’re the same. For negative numbers, rounding down moves away from zero (−2.2 → −3) while truncating moves toward zero (−2.7 → −2).',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="rounding-calculator"
+  title="Rounding Calculator – Decimal Places & Significant Figures"
+  description="Free rounding calculator. Round numbers to decimal places, significant figures or the nearest ten, hundred or thousand, with standard, banker's, up and down rounding."
+  intro="Round any number to decimal places, significant figures, or the nearest ten, hundred or thousand, using standard, banker’s, up, down or truncate rounding."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <RoundingCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the rounding calculator</h2>
+    <ol>
+      <li><strong>Enter your number.</strong></li>
+      <li><strong>Choose what to round to:</strong> decimal places, significant figures, or the nearest ten, hundred and so on.</li>
+      <li><strong>Pick a rounding method</strong> if you need something other than standard rounding.</li>
+    </ol>
+    <p>The table shows the same number rounded to every common level at once.</p>
+
+    <h2>Rounding rules</h2>
+    <ol>
+      <li>Find the digit in the place you’re rounding to.</li>
+      <li>Look at the next digit to the right.</li>
+      <li>If it’s <strong>5 or more</strong>, round up; if it’s <strong>4 or less</strong>, leave the digit as it is.</li>
+      <li>Drop the digits after it (or replace them with zeros before the decimal point).</li>
+    </ol>
+
+    <h3>Worked examples: 1,234.5678</h3>
+    <table>
+      <thead><tr><th>Round to</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>2 decimal places</td><td>1,234.57</td></tr>
+        <tr><td>Nearest whole number</td><td>1,235</td></tr>
+        <tr><td>Nearest hundred</td><td>1,200</td></tr>
+        <tr><td>3 significant figures</td><td>1,230</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Rounding methods compared</h2>
+    <table>
+      <thead><tr><th>Number</th><th>Half up</th><th>Half even</th><th>Up</th><th>Down</th><th>Toward zero</th></tr></thead>
+      <tbody>
+        <tr><td>2.5</td><td>3</td><td>2</td><td>3</td><td>2</td><td>2</td></tr>
+        <tr><td>3.5</td><td>4</td><td>4</td><td>4</td><td>3</td><td>3</td></tr>
+        <tr><td>−2.5</td><td>−3</td><td>−2</td><td>−2</td><td>−3</td><td>−2</td></tr>
+        <tr><td>2.1</td><td>2</td><td>2</td><td>3</td><td>2</td><td>2</td></tr>
+      </tbody>
+    </table>
+    <p>For very large or small numbers, see the <a href="/scientific-notation-calculator">scientific notation calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
