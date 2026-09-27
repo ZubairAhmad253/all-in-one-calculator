@@ -1,0 +1,58 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import PrimeNumberChecker from '@/components/calculators/PrimeNumberChecker';
+
+const faqs = [
+  {
+    q: 'What is a prime number?',
+    a: 'A whole number greater than 1 whose only divisors are 1 and itself. 2, 3, 5, 7, 11 and 13 are prime. 1 is not prime, and 2 is the only even prime.',
+  },
+  {
+    q: 'How do I check if a number is prime?',
+    a: 'Try dividing it by every prime up to its square root. If none divide it exactly, it’s prime. To test 97, you only need to try 2, 3, 5 and 7, because √97 is under 10.',
+  },
+  {
+    q: 'What is a composite number?',
+    a: 'A whole number greater than 1 that isn’t prime, so it has other divisors. Every composite number can be written as a product of primes in exactly one way: 360 = 2³ × 3² × 5.',
+  },
+  {
+    q: 'Is 91 a prime number?',
+    a: 'No. 91 = 7 × 13. It’s a common trick question because it looks prime: it’s odd, and it isn’t divisible by 3 or 5.',
+  },
+  {
+    q: 'How many prime numbers are there?',
+    a: 'Infinitely many: Euclid proved this over 2,000 years ago. There are 25 primes below 100 and 168 below 1,000.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="prime-number-checker"
+  title="Prime Number Checker – Is It Prime? Factors & Divisors"
+  description="Free prime number checker. Find out if a number is prime, see its prime factorisation and all divisors, and find the previous and next prime numbers."
+  intro="Check whether a number is prime, see its prime factorisation and all its divisors, and find the nearest primes on either side."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <PrimeNumberChecker client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the prime number checker</h2>
+    <p>Enter any whole number up to about 9 quadrillion. You’ll see straight away whether it’s prime, its prime factors if it isn’t, the number of divisors, and the primes before and after it.</p>
+
+    <h2>How primality is tested</h2>
+    <p>The checker tries dividing by 2, by 3, and then by numbers of the form 6k ± 1 up to the square root. Every prime above 3 has that form, so this skips two-thirds of the work while still checking every possible prime factor.</p>
+
+    <h3>Worked examples</h3>
+    <ul>
+      <li><strong>97</strong>: not divisible by 2, 3, 5 or 7 (and √97 &lt; 10), so it’s <strong>prime</strong>.</li>
+      <li><strong>91</strong> = 7 × 13, so it’s <strong>composite</strong>.</li>
+      <li><strong>561</strong> = 3 × 11 × 17: a famous “Carmichael number” that fools some quick primality tests.</li>
+      <li><strong>2,147,483,647</strong> = 2³¹ − 1 is prime: a Mersenne prime.</li>
+    </ul>
+
+    <h2>Primes up to 100</h2>
+    <p class="tabular">2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97</p>
+    <p>Finding common factors of several numbers? Use the <a href="/lcm-gcd-calculator">LCM and GCD calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
