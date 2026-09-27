@@ -1,0 +1,79 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import ProbabilityCalculator from '@/components/calculators/ProbabilityCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate the probability of two events both happening?',
+    a: 'For independent events, multiply their probabilities. A 50% chance and a 40% chance both happen 0.5 × 0.4 = 0.2, or 20% of the time.',
+  },
+  {
+    q: 'How do I find the probability of A or B?',
+    a: 'Add the probabilities and subtract the overlap: P(A or B) = P(A) + P(B) − P(A and B). With 50% and 40%, that’s 50% + 40% − 20% = 70%.',
+  },
+  {
+    q: 'What are the chances of rolling at least one six in four rolls?',
+    a: 'Work out the chance of no sixes, (5/6)⁴ = 48.23%, and subtract it from 1. The chance of at least one six is 51.77%, a little better than even.',
+  },
+  {
+    q: 'If something has a 1% chance, will it happen in 100 tries?',
+    a: 'Not necessarily. The chance of at least one success in 100 tries is 1 − 0.99¹⁰⁰ ≈ 63.4%. You’d need 299 tries for a 95% chance.',
+  },
+  {
+    q: 'What is a binomial probability?',
+    a: 'The chance of getting exactly k successes in n independent trials that each have the same success chance p. For example, exactly 5 heads in 10 coin flips is C(10, 5) × 0.5¹⁰ = 24.61%.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="probability-calculator"
+  title="Probability Calculator – Two Events, Odds & Binomial"
+  description="Free probability calculator. Find the chance of A and B, A or B, neither, at least one success in repeated tries, and binomial probabilities for n trials."
+  intro="Work out the probability of two events, the chance of at least one success over repeated tries, or the binomial probability of k successes in n trials."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <ProbabilityCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the probability calculator</h2>
+    <ul>
+      <li><strong>Two events:</strong> enter the chance of A and of B to get the chance of both, either, exactly one, or neither.</li>
+      <li><strong>Repeated tries:</strong> enter the chance per try and the number of tries to get the chance of at least one success.</li>
+      <li><strong>Binomial:</strong> enter trials, successes and the chance per trial to get exact, at-least and at-most probabilities.</li>
+    </ul>
+    <p>Enter probabilities as percentages: 1 in 6 is 16.6667%.</p>
+
+    <h2>Probability rules</h2>
+    <table>
+      <thead><tr><th>Rule</th><th>Formula</th></tr></thead>
+      <tbody>
+        <tr><td>Not A (complement)</td><td>1 − P(A)</td></tr>
+        <tr><td>A and B (independent)</td><td>P(A) × P(B)</td></tr>
+        <tr><td>A or B</td><td>P(A) + P(B) − P(A and B)</td></tr>
+        <tr><td>At least one in n tries</td><td>1 − (1 − p)ⁿ</td></tr>
+        <tr><td>Exactly k of n (binomial)</td><td>C(n, k) × pᵏ × (1 − p)ⁿ⁻ᵏ</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked example: 10 coin flips</h3>
+    <table>
+      <thead><tr><th>Heads</th><th>Probability</th></tr></thead>
+      <tbody>
+        <tr><td>Exactly 5</td><td>24.61%</td></tr>
+        <tr><td>Exactly 7</td><td>11.72%</td></tr>
+        <tr><td>7 or more</td><td>17.19%</td></tr>
+        <tr><td>Exactly 10</td><td>0.098% (1 in 1,024)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Common mistakes</h2>
+    <ul>
+      <li><strong>Adding chances over tries.</strong> Two tries at 50% don’t give 100%; they give 75%.</li>
+      <li><strong>The gambler’s fallacy.</strong> After five tails in a row, the next flip is still 50/50.</li>
+      <li><strong>Assuming independence.</strong> Drawing cards without putting them back changes the odds each time.</li>
+    </ul>
+    <p>To count arrangements and selections, use the <a href="/permutation-combination-calculator">permutation and combination calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
