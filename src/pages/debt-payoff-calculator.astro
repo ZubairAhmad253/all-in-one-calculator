@@ -1,0 +1,82 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import DebtPayoffCalculator from '@/components/calculators/DebtPayoffCalculator';
+
+const faqs = [
+  {
+    q: 'What is the debt snowball method?',
+    a: 'You pay the minimum on every debt, then put all your extra money on the smallest balance. When it’s gone, its payment rolls on to the next smallest, like a snowball growing. The quick early wins help many people stay motivated.',
+  },
+  {
+    q: 'What is the debt avalanche method?',
+    a: 'You pay the minimum on every debt, then put your extra money on the debt with the highest interest rate. Mathematically it always costs the same or less interest than the snowball method.',
+  },
+  {
+    q: 'Which is better, snowball or avalanche?',
+    a: 'Avalanche saves the most money; snowball gives faster wins. If the difference in interest is small, choose the one you’ll stick with. The calculator shows both side by side so you can see the real difference for your debts.',
+  },
+  {
+    q: 'What happens to a payment once a debt is paid off?',
+    a: 'It rolls over. In both methods, the minimum you were paying on a cleared debt is added to the payment on the next target, so your total monthly budget stays the same while each debt is cleared faster.',
+  },
+  {
+    q: 'Should I include my mortgage?',
+    a: 'Usually not. These methods work best for consumer debts such as credit cards, store cards, personal and car loans. Mortgages are long-term and low-rate, and are usually better handled separately.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="debt-payoff-calculator"
+  title="Debt Payoff Calculator – Snowball vs Avalanche"
+  description="Free debt payoff calculator. Enter all your debts and compare the snowball and avalanche methods: payoff order, total interest and when you'll be debt-free."
+  intro="List your debts and see when you’ll be debt-free with the snowball method (smallest balance first) and the avalanche method (highest rate first), side by side."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <DebtPayoffCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the debt payoff calculator</h2>
+    <ol>
+      <li><strong>Add each debt</strong> with its balance, APR and minimum monthly payment.</li>
+      <li><strong>Enter how much extra</strong> you can pay each month on top of the minimums.</li>
+    </ol>
+    <p>The calculator runs both methods month by month and shows when each debt is cleared and how much interest you pay in total.</p>
+
+    <h2>Snowball vs avalanche</h2>
+    <table>
+      <thead><tr><th></th><th>Snowball</th><th>Avalanche</th></tr></thead>
+      <tbody>
+        <tr><td>Target first</td><td>Smallest balance</td><td>Highest interest rate</td></tr>
+        <tr><td>Main benefit</td><td>Quick wins and motivation</td><td>Least total interest</td></tr>
+        <tr><td>Best for</td><td>Staying on track</td><td>Saving money</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked example</h3>
+    <p>Three debts, with <strong>$200 extra</strong> a month on top of the $435 of minimums:</p>
+    <table>
+      <thead><tr><th>Debt</th><th>Balance</th><th>APR</th><th>Minimum</th></tr></thead>
+      <tbody>
+        <tr><td>Credit card</td><td>$6,000</td><td>24%</td><td>$150</td></tr>
+        <tr><td>Store card</td><td>$1,200</td><td>18%</td><td>$35</td></tr>
+        <tr><td>Car loan</td><td>$9,000</td><td>6%</td><td>$250</td></tr>
+      </tbody>
+    </table>
+    <ul>
+      <li><strong>Snowball</strong> clears the store card first, in month 6, and costs <strong>$2,727</strong> in interest.</li>
+      <li><strong>Avalanche</strong> clears the credit card first, in month 22, and costs <strong>$2,606</strong>, about $121 less.</li>
+    </ul>
+    <p>Both finish in 30 months. Here the avalanche saves money, but the snowball’s first win comes 16 months sooner: a real trade-off.</p>
+
+    <h2>Tips for getting out of debt</h2>
+    <ul>
+      <li><strong>Always pay every minimum</strong> to avoid fees and damage to your credit score.</li>
+      <li><strong>Automate your payments</strong> on the day your pay arrives.</li>
+      <li><strong>Put windfalls on the target debt:</strong> tax refunds, bonuses, gifts.</li>
+      <li><strong>Avoid new debt</strong> while you pay off the old.</li>
+    </ul>
+    <p>For a single card, the <a href="/credit-card-payoff-calculator">credit card payoff calculator</a> shows the payment needed to be debt-free by a date.</p>
+  </Fragment>
+</CalculatorLayout>

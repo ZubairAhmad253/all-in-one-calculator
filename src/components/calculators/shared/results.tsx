@@ -6,6 +6,7 @@ import { Donut, type DonutSegment } from '@/components/charts/Donut';
 import { LineChart } from '@/components/charts/LineChart';
 import { StackedBarChart } from '@/components/charts/StackedBarChart';
 import type { GrowthYear } from '@/lib/calculators/growth';
+import { addMonths, type IsoDate } from '@/lib/calculators/dates';
 
 /** Donut with a value legend beside it (stacks on phones). */
 export function BreakdownDonut({ segments, currency, center }: { segments: DonutSegment[]; currency: string; center: { label: string; value: string } }) {
@@ -86,12 +87,29 @@ interface AmortizationPanelProps {
   currency: string;
   note: string;
   defaultView?: View;
+  /** First payment date (YYYY-MM-DD): labels monthly rows with real dates. */
+  start?: IsoDate;
+  /** Offer a CSV download of the monthly schedule under this file name. */
+  csvName?: string;
+}
+
+const monthLabel = (d: IsoDate) => new Date(`${d}T00:00:00Z`).toLocaleDateString('en', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+
+/** Download rows as a CSV file (plain numbers, so spreadsheets can sum them). */
+function downloadCsv(name: string, head: string[], rows: (string | number)[][]) {
+  const esc = (v: string | number) => (typeof v === 'number' ? v.toFixed(2).replace(/\.00$/, '') : `"${v.replace(/"/g, '""')}"`);
+  const csv = [head.map(esc), ...rows.map((r) => r.map(esc))].map((r) => r.join(',')).join('\r\n');
+  const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
+  const a = Object.assign(document.createElement('a'), { href: url, download: name });
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 /** Balance chart plus yearly (and optionally monthly) schedule tables. */
-export function AmortizationPanel({ principal, yearly, monthly, currency, note, defaultView = 'chart' }: AmortizationPanelProps) {
+export function AmortizationPanel({ principal, yearly, monthly, currency, note, defaultView = 'chart', start, csvName }: AmortizationPanelProps) {
   const [view, setView] = useState<View>(defaultView);
   const money = (v: number) => formatMoney(v, currency);
+  const dateOf = (m: number) => (start ? addMonths(start, m - 1) : null);
 
   let cumInterest = 0;
   let cumPrincipal = 0;
@@ -109,7 +127,24 @@ export function AmortizationPanel({ principal, yearly, monthly, currency, note, 
     <div className="border-t border-line p-5 sm:p-7">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-lg font-semibold">Amortization</h2>
-        <Tabs value={view} onChange={setView} tabs={tabs} />
+        <div className="flex flex-wrap items-center gap-2">
+          {csvName && monthly && (
+            <button
+              type="button"
+              onClick={() =>
+                downloadCsv(
+                  csvName,
+                  ['Payment', ...(start ? ['Date'] : []), 'Payment amount', 'Principal', 'Interest', 'Balance'],
+                  monthly.map((m) => [m.month, ...(start ? [dateOf(m.month)!] : []), m.payment, m.principal, m.interest, m.balance]),
+                )
+              }
+              className="h-9 rounded-xl border border-line bg-surface px-3 text-sm font-medium text-muted hover:border-brand/40 hover:text-fg"
+            >
+              Download CSV
+            </button>
+          )}
+          <Tabs value={view} onChange={setView} tabs={tabs} />
+        </div>
       </div>
 
       {view === 'chart' && (
@@ -137,8 +172,8 @@ export function AmortizationPanel({ principal, yearly, monthly, currency, note, 
 
       {view === 'monthly' && monthly && (
         <ScheduleTable
-          head={['Month', 'Payment', 'Principal', 'Interest', 'Balance']}
-          rows={monthly.map((m) => [m.month, money(m.payment), money(m.principal), money(m.interest), money(m.balance)])}
+          head={[start ? 'Date' : 'Month', 'Payment', 'Principal', 'Interest', 'Balance']}
+          rows={monthly.map((m) => [start ? monthLabel(dateOf(m.month)!) : m.month, money(m.payment), money(m.principal), money(m.interest), money(m.balance)])}
           yearBreaks
         />
       )}

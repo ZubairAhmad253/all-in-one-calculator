@@ -1,0 +1,83 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import AprCalculator from '@/components/calculators/AprCalculator';
+
+const faqs = [
+  {
+    q: 'What is APR?',
+    a: 'APR (annual percentage rate) is the yearly cost of a loan including most fees, not just the interest. Two loans with the same interest rate can have different APRs if one charges higher fees, which is why APR is the better way to compare offers.',
+  },
+  {
+    q: 'What is the difference between APR and interest rate?',
+    a: 'The interest rate only covers the cost of borrowing the money. APR also spreads the upfront fees over the life of the loan. A $10,000, 3-year loan at 8% with $300 of fees has an APR of about 10.08%.',
+  },
+  {
+    q: 'Why is APR higher on shorter loans with the same fees?',
+    a: 'The fees are spread over fewer payments. The same $300 fee on a $10,000 loan at 8% gives an APR of about 13.77% over 1 year, 10.08% over 3 years and 9.30% over 5 years.',
+  },
+  {
+    q: 'Which fees are included in APR?',
+    a: 'Usually origination or arrangement fees, broker fees, mortgage points and some closing costs. Rules vary by country and loan type. Fees that aren’t required to get the loan, such as optional insurance, often aren’t included.',
+  },
+  {
+    q: 'What is APY or APRC?',
+    a: 'APY (annual percentage yield) and the EU/UK APRC include the effect of compounding, so they come out slightly higher than a US-style APR for the same loan. This calculator uses the US Truth in Lending method.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="apr-calculator"
+  title="APR Calculator – True Cost of a Loan with Fees"
+  description="Free APR calculator. Find the real annual percentage rate of a loan once upfront fees are included, with the monthly payment, total interest and total cost."
+  intro="Find the true yearly cost of a loan once upfront fees are included, and compare offers fairly even when their interest rates and fees differ."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <AprCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the APR calculator</h2>
+    <ol>
+      <li><strong>Enter the loan amount, interest rate and term.</strong></li>
+      <li><strong>Enter the upfront fees</strong> and whether they’re deducted from the loan or added to it.</li>
+    </ol>
+    <p>You’ll see the APR, how much higher it is than the quoted rate, and the total cost of borrowing.</p>
+
+    <h2>How APR is calculated</h2>
+    <p>
+      First the monthly payment is worked out from the loan amount and interest rate. APR is then the rate at which those same payments would repay only the money you actually
+      receive (the loan minus the fees):
+    </p>
+    <div class="formula">Amount received = Payment × (1 − (1 + r)<sup>−n</sup>) ÷ r &nbsp;&nbsp; APR = r × 12</div>
+    <p>There’s no simple formula for r, so it’s found by trial and improvement, which the calculator does instantly.</p>
+
+    <h3>Worked example</h3>
+    <p>
+      A <strong>$10,000</strong> loan at <strong>8%</strong> for <strong>3 years</strong> has a payment of <strong>$313.36</strong>. With <strong>$300</strong> of fees taken off the
+      top, you only receive $9,700, but still make the same payments. That works out at an APR of <strong>10.08%</strong>. The total cost of borrowing is $1,281 of interest plus
+      $300 of fees: <strong>$1,581</strong>.
+    </p>
+
+    <h2>The same fee on different terms</h2>
+    <table>
+      <thead><tr><th>$10,000 at 8%, $300 fee</th><th>APR</th></tr></thead>
+      <tbody>
+        <tr><td>1 year</td><td>13.77%</td></tr>
+        <tr><td>3 years</td><td>10.08%</td></tr>
+        <tr><td>5 years</td><td>9.30%</td></tr>
+      </tbody>
+    </table>
+    <p>
+      Mortgages work the same way: 2 points ($6,000) on a $300,000, 30-year loan at 6.5% gives an APR of about 6.70%.
+    </p>
+
+    <h2>Using APR to compare loans</h2>
+    <ul>
+      <li><strong>Compare APRs</strong> for loans with the same term.</li>
+      <li><strong>Look at total cost too</strong>, especially if you might repay early: fees paid upfront aren’t refunded.</li>
+      <li><strong>Ask what’s included</strong> in the APR a lender quotes.</li>
+    </ul>
+    <p>Ready to see the payments? Use the <a href="/loan-calculator">loan calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>

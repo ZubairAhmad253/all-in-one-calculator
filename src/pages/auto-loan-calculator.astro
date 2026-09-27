@@ -1,0 +1,80 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import AutoLoanCalculator from '@/components/calculators/AutoLoanCalculator';
+
+const faqs = [
+  {
+    q: 'How is a car loan payment calculated?',
+    a: 'First work out the amount financed: the car price, minus your down payment and trade-in equity, plus sales tax and fees if you roll them into the loan. The monthly payment then uses the standard loan formula for that amount, the APR and the number of months.',
+  },
+  {
+    q: 'Does a trade-in reduce sales tax?',
+    a: 'In most US states, yes: sales tax is charged on the price after the trade-in credit. On a $35,000 car with a $10,000 trade-in at 7% tax, you pay tax on $25,000 instead of $35,000, saving $700. A few states tax the full price, so untick the option if that applies to you.',
+  },
+  {
+    q: 'What is negative equity?',
+    a: 'It’s when you owe more on your current car than it’s worth. The difference is usually added to your new loan, so you pay interest on the old car too. Paying it off, or waiting until you have equity, keeps the new loan smaller.',
+  },
+  {
+    q: 'Is a longer car loan a good idea?',
+    a: 'A longer term lowers the payment but increases the interest, and cars lose value quickly, so you can end up owing more than the car is worth. On $33,050 at 6.5%, 84 months costs $8,175 in interest versus $3,416 over 36 months.',
+  },
+  {
+    q: 'How much should I put down on a car?',
+    a: 'A common guideline is at least 10–20% of the price. A bigger down payment lowers your payment and interest, and helps you avoid owing more than the car is worth in the first few years.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="auto-loan-calculator"
+  title="Auto Loan Calculator – Car Payment with Tax & Trade-In"
+  description="Free auto loan calculator. Work out your monthly car payment including sales tax, fees, down payment and trade-in, with total interest and the full cost of the car."
+  intro="Work out your monthly car payment and the full cost of the car, including sales tax, fees, your down payment and any trade-in, and compare loan terms."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <AutoLoanCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the auto loan calculator</h2>
+    <ol>
+      <li><strong>Enter the price, your down payment and any trade-in</strong>, including what you still owe on it.</li>
+      <li><strong>Add sales tax and fees</strong> such as title and registration.</li>
+      <li><strong>Enter the APR and term,</strong> or tap a common term.</li>
+    </ol>
+
+    <h2>How the amount financed is worked out</h2>
+    <div class="formula">Amount financed = Price − Down payment − Trade-in equity + Tax + Fees</div>
+    <p>Trade-in equity is the trade-in value minus anything still owed on it. If that’s negative, it adds to the loan.</p>
+
+    <h3>Worked example</h3>
+    <p>
+      A <strong>$35,000</strong> car with <strong>$5,000</strong> down, <strong>7%</strong> sales tax ($2,450) and <strong>$600</strong> of fees gives an amount financed of
+      <strong>$33,050</strong>. At <strong>6.5% APR</strong> over <strong>60 months</strong>, that’s <strong>$646.66 a month</strong> and $5,750 in interest, so the car costs
+      <strong>$43,800</strong> in total.
+    </p>
+
+    <h2>How the term changes the cost</h2>
+    <table>
+      <thead><tr><th>Term</th><th>Monthly payment</th><th>Total interest</th></tr></thead>
+      <tbody>
+        <tr><td>36 months</td><td>$1,012.95</td><td>$3,416</td></tr>
+        <tr><td>48 months</td><td>$783.78</td><td>$4,571</td></tr>
+        <tr><td>60 months</td><td>$646.66</td><td>$5,750</td></tr>
+        <tr><td>72 months</td><td>$555.57</td><td>$6,951</td></tr>
+        <tr><td>84 months</td><td>$490.77</td><td>$8,175</td></tr>
+      </tbody>
+    </table>
+    <p>Based on $33,050 at 6.5% APR.</p>
+
+    <h2>Tips for a cheaper car loan</h2>
+    <ul>
+      <li><strong>Get pre-approved</strong> by a bank or credit union before visiting the dealer, so you can compare offers.</li>
+      <li><strong>Negotiate the price first,</strong> then the financing; don’t shop by monthly payment alone.</li>
+      <li><strong>Keep the term short:</strong> 60 months or less if you can.</li>
+      <li><strong>Watch for add-ons</strong> such as extended warranties rolled into the loan.</li>
+    </ul>
+    <p>Compare the true cost of offers with fees using the <a href="/apr-calculator">APR calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>

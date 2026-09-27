@@ -1,0 +1,79 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import DownPaymentCalculator from '@/components/calculators/DownPaymentCalculator';
+
+const faqs = [
+  {
+    q: 'How much down payment do I need for a house?',
+    a: 'It depends on the loan. 20% down avoids mortgage insurance on most conventional US loans, but many lenders accept 5% or less, and some government-backed loans allow 3.5% or even 0%. Outside the US, 5–25% is common depending on the country and lender.',
+  },
+  {
+    q: 'Do I need money for closing costs too?',
+    a: 'Yes. Closing costs, usually 2–5% of the price, cover lender fees, legal work, title insurance and taxes. On a $400,000 home, 3% is $12,000 on top of your down payment.',
+  },
+  {
+    q: 'What is PMI?',
+    a: 'Private mortgage insurance protects the lender if you put less than 20% down on a conventional US loan. It typically costs about 0.3–1.5% of the loan a year and can usually be removed once you reach 20% equity.',
+  },
+  {
+    q: 'Is it better to wait until I have 20% down?',
+    a: 'Not always. Waiting saves PMI and gives a smaller loan, but home prices and rents may rise while you save. Compare the extra monthly cost of buying sooner with the cost of waiting.',
+  },
+  {
+    q: 'How can I save for a down payment faster?',
+    a: 'Automate a monthly transfer, keep the savings in a high-interest account, put windfalls towards it, and check for first-time buyer schemes or grants where you live.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="down-payment-calculator"
+  title="Down Payment Calculator – How Much to Save for a House"
+  description="Free down payment calculator. Work out the cash you need for a home, including closing costs, how long it will take to save, and your mortgage payment."
+  intro="Work out how much cash you need to buy a home, including closing costs, how long it will take to save it, and what your mortgage payment would be."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <DownPaymentCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the down payment calculator</h2>
+    <ol>
+      <li><strong>Enter the home price</strong> and the down payment percentage you’re aiming for.</li>
+      <li><strong>Add closing costs</strong> (usually 2–5% of the price).</li>
+      <li><strong>Enter your savings plan:</strong> what you have, what you save each month, and the interest you earn.</li>
+    </ol>
+    <p>You’ll see the total cash needed, how long it will take to save, and a comparison of different down payment sizes.</p>
+
+    <h2>How the cash needed is worked out</h2>
+    <div class="formula">Cash needed = Price × Down % + Price × Closing cost %</div>
+
+    <h3>Worked example</h3>
+    <p>
+      For a <strong>$400,000</strong> home with <strong>20%</strong> down and <strong>3%</strong> closing costs, you need $80,000 + $12,000 = <strong>$92,000</strong>. With
+      $50,000 already saved and <strong>$1,500 a month</strong> going into an account earning 4%, you’d have enough in about <strong>25 months</strong>. The $320,000 mortgage at
+      6.5% over 30 years would cost <strong>$2,022.62 a month</strong>.
+    </p>
+
+    <h2>Comparing down payment sizes</h2>
+    <table>
+      <thead><tr><th>Down payment on $400,000</th><th>Cash needed (with 3% closing)</th><th>Loan</th><th>Monthly payment</th></tr></thead>
+      <tbody>
+        <tr><td>3.5%</td><td>$26,000</td><td>$386,000</td><td>$2,440</td></tr>
+        <tr><td>5%</td><td>$32,000</td><td>$380,000</td><td>$2,402</td></tr>
+        <tr><td>10%</td><td>$52,000</td><td>$360,000</td><td>$2,275</td></tr>
+        <tr><td>20%</td><td>$92,000</td><td>$320,000</td><td>$2,023</td></tr>
+      </tbody>
+    </table>
+    <p>Payments are principal and interest at 6.5% over 30 years. Below 20%, add mortgage insurance on most conventional US loans.</p>
+
+    <h2>Tips for saving your down payment</h2>
+    <ul>
+      <li><strong>Automate your savings</strong> on payday.</li>
+      <li><strong>Use a high-interest account</strong>; even 4% noticeably shortens the time.</li>
+      <li><strong>Look for first-time buyer programmes</strong> and grants in your area.</li>
+      <li><strong>Keep an emergency fund separate</strong> from your down payment.</li>
+    </ul>
+    <p>Next, see the full monthly cost with tax and insurance in the <a href="/mortgage-calculator">mortgage calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>

@@ -55,6 +55,24 @@ describe('groupByYear', () => {
   });
 });
 
+describe('one-time extra payment', () => {
+  it('applies a lump sum with the chosen payment and saves interest', () => {
+    const base = calculateLoan(25_000, 7, 60);
+    const lump = calculateLoan(25_000, 7, 60, 0, { month: 12, amount: 5_000 });
+    // The 12th payment includes the extra $5,000 of principal.
+    expect(lump.monthly[11].principal - base.monthly[11].principal).toBeCloseTo(5_000, 6);
+    expect(lump.months).toBeLessThan(60);
+    expect(lump.interestSaved).toBeGreaterThan(0);
+    expect(lump.monthly.at(-1)!.balance).toBe(0);
+  });
+
+  it('can clear the loan in one go', () => {
+    const r = calculateLoan(10_000, 5, 60, 0, { month: 1, amount: 50_000 });
+    expect(r.months).toBe(1);
+    expect(r.monthly[0].balance).toBe(0);
+  });
+});
+
 describe('calculateLoan', () => {
   it('reports interest and months saved by extra payments', () => {
     const base = calculateLoan(25_000, 7, 60);

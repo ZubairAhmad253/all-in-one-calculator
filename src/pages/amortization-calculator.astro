@@ -1,0 +1,79 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import AmortizationCalculator from '@/components/calculators/AmortizationCalculator';
+
+const faqs = [
+  {
+    q: 'What is an amortization schedule?',
+    a: 'It’s a table of every payment on a loan, showing how much of each payment goes to interest, how much repays the principal, and the balance left afterwards. On a fixed-rate loan, the payment stays the same but the split changes every month.',
+  },
+  {
+    q: 'Why is so much of my early payment interest?',
+    a: 'Interest is charged on the balance you still owe, which is highest at the start. On a $250,000 loan at 6%, the first payment of $1,498.88 includes $1,250 of interest and only $248.88 of principal. The principal share grows every month.',
+  },
+  {
+    q: 'Can I download the schedule?',
+    a: 'Yes. Press “Download CSV” to save the full month-by-month schedule. It opens in Excel, Google Sheets or Numbers, with plain numbers you can add up or chart.',
+  },
+  {
+    q: 'How do extra payments change the schedule?',
+    a: 'Extra payments go straight to principal, so the balance falls faster and less interest is charged every month after. On a $250,000 loan at 6% over 30 years, an extra $150 a month saves about $70,409 in interest.',
+  },
+  {
+    q: 'When is my loan half paid off?',
+    a: 'Later than you might think. On a 30-year loan at 6%, the balance falls to half at around payment 252, about 21 years in, because early payments are mostly interest. The schedule shows exactly when for your loan.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="amortization-calculator"
+  title="Amortization Calculator – Loan Schedule with Dates & CSV"
+  description="Free amortization calculator. See every payment of your loan with dates, principal, interest and balance, add extra or one-off payments, and download the schedule."
+  intro="See every payment on your loan, dated from your first payment, with the interest, principal and balance left each month. Add extra or one-off payments and download the full schedule."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <AmortizationCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the amortization calculator</h2>
+    <ol>
+      <li><strong>Enter the loan amount, interest rate and term.</strong></li>
+      <li><strong>Pick the month of your first payment</strong> so every row has a real date.</li>
+      <li><strong>Add extra payments</strong> (optional): a regular monthly extra, a one-off lump sum, or both.</li>
+    </ol>
+    <p>The schedule shows every payment. Switch to <strong>Yearly</strong> for totals by year or <strong>Chart</strong> to see the balance fall, and use <strong>Download CSV</strong> to keep a copy.</p>
+
+    <h2>How amortization works</h2>
+    <p>Each month:</p>
+    <div class="formula">Interest = Balance × (Annual rate ÷ 12) &nbsp;&nbsp; Principal = Payment − Interest</div>
+    <div class="formula">New balance = Balance − Principal</div>
+    <p>The payment itself is fixed, using M = P × r ÷ (1 − (1 + r)<sup>−n</sup>).</p>
+
+    <h3>Worked example</h3>
+    <p>
+      A <strong>$250,000</strong> loan at <strong>6%</strong> for <strong>30 years</strong> costs <strong>$1,498.88 a month</strong>. The first payment is $1,250.00 interest
+      ($250,000 × 0.06 ÷ 12) and $248.88 principal. Over 360 payments the interest adds up to <strong>$289,595</strong>.
+    </p>
+
+    <h2>The effect of extra payments</h2>
+    <table>
+      <thead><tr><th>Extra payment</th><th>Loan ends</th><th>Interest saved</th></tr></thead>
+      <tbody>
+        <tr><td>None</td><td>After 360 payments</td><td>—</td></tr>
+        <tr><td>One-off $10,000 with payment 12</td><td>After 326 payments</td><td>$42,082</td></tr>
+        <tr><td>$150 every month</td><td>After 285 payments</td><td>$70,409</td></tr>
+      </tbody>
+    </table>
+    <p>A single $10,000 payment in the first year takes almost three years off the loan, because that money never earns interest for the lender again.</p>
+
+    <h2>Using your schedule</h2>
+    <ul>
+      <li><strong>Plan extra payments</strong> for the early years, when they save the most.</li>
+      <li><strong>Check your lender’s statements</strong> against the schedule to spot errors.</li>
+      <li><strong>Know your balance</strong> at any date, for example if you plan to sell or refinance.</li>
+    </ul>
+    <p>Buying a home? The <a href="/mortgage-calculator">mortgage calculator</a> adds property tax and insurance to the payment.</p>
+  </Fragment>
+</CalculatorLayout>
