@@ -1,0 +1,78 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import ShapeCalculator from '@/components/calculators/ShapeCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate volume?',
+    a: 'For a box, multiply length × width × height. A box 4 m long, 3 m wide and 2 m high holds 24 m³. Other shapes have their own formulas, such as πr²h for a cylinder.',
+  },
+  {
+    q: 'How many litres are in a cubic metre?',
+    a: 'Exactly 1,000 litres. A cubic foot is about 28.32 litres, and a US gallon is 3.785 litres.',
+  },
+  {
+    q: 'How much water does a pool hold?',
+    a: 'Multiply length × width × average depth. A pool 10 m × 8 m with an average depth of 1.5 m holds 120 m³, which is 120,000 litres or about 31,700 US gallons.',
+  },
+  {
+    q: 'What is the volume of a sphere?',
+    a: 'V = ⁴⁄₃πr³. A ball with a 3 cm radius has a volume of about 113.1 cm³. Because the radius is cubed, doubling it makes the volume 8 times bigger.',
+  },
+  {
+    q: 'Why is a cone one third of a cylinder?',
+    a: 'A cone with the same base and height as a cylinder holds exactly a third as much: V = ⅓πr²h. The same is true of a pyramid and the box around it.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="volume-calculator"
+  title="Volume Calculator – Box, Cylinder, Sphere, Cone & More"
+  description="Free volume calculator for 9 shapes: cube, box, cylinder, sphere, hemisphere, cone, pyramid, capsule and prism, with surface area and litres, gallons and cubic feet."
+  intro="Find the volume and surface area of 9 common 3D shapes in any unit, converted to cubic metres, litres, US gallons and cubic feet."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <ShapeCalculator kind="volume" client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the volume calculator</h2>
+    <ol>
+      <li><strong>Pick a shape.</strong></li>
+      <li><strong>Choose your unit</strong> and enter the measurements.</li>
+      <li><strong>Read the volume</strong> in your unit cubed, the surface area, and the capacity in litres and gallons.</li>
+    </ol>
+
+    <h2>Volume formulas</h2>
+    <table>
+      <thead><tr><th>Shape</th><th>Volume</th><th>Example</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>Cube</td><td>s³</td><td>s = 3</td><td>27</td></tr>
+        <tr><td>Box</td><td>l × w × h</td><td>4 × 3 × 2</td><td>24</td></tr>
+        <tr><td>Cylinder</td><td>πr²h</td><td>r = 2, h = 5</td><td>62.83</td></tr>
+        <tr><td>Sphere</td><td>⁴⁄₃πr³</td><td>r = 3</td><td>113.10</td></tr>
+        <tr><td>Hemisphere</td><td>⅔πr³</td><td>r = 3</td><td>56.55</td></tr>
+        <tr><td>Cone</td><td>⅓πr²h</td><td>r = 3, h = 4</td><td>37.70</td></tr>
+        <tr><td>Square pyramid</td><td>⅓s²h</td><td>s = 3, h = 4</td><td>12</td></tr>
+        <tr><td>Capsule</td><td>πr²h + ⁴⁄₃πr³</td><td>r = 2, h = 5</td><td>96.34</td></tr>
+        <tr><td>Triangular prism</td><td>½bhl</td><td>b = 3, h = 2, l = 5</td><td>15</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked example: a cooking pot</h3>
+    <p>A pot 30 cm across and 30 cm deep has a radius of 15 cm, so it holds π × 15² × 30 ≈ 21,206 cm³, or about <strong>21.2 litres</strong>.</p>
+
+    <h2>Volume unit conversions</h2>
+    <table>
+      <thead><tr><th>Unit</th><th>Equals</th></tr></thead>
+      <tbody>
+        <tr><td>1 m³</td><td>1,000 L = 35.3147 ft³ = 264.172 US gal</td></tr>
+        <tr><td>1 L</td><td>1,000 cm³ = 0.264172 US gal</td></tr>
+        <tr><td>1 ft³</td><td>28.3168 L = 7.48052 US gal</td></tr>
+        <tr><td>1 US gal</td><td>3.78541 L = 231 in³</td></tr>
+      </tbody>
+    </table>
+    <p>For flat shapes, use the <a href="/area-calculator">area calculator</a>. Pouring a slab? The <a href="/concrete-calculator">concrete calculator</a> adds waste and bag counts.</p>
+  </Fragment>
+</CalculatorLayout>
