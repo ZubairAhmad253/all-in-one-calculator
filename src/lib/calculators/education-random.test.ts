@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { cumulativeGpa, gpa, gradePoints, letterFromPercent, neededOnFinal, weightedGrade } from './education';
+import { cgpa, CGPA_SCALES, cumulativeGpa, marksPercent, gpa, gradePoints, letterFromPercent, neededOnFinal, weightedGrade } from './education';
 import { draw, DrawError, randomInt } from './random';
 
 describe('gpa', () => {
@@ -122,5 +122,24 @@ describe('random', () => {
     expect(() => draw({ min: 10, max: 1, count: 1, unique: false, sort: 'none' })).toThrow(DrawError);
     expect(() => draw({ min: 1.5, max: 10, count: 1, unique: false, sort: 'none' })).toThrow(DrawError);
     expect(() => draw({ min: 1, max: 10, count: 0, unique: false, sort: 'none' })).toThrow(DrawError);
+  });
+});
+
+describe('cgpa and marks', () => {
+  it('weights terms by credits, or averages them', () => {
+    expect(cgpa([{ gpa: 8, credits: 20 }, { gpa: 9, credits: 30 }]).cgpa).toBeCloseTo(8.6, 12);
+    expect(cgpa([{ gpa: 8, credits: 0 }, { gpa: 9, credits: 30 }])).toEqual({ cgpa: 8.5, credits: 0, weighted: false });
+    expect(cgpa([]).cgpa).toBeNaN();
+  });
+  it('converts CGPA to a percentage and back', () => {
+    const s = (id: string) => CGPA_SCALES.find((x) => x.id === id)!;
+    expect(s('x9.5').toPct(8.6)).toBeCloseTo(81.7, 12);
+    expect(s('minus7.5').toPct(8)).toBe(72.5);
+    expect(s('4pt').toPct(3.5)).toBe(87.5);
+    expect(s('x9.5').fromPct(76)).toBe(8);
+  });
+  it('computes marks percentages', () => {
+    expect(marksPercent(425, 500)).toBe(85);
+    expect(marksPercent(1, 0)).toBeNaN();
   });
 });

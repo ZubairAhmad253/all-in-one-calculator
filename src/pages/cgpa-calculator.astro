@@ -1,0 +1,74 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import CgpaCalculator from '@/components/calculators/CgpaCalculator';
+
+const faqs = [
+  {
+    q: 'How is CGPA calculated?',
+    a: 'Multiply each semester’s GPA (SGPA) by its credits, add them up, and divide by the total credits. With 8.2 (20 credits), 8.8 (22), 7.9 (21) and 9.1 (24), the CGPA is 741.9 ÷ 87 ≈ 8.53. Without credits, it’s the simple average: 8.5.',
+  },
+  {
+    q: 'How do I convert CGPA to percentage?',
+    a: 'It depends on your institution. CBSE and many Indian universities use CGPA × 9.5, so 8.53 becomes 81.0%. Some universities use CGPA × 10 − 7.5, and others simply × 10. Always check the rule printed on your mark sheet.',
+  },
+  {
+    q: 'Why multiply by 9.5?',
+    a: 'CBSE derived 9.5 from the average percentage of students who scored grade A1 (the top grade) over several years. It became a widely used rule of thumb for 10-point CGPA systems in India.',
+  },
+  {
+    q: 'What is the difference between SGPA and CGPA?',
+    a: 'SGPA (semester grade point average) covers one semester. CGPA (cumulative grade point average) combines all semesters so far, weighted by credits.',
+  },
+  {
+    q: 'Can I use this for a 4.0 GPA scale?',
+    a: 'Yes. Choose the 4-point scale and enter each term’s GPA and credits for a cumulative GPA. For course-by-course letter grades, the GPA calculator is quicker.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="cgpa-calculator"
+  title="CGPA Calculator – Cumulative GPA & CGPA to Percentage"
+  description="Free CGPA calculator. Combine semester SGPAs into a credit-weighted CGPA and convert CGPA to percentage using the CBSE × 9.5 rule or other university formulas."
+  intro="Combine your semester grade points into a credit-weighted CGPA and convert it to a percentage using your university’s formula."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <CgpaCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the CGPA calculator</h2>
+    <ol>
+      <li><strong>Choose your grading scale</strong> and percentage rule.</li>
+      <li><strong>Enter each semester’s SGPA</strong> and, if you know them, its credits.</li>
+      <li><strong>Read your CGPA</strong> and the equivalent percentage.</li>
+    </ol>
+
+    <h2>CGPA formula</h2>
+    <div class="formula">CGPA = Σ (SGPA × credits) ÷ Σ credits</div>
+
+    <h3>Worked example</h3>
+    <table>
+      <thead><tr><th>Semester</th><th>SGPA</th><th>Credits</th><th>SGPA × credits</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>8.2</td><td>20</td><td>164.0</td></tr>
+        <tr><td>2</td><td>8.8</td><td>22</td><td>193.6</td></tr>
+        <tr><td>3</td><td>7.9</td><td>21</td><td>165.9</td></tr>
+        <tr><td>4</td><td>9.1</td><td>24</td><td>218.4</td></tr>
+        <tr><td><strong>Total</strong></td><td></td><td><strong>87</strong></td><td><strong>741.9</strong></td></tr>
+      </tbody>
+    </table>
+    <p>CGPA = 741.9 ÷ 87 = <strong>8.53</strong>, which is <strong>81.0%</strong> using × 9.5.</p>
+
+    <h2>CGPA to percentage rules</h2>
+    <table>
+      <thead><tr><th>Rule</th><th>Formula</th><th>8.0 CGPA</th></tr></thead>
+      <tbody>
+        <tr><td>CBSE and many universities</td><td>CGPA × 9.5</td><td>76%</td></tr>
+        <tr><td>Direct</td><td>CGPA × 10</td><td>80%</td></tr>
+        <tr><td>Mumbai University and some others</td><td>CGPA × 10 − 7.5</td><td>72.5%</td></tr>
+      </tbody>
+    </table>
+    <p>For letter grades on a 4.0 scale, use the <a href="/gpa-calculator">GPA calculator</a>. For a percentage from marks, try the <a href="/marks-percentage-calculator">marks percentage calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
