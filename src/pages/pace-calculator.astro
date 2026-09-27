@@ -1,0 +1,74 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import PaceCalculator from '@/components/calculators/PaceCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate my running pace?',
+    a: 'Divide your time by the distance. A 10 km run in 50 minutes is 50 ÷ 10 = 5:00 per kilometre, which is 8:03 per mile or 12 km/h.',
+  },
+  {
+    q: 'What pace do I need for a sub-4-hour marathon?',
+    a: 'About 5:41 per kilometre or 9:09 per mile, held for all 42.195 km. Many runners aim a few seconds faster to leave room for water stops and the final kilometres.',
+  },
+  {
+    q: 'How do I predict my marathon time from a 5K?',
+    a: 'Riegel’s formula scales a race time by distance: T₂ = T₁ × (D₂ ÷ D₁)^1.06. A 25:00 5K predicts about 3:59:47 for the marathon, but only with marathon-specific training; most runners are slower over the longer distance.',
+  },
+  {
+    q: 'What is a good running pace for beginners?',
+    a: 'A comfortable, conversational pace, often 6:30–8:00 per km (10:30–13:00 per mile). If you can’t speak in full sentences, slow down. Easy runs should make up most of your training.',
+  },
+  {
+    q: 'How do I convert pace per km to pace per mile?',
+    a: 'Multiply by 1.609. A pace of 5:00 per km is 300 seconds × 1.609 = 483 seconds, or 8:03 per mile. To go the other way, divide by 1.609.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="pace-calculator"
+  title="Running Pace Calculator – Pace, Time & Race Predictions"
+  description="Free running pace calculator. Work out pace, finish time or distance in km or miles, see your speed, even splits and predicted 5K, 10K, half and marathon times."
+  intro="Work out your pace, finish time or distance in kilometres or miles, with your speed, even-pace splits and predicted race times."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <PaceCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the pace calculator</h2>
+    <ol>
+      <li><strong>Choose what to calculate:</strong> pace, finish time or distance.</li>
+      <li><strong>Pick kilometres or miles</strong>, then enter the other two values. Tap a race to fill in its distance.</li>
+      <li><strong>Read your result</strong>, speed, predicted race times and splits.</li>
+    </ol>
+
+    <h2>Pace formulas</h2>
+    <div class="formula">pace = time ÷ distance &nbsp;&nbsp; time = pace × distance &nbsp;&nbsp; distance = time ÷ pace</div>
+
+    <h3>Worked example: 10K in 50 minutes</h3>
+    <table>
+      <thead><tr><th>Race</th><th>Predicted time</th><th>Pace /km</th></tr></thead>
+      <tbody>
+        <tr><td>5K</td><td>23:59</td><td>4:48</td></tr>
+        <tr><td>10K</td><td>50:00</td><td>5:00</td></tr>
+        <tr><td>Half marathon</td><td>1:50:19</td><td>5:14</td></tr>
+        <tr><td>Marathon</td><td>3:50:01</td><td>5:27</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Race pace chart</h2>
+    <table>
+      <thead><tr><th>Goal</th><th>Pace /km</th><th>Pace /mile</th></tr></thead>
+      <tbody>
+        <tr><td>25:00 5K</td><td>5:00</td><td>8:03</td></tr>
+        <tr><td>50:00 10K</td><td>5:00</td><td>8:03</td></tr>
+        <tr><td>2:00:00 half marathon</td><td>5:41</td><td>9:09</td></tr>
+        <tr><td>4:00:00 marathon</td><td>5:41</td><td>9:09</td></tr>
+        <tr><td>3:30:00 marathon</td><td>4:59</td><td>8:01</td></tr>
+      </tbody>
+    </table>
+    <p>Train by effort as well as pace with the <a href="/heart-rate-zone-calculator">heart rate zone calculator</a>, and see how much energy a run burns with the <a href="/calorie-calculator">calorie calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
