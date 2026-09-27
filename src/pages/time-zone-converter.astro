@@ -1,0 +1,81 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import TimeZoneConverter from '@/components/calculators/TimeZoneConverter';
+
+const faqs = [
+  {
+    q: 'How do I convert time between time zones?',
+    a: 'Find each zone’s offset from UTC on that date, then add the difference. New York is UTC−5 in winter and London UTC±0, so 9:00 AM in New York is 2:00 PM in London. The converter does this automatically, including daylight saving time.',
+  },
+  {
+    q: 'Does this converter handle daylight saving time?',
+    a: 'Yes. It uses the time zone database built into your browser, which knows when each country changes its clocks, so results are right for the exact date you pick. That’s why New York to Sydney is 16 hours in January but 14 hours in July.',
+  },
+  {
+    q: 'Why do some time zones have half-hour offsets?',
+    a: 'Some countries chose offsets that fit their geography or history better. India is UTC+5:30, Newfoundland UTC−3:30 (−2:30 in summer) and Nepal UTC+5:45.',
+  },
+  {
+    q: 'What is UTC?',
+    a: 'Coordinated Universal Time, the world’s reference time. Time zones are described as offsets from it, such as UTC+9 for Tokyo. It’s the same as GMT for everyday purposes, but it never changes for daylight saving.',
+  },
+  {
+    q: 'What is a good time for a meeting across time zones?',
+    a: 'Look for overlap in working hours (9 AM–5 PM). London and New York overlap in the afternoon in London, which is morning in New York. The converter marks each city that’s in working hours for the time you choose.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="time-zone-converter"
+  title="Time Zone Converter – Compare World Times"
+  description="Free time zone converter. Convert a time between world cities and time zones, with daylight saving applied automatically, offsets from UTC and working-hour hints."
+  intro="Convert a date and time between world cities, with daylight saving time applied automatically and each city’s offset and working hours shown."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <TimeZoneConverter client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the time zone converter</h2>
+    <ol>
+      <li><strong>Pick the time zone</strong> you’re converting from. It starts as your own.</li>
+      <li><strong>Set the date and time.</strong> The date matters because of daylight saving.</li>
+      <li><strong>Add or remove cities</strong> to compare. Each shows its local time, day, offset and whether it’s working hours.</li>
+    </ol>
+
+    <h2>How it works</h2>
+    <div class="formula">Time there = time here − your UTC offset + their UTC offset</div>
+
+    <h3>Worked example: 9:00 AM in New York</h3>
+    <table>
+      <thead><tr><th>City</th><th>15 January</th><th>15 July</th></tr></thead>
+      <tbody>
+        <tr><td>Los Angeles</td><td>6:00 AM</td><td>6:00 AM</td></tr>
+        <tr><td>London</td><td>2:00 PM</td><td>2:00 PM</td></tr>
+        <tr><td>Dubai</td><td>6:00 PM</td><td>5:00 PM</td></tr>
+        <tr><td>Kolkata</td><td>7:30 PM</td><td>6:30 PM</td></tr>
+        <tr><td>Tokyo</td><td>11:00 PM</td><td>10:00 PM</td></tr>
+        <tr><td>Sydney</td><td>1:00 AM (next day)</td><td>11:00 PM</td></tr>
+      </tbody>
+    </table>
+    <p>The differences change during the year because the US, UK and Australia switch to and from daylight saving on different dates, while Dubai, India and Japan don’t use it at all.</p>
+
+    <h2>Common UTC offsets (standard time)</h2>
+    <table>
+      <thead><tr><th>City</th><th>UTC offset</th><th>Daylight saving?</th></tr></thead>
+      <tbody>
+        <tr><td>Los Angeles</td><td>−8</td><td>Yes (−7)</td></tr>
+        <tr><td>New York</td><td>−5</td><td>Yes (−4)</td></tr>
+        <tr><td>London</td><td>±0</td><td>Yes (+1)</td></tr>
+        <tr><td>Paris, Berlin</td><td>+1</td><td>Yes (+2)</td></tr>
+        <tr><td>Dubai</td><td>+4</td><td>No</td></tr>
+        <tr><td>India</td><td>+5:30</td><td>No</td></tr>
+        <tr><td>Singapore, Hong Kong</td><td>+8</td><td>No</td></tr>
+        <tr><td>Tokyo</td><td>+9</td><td>No</td></tr>
+        <tr><td>Sydney</td><td>+10</td><td>Yes (+11)</td></tr>
+      </tbody>
+    </table>
+    <p>To count hours between two times, use the <a href="/hours-calculator">hours calculator</a>, or convert units of time with the <a href="/time-converter">time converter</a>.</p>
+  </Fragment>
+</CalculatorLayout>
