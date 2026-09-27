@@ -1,0 +1,73 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import UnitConverter from '@/components/calculators/UnitConverter';
+
+const faqs = [
+  {
+    q: 'How many MB are in a GB?',
+    a: 'In the decimal (SI) system used by drive makers and most networks, 1 GB = 1,000 MB. In the binary system used by some operating systems, 1 GiB = 1,024 MiB. That’s why the two are sometimes confused.',
+  },
+  {
+    q: 'Why does my 1 TB drive show as 931 GB?',
+    a: 'The drive holds 1,000,000,000,000 bytes (1 TB, decimal). Windows counts in binary units but labels them “GB”, and 10¹² bytes ÷ 1,024³ = 931.3 GiB. No space is missing; it’s the same amount in a different unit.',
+  },
+  {
+    q: 'What is the difference between Mb and MB?',
+    a: 'A lowercase b means bits and an uppercase B means bytes; 1 byte = 8 bits. Internet speeds are quoted in megabits per second, so a 100 Mb/s connection downloads at most 12.5 megabytes per second.',
+  },
+  {
+    q: 'What are KiB, MiB and GiB?',
+    a: 'Binary units defined by the IEC: 1 KiB = 1,024 bytes, 1 MiB = 1,024 KiB and 1 GiB = 1,024 MiB. They exist to remove the ambiguity of using “KB” for both 1,000 and 1,024 bytes.',
+  },
+  {
+    q: 'How long does it take to download 1 GB?',
+    a: 'Convert to bits and divide by your speed. 1 GB is 8,000 megabits, so at 100 Mb/s it takes about 80 seconds (1 min 20 s), ignoring overhead. A 50 GB game takes about 67 minutes at the same speed.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="data-storage-converter"
+  title="Data Storage Converter – Bytes, KB, MB, GB, TB"
+  description="Free data storage converter. Convert bits, bytes, KB, MB, GB, TB and PB, and binary KiB, MiB, GiB and TiB, plus megabits and gigabits for internet speeds."
+  intro="Convert between bits, bytes, kilobytes, megabytes, gigabytes, terabytes and petabytes, in both decimal and binary units."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <UnitConverter quantity="data" client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the data storage converter</h2>
+    <ol>
+      <li><strong>Pick the units</strong> to convert from and to.</li>
+      <li><strong>Type a value in either box</strong> to convert in either direction.</li>
+      <li><strong>Compare decimal and binary units</strong> in the list below.</li>
+    </ol>
+
+    <h2>Decimal and binary units</h2>
+    <table>
+      <thead><tr><th>Decimal (SI)</th><th>Bytes</th><th>Binary (IEC)</th><th>Bytes</th></tr></thead>
+      <tbody>
+        <tr><td>1 KB (kilobyte)</td><td>1,000</td><td>1 KiB (kibibyte)</td><td>1,024</td></tr>
+        <tr><td>1 MB (megabyte)</td><td>1,000,000</td><td>1 MiB (mebibyte)</td><td>1,048,576</td></tr>
+        <tr><td>1 GB (gigabyte)</td><td>10⁹</td><td>1 GiB (gibibyte)</td><td>1,073,741,824</td></tr>
+        <tr><td>1 TB (terabyte)</td><td>10¹²</td><td>1 TiB (tebibyte)</td><td>1,099,511,627,776</td></tr>
+      </tbody>
+    </table>
+    <p>Storage makers and networks use decimal units. Windows reports sizes in binary units but writes “GB”; macOS has used decimal units since 2009.</p>
+
+    <h3>Worked examples</h3>
+    <ul>
+      <li>A <strong>1 TB</strong> drive holds <strong>931.3 GiB</strong>, and a 2 TB drive 1.82 TiB.</li>
+      <li>A <strong>100 Mb/s</strong> connection moves up to <strong>12.5 MB</strong> a second.</li>
+      <li>A <strong>4.7 GB</strong> DVD holds <strong>4.38 GiB</strong>.</li>
+    </ul>
+
+    <h2>Bits and bytes</h2>
+    <p>
+      A <strong>bit</strong> is a single 0 or 1. A <strong>byte</strong> is 8 bits, enough for one character of plain text. File sizes are normally given in bytes (B), and connection speeds in bits
+      per second (b/s), so divide a speed by 8 to get bytes.
+    </p>
+    <p>For numbers in binary or hexadecimal, use the <a href="/number-base-converter">number base converter</a>.</p>
+  </Fragment>
+</CalculatorLayout>
