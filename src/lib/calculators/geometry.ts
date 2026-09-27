@@ -272,7 +272,7 @@ export const SHAPES_2D: Record<string, Shape2D> = {
     perimeter: ({ r, t }) => 2 * r + sector(r, t).arc,
   },
   hexagon: {
-    label: 'Regular hexagon',
+    label: 'Hexagon',
     fields: [{ key: 's', label: 'Side' }],
     formula: 'A = (3√3 ÷ 2) × s²',
     area: ({ s }) => ((3 * Math.sqrt(3)) / 2) * s * s,
