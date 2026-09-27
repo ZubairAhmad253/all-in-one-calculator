@@ -1,0 +1,75 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import RentVsBuyCalculator from '@/components/calculators/RentVsBuyCalculator';
+
+const faqs = [
+  {
+    q: 'Is it better to rent or buy?',
+    a: 'It depends mostly on how long you’ll stay, how fast home prices and rents grow, and what the money could earn elsewhere. Buying has big upfront and selling costs, so it usually needs several years to pay off. The calculator finds the break-even point for your numbers.',
+  },
+  {
+    q: 'Why does renting win in the first few years?',
+    a: 'Buying and selling a home costs a lot: in the default example, 3% to buy and 6% to sell. Those costs are lost, while a renter can invest the deposit instead. It takes time for home equity and price growth to make up the difference.',
+  },
+  {
+    q: 'Isn’t rent just throwing money away?',
+    a: 'Not quite. Owners also pay costs they never get back: mortgage interest, property tax, insurance, maintenance and buying and selling costs. The fair comparison is net worth after a number of years, which is what this calculator shows.',
+  },
+  {
+    q: 'What investment return should I use?',
+    a: 'Use what you’d realistically earn by investing the deposit and any monthly savings instead: for example 4–7% a year for a long-term diversified portfolio, or less if you’d keep the money in savings.',
+  },
+  {
+    q: 'What isn’t included?',
+    a: 'Taxes on investment gains or home sales, mortgage interest deductions, rental deposits and moving costs, which vary a lot by country. Non-financial reasons, such as stability or freedom to move, matter too.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="rent-vs-buy-calculator"
+  title="Rent vs Buy Calculator – Is It Better to Rent or Buy?"
+  description="Free rent vs buy calculator. Compare your net worth from renting or buying a home over time, including buying and selling costs, and find the break-even year."
+  intro="Compare renting and buying on equal terms. See your net worth each year in both cases, including buying and selling costs, and when buying starts to pay off."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <RentVsBuyCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the rent vs buy calculator</h2>
+    <ol>
+      <li><strong>Enter the home you’d buy:</strong> price, down payment, mortgage rate, and ongoing costs.</li>
+      <li><strong>Enter the rent</strong> for a similar home and how fast rents rise.</li>
+      <li><strong>Set how long you’ll stay</strong> and what your money could earn if invested.</li>
+    </ol>
+
+    <h2>How the comparison works</h2>
+    <ul>
+      <li>Both people start with the same cash. The <strong>buyer</strong> spends it on the down payment and buying costs; the <strong>renter</strong> invests it.</li>
+      <li>Every month, whoever has the lower housing cost invests the difference.</li>
+      <li>The buyer’s net worth is the home’s value, minus selling costs and the remaining mortgage, plus their investments. The renter’s is their investments.</li>
+    </ul>
+
+    <h3>Worked example</h3>
+    <p>
+      A <strong>$400,000</strong> home with 20% down at 6.5% costs about $2,848 a month to own at first (mortgage, tax, maintenance and insurance), against
+      <strong>$2,200</strong> rent. With homes rising 3.5% a year, rents 3% and investments earning 6%, <strong>buying pulls ahead after year 8</strong>. After 15 years, the buyer is
+      about <strong>$66,000</strong> better off.
+    </p>
+
+    <h2>What changes the answer</h2>
+    <table>
+      <thead><tr><th>Change (from the example)</th><th>Result after 15 years</th></tr></thead>
+      <tbody>
+        <tr><td>Stay only 5 years</td><td>Renting ahead by about $16,000</td></tr>
+        <tr><td>Stay 30 years</td><td>Buying ahead by about $402,000</td></tr>
+        <tr><td>Home prices rise 1% a year</td><td>Renting ahead by about $88,000</td></tr>
+        <tr><td>Home prices rise 5% a year</td><td>Buying ahead by about $191,000 (break-even in year 4)</td></tr>
+        <tr><td>Rent is $1,600</td><td>Renting ahead by about $140,000</td></tr>
+        <tr><td>Rent is $2,800</td><td>Buying ahead by about $273,000</td></tr>
+      </tbody>
+    </table>
+    <p>The biggest factors are how long you stay and how fast home prices grow. Working out your deposit? Try the <a href="/down-payment-calculator">down payment calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
