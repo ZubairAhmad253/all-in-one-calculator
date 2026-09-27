@@ -1,0 +1,69 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import MarksPercentageCalculator from '@/components/calculators/MarksPercentageCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate the percentage of marks?',
+    a: 'Divide the marks you got by the total marks and multiply by 100. 425 out of 500 is 425 ÷ 500 × 100 = 85%.',
+  },
+  {
+    q: 'How do I calculate the percentage for several subjects?',
+    a: 'Add the marks obtained in all subjects, add the maximum marks, then divide and multiply by 100. For 88, 76, 92, 81 and 69 out of 100 each: 406 ÷ 500 × 100 = 81.2%.',
+  },
+  {
+    q: 'Is the average of subject percentages the same as the overall percentage?',
+    a: 'Only when every subject has the same maximum marks. If one paper is out of 50 and another out of 100, add the raw marks first; averaging the two percentages would give the smaller paper too much weight.',
+  },
+  {
+    q: 'How many marks do I need for 90%?',
+    a: 'Multiply the total by 0.9. On a 600-mark exam you need 540 marks. The calculator lists the marks needed for common targets from 40% to 100%.',
+  },
+  {
+    q: 'How do I convert a percentage to CGPA?',
+    a: 'On the CBSE-style 10-point scale, divide by 9.5: 76% is 8.0 CGPA. Other universities use different rules; the CGPA calculator covers the common ones.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="marks-percentage-calculator"
+  title="Marks Percentage Calculator – Exam Percentage"
+  description="Free marks percentage calculator. Find your percentage from marks obtained and total marks, for one exam or several subjects, and the marks needed for any target."
+  intro="Find your percentage from marks obtained and total marks, for a single exam or across several subjects, with the marks needed for common targets."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <MarksPercentageCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the marks percentage calculator</h2>
+    <ul>
+      <li><strong>Total marks:</strong> enter your marks and the maximum marks.</li>
+      <li><strong>By subject:</strong> enter the marks and maximum for each subject; totals are added for you.</li>
+    </ul>
+
+    <h2>Formula</h2>
+    <div class="formula">Percentage = marks obtained ÷ total marks × 100</div>
+
+    <h3>Worked examples</h3>
+    <table>
+      <thead><tr><th>Marks</th><th>Percentage</th></tr></thead>
+      <tbody>
+        <tr><td>425 out of 500</td><td>85%</td></tr>
+        <tr><td>38 out of 50</td><td>76%</td></tr>
+        <tr><td>450 out of 600</td><td>75%</td></tr>
+        <tr><td>406 out of 500 (5 subjects)</td><td>81.2%</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Marks needed on a 500-mark exam</h2>
+    <table>
+      <thead><tr><th>Target</th><th>40%</th><th>50%</th><th>60%</th><th>75%</th><th>90%</th></tr></thead>
+      <tbody>
+        <tr><td>Marks</td><td>200</td><td>250</td><td>300</td><td>375</td><td>450</td></tr>
+      </tbody>
+    </table>
+    <p>Convert grade points with the <a href="/cgpa-calculator">CGPA calculator</a>, or work out a weighted course grade with the <a href="/grade-calculator">grade calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
