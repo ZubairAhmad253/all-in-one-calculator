@@ -1,0 +1,88 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import BmiCalculator from '@/components/calculators/BmiCalculator';
+
+const faqs = [
+  {
+    q: 'How is BMI calculated?',
+    a: 'BMI is your weight in kilograms divided by your height in metres squared: BMI = kg ÷ m². In imperial units, BMI = 703 × pounds ÷ inches². A 70 kg adult who is 1.75 m tall has a BMI of 70 ÷ 1.75² = 22.9.',
+  },
+  {
+    q: 'What is a healthy BMI?',
+    a: 'For most adults, the World Health Organization classes a BMI of 18.5 to 24.9 as a healthy weight, 25 to 29.9 as overweight and 30 or more as obesity. Below 18.5 is underweight.',
+  },
+  {
+    q: 'Is BMI accurate?',
+    a: 'BMI is a quick screening tool, not a diagnosis. It doesn’t tell muscle from fat, so muscular people can score as overweight, and it doesn’t show where fat is stored. Waist size and other checks by a health professional give a fuller picture.',
+  },
+  {
+    q: 'Is BMI different for Asian people?',
+    a: 'Research shows health risks can rise at a lower BMI in people of Asian descent, so some health bodies, including the WHO for Asian populations and the NHS, suggest treating 23 or more as overweight and 27.5 or more as obesity.',
+  },
+  {
+    q: 'Can children use this BMI calculator?',
+    a: 'No. For children and teenagers, BMI is compared against growth charts for their age and sex (BMI percentiles), so adult categories don’t apply. Ask a doctor or use a child BMI chart.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="bmi-calculator"
+  title="BMI Calculator – Body Mass Index for Adults (kg or lb)"
+  description="Free BMI calculator for adults. Work out your body mass index in metric or imperial units, see your WHO weight category and your healthy weight range."
+  intro="Work out your body mass index in kilograms and centimetres or pounds and feet, see which weight category it falls in, and find the healthy weight range for your height."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <BmiCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the BMI calculator</h2>
+    <ol>
+      <li><strong>Choose metric or imperial</strong> units.</li>
+      <li><strong>Enter your height and weight.</strong></li>
+    </ol>
+    <p>Your BMI, its category on the colour scale and the healthy weight range for your height appear instantly.</p>
+
+    <h2>BMI formula</h2>
+    <div class="formula">BMI = weight (kg) ÷ height (m)²</div>
+    <div class="formula">BMI = 703 × weight (lb) ÷ height (in)²</div>
+
+    <h3>Worked example: metric</h3>
+    <p>A person who weighs <strong>70 kg</strong> and is <strong>175 cm</strong> (1.75 m) tall: 70 ÷ 1.75² = 70 ÷ 3.0625 = <strong>22.9</strong>, a healthy weight.</p>
+
+    <h3>Worked example: imperial</h3>
+    <p>A person who weighs <strong>150 lb</strong> and is <strong>5 ft 5 in</strong> (65 in) tall: 703 × 150 ÷ 65² = 105,450 ÷ 4,225 = <strong>25.0</strong>, just into the overweight range.</p>
+
+    <h2>BMI categories for adults</h2>
+    <table>
+      <thead><tr><th>BMI</th><th>Category (WHO)</th></tr></thead>
+      <tbody>
+        <tr><td>Below 18.5</td><td>Underweight</td></tr>
+        <tr><td>18.5 – 24.9</td><td>Healthy weight</td></tr>
+        <tr><td>25.0 – 29.9</td><td>Overweight</td></tr>
+        <tr><td>30.0 – 34.9</td><td>Obesity class I</td></tr>
+        <tr><td>35.0 – 39.9</td><td>Obesity class II</td></tr>
+        <tr><td>40 or more</td><td>Obesity class III</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Healthy weight range for your height</h2>
+    <p>
+      The range comes from rearranging the formula: weight = BMI × height². For someone 1.75 m tall, a BMI of 18.5 to 24.9 is <strong>56.7 kg to 76.3 kg</strong>. The calculator shows
+      this range for your height and how far you are from it.
+    </p>
+
+    <h2>Limitations of BMI</h2>
+    <ul>
+      <li><strong>Muscle vs fat:</strong> athletes can have a high BMI with little body fat.</li>
+      <li><strong>Fat distribution:</strong> fat around the waist carries more health risk than BMI alone shows.</li>
+      <li><strong>Age, sex and ethnicity</strong> all affect how BMI relates to health.</li>
+      <li><strong>Not for pregnancy or children.</strong></li>
+    </ul>
+    <p>
+      BMI is a starting point for a conversation with a health professional, not a diagnosis. To estimate how much to eat to reach a healthy weight, try the
+      <a href="/calorie-calculator">calorie calculator</a>.
+    </p>
+  </Fragment>
+</CalculatorLayout>

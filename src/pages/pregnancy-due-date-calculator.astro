@@ -1,0 +1,87 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import PregnancyDueDateCalculator from '@/components/calculators/PregnancyDueDateCalculator';
+
+const faqs = [
+  {
+    q: 'How is a due date calculated?',
+    a: 'Most due dates use Naegele’s rule: add 280 days (40 weeks) to the first day of your last menstrual period. If your cycle is longer or shorter than 28 days, the date moves by the difference. From a known conception date, add 266 days (38 weeks).',
+  },
+  {
+    q: 'How accurate is my due date?',
+    a: 'It’s an estimate. Only about 4% of babies are born on their exact due date; most arrive between 37 and 42 weeks. An early dating ultrasound is the most accurate way to confirm how far along you are, and your doctor or midwife may adjust your date after it.',
+  },
+  {
+    q: 'Why is pregnancy counted from my last period, not conception?',
+    a: 'Because the first day of the last period is usually easier to know than the day of conception. Counting this way means you’re considered about two weeks pregnant at conception, and a full-term pregnancy is 40 weeks long.',
+  },
+  {
+    q: 'How do I calculate my due date after IVF?',
+    a: 'Choose “IVF transfer” and enter the transfer date and the embryo’s age. For a day-5 embryo (blastocyst), the due date is 261 days after the transfer; for a day-3 embryo, it’s 263 days.',
+  },
+  {
+    q: 'When does each trimester start?',
+    a: 'The first trimester runs from week 1 to the end of week 13, the second from week 14 to the end of week 27, and the third from week 28 until birth. The calculator shows your current trimester and the date each one starts.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="pregnancy-due-date-calculator"
+  title="Due Date Calculator – When Is My Baby Due?"
+  description="Free pregnancy due date calculator. Estimate your due date from your last period, conception date or IVF transfer, and see how many weeks pregnant you are."
+  intro="Estimate when your baby is due from your last period, conception date or IVF transfer, and see how many weeks pregnant you are, your trimester and key dates ahead."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <PregnancyDueDateCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the due date calculator</h2>
+    <ol>
+      <li><strong>Choose what you know:</strong> the first day of your last period, the date you conceived, or your IVF embryo transfer date.</li>
+      <li><strong>Pick the date.</strong></li>
+      <li><strong>Adjust your cycle length</strong> if it’s usually longer or shorter than 28 days (last period only), or choose the embryo age for IVF.</li>
+    </ol>
+    <p>You’ll see your estimated due date, how far along you are today, your trimester, and when key milestones fall.</p>
+
+    <h2>Due date formulas</h2>
+    <table>
+      <thead><tr><th>Starting from</th><th>Due date</th></tr></thead>
+      <tbody>
+        <tr><td>First day of last period (28-day cycle)</td><td>+ 280 days</td></tr>
+        <tr><td>Last period, other cycle lengths</td><td>+ 280 days + (cycle length − 28)</td></tr>
+        <tr><td>Conception date</td><td>+ 266 days</td></tr>
+        <tr><td>IVF transfer, day-5 embryo</td><td>+ 261 days</td></tr>
+        <tr><td>IVF transfer, day-3 embryo</td><td>+ 263 days</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked example</h3>
+    <p>
+      If your last period started on <strong>1 January 2026</strong> and your cycle is 28 days, add 280 days: your due date is <strong>8 October 2026</strong>. With a 32-day cycle,
+      ovulation is likely about 4 days later, so the due date moves to <strong>12 October 2026</strong>.
+    </p>
+
+    <h2>Pregnancy week by week</h2>
+    <table>
+      <thead><tr><th>Stage</th><th>Weeks</th></tr></thead>
+      <tbody>
+        <tr><td>First trimester</td><td>Weeks 1–13</td></tr>
+        <tr><td>Second trimester</td><td>Weeks 14–27</td></tr>
+        <tr><td>Third trimester</td><td>Week 28 to birth</td></tr>
+        <tr><td>Early term</td><td>37 weeks – 38 weeks 6 days</td></tr>
+        <tr><td>Full term</td><td>39 weeks – 40 weeks 6 days</td></tr>
+        <tr><td>Late term</td><td>41 weeks – 41 weeks 6 days</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Next steps</h2>
+    <ul>
+      <li><strong>Book your first appointment</strong> with a doctor or midwife, who will confirm your dates.</li>
+      <li><strong>An early ultrasound</strong> (usually between 8 and 14 weeks) gives the most accurate dating.</li>
+      <li><strong>Take folic acid</strong> and talk to your doctor about any medicines you use.</li>
+    </ul>
+    <p>This calculator gives estimates for information only and isn’t a substitute for advice from your doctor or midwife.</p>
+  </Fragment>
+</CalculatorLayout>
