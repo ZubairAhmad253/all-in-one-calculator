@@ -6,6 +6,7 @@ import AdSlot from '@/components/layout/AdSlot.astro';
 import CalculatorCard from '@/components/ui/CalculatorCard.astro';
 import { SITE } from '@/config/site';
 import { calculatorBySlug } from '@/data/calculators';
+import { readingMinutes } from '@/lib/format/readingTime';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -17,6 +18,7 @@ const { Content, headings } = await render(post);
 const { title, description, pubDate, updatedDate, author, calculators } = post.data;
 const tools = calculators.map(calculatorBySlug).filter((c) => c !== undefined);
 const toc = headings.filter((h) => h.depth === 2);
+const minutes = readingMinutes(post.body);
 const url = new URL(`/blog/${post.id}`, Astro.site).href;
 const fmt = (d: Date) => d.toLocaleDateString('en', { year: 'numeric', month: 'long', day: 'numeric' });
 
@@ -53,6 +55,7 @@ const jsonLd = [
       <p class="mt-4 text-sm text-muted">
         {author} · <time datetime={pubDate.toISOString()}>{fmt(pubDate)}</time>
         {updatedDate && <> · Updated <time datetime={updatedDate.toISOString()}>{fmt(updatedDate)}</time></>}
+        {' '}· {minutes} min read
       </p>
 
       <div class="prose-content mt-8">
