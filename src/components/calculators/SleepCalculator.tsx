@@ -79,7 +79,7 @@ export default function SleepCalculator() {
         <div className="bg-surface-2/50 p-5 sm:p-7" aria-live="polite">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-sm font-medium text-muted">{mode === 'wake' ? `To wake refreshed at ${clock(wake, h24)}, go to sleep at` : `Going to bed at ${clock(bed, h24)}, set an alarm for`}</p>
+              <p className="text-sm font-medium text-muted">{mode === 'wake' ? `To wake refreshed at ${clock(wake, h24)}, go to bed at` : `Going to bed at ${clock(bed, h24)}, set an alarm for`}</p>
               {five && <p className="tabular mt-1 text-4xl font-bold tracking-tight sm:text-5xl">{clock(five.time, h24)}</p>}
               <p className="mt-1 text-sm text-muted">5 full sleep cycles (7 h 30 min of sleep)</p>
             </div>

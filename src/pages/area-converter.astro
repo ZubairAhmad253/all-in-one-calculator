@@ -1,0 +1,76 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import UnitConverter from '@/components/calculators/UnitConverter';
+
+const faqs = [
+  {
+    q: 'How many square feet are in a square metre?',
+    a: 'About 10.764. One foot is exactly 0.3048 m, so one square foot is 0.3048² = 0.09290304 m², and one square metre is 1 ÷ 0.09290304 ≈ 10.7639 ft².',
+  },
+  {
+    q: 'How big is an acre?',
+    a: 'Exactly 43,560 square feet, or about 4,046.86 m², roughly 75% of a football (soccer) pitch. There are 640 acres in a square mile.',
+  },
+  {
+    q: 'What is the difference between an acre and a hectare?',
+    a: 'A hectare is 10,000 m² (a 100 m × 100 m square), and it’s about 2.471 acres. An acre is about 0.405 hectares.',
+  },
+  {
+    q: 'How do I convert square feet to square metres?',
+    a: 'Multiply by 0.09290304 (or divide by 10.764). A 2,000 ft² house is about 185.8 m².',
+  },
+  {
+    q: 'Why is the area factor the square of the length factor?',
+    a: 'Area has two dimensions, so the conversion applies twice. 1 m = 100 cm, so 1 m² = 100 × 100 = 10,000 cm². Likewise 1 yd = 3 ft, so 1 yd² = 9 ft².',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="area-converter"
+  title="Area Converter – m², ft², Acres, Hectares & More"
+  description="Free area converter. Convert square metres, square feet, acres, hectares, square kilometres, square miles, square yards and square inches with exact factors."
+  intro="Convert between square metres, square feet, acres, hectares, square kilometres, square miles and other area units, in either direction."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <UnitConverter quantity="area" client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the area converter</h2>
+    <ol>
+      <li><strong>Pick the units</strong> to convert from and to.</li>
+      <li><strong>Type a value in either box</strong> to convert in either direction.</li>
+      <li><strong>See every unit at once</strong> in the list below, and tap a row to switch to it.</li>
+    </ol>
+
+    <h2>Area conversion factors</h2>
+    <table>
+      <thead><tr><th>From</th><th>To</th><th>Multiply by</th></tr></thead>
+      <tbody>
+        <tr><td>Square metres</td><td>Square feet</td><td>10.7639</td></tr>
+        <tr><td>Square feet</td><td>Square metres</td><td>0.09290304 (exact)</td></tr>
+        <tr><td>Square yards</td><td>Square metres</td><td>0.83612736 (exact)</td></tr>
+        <tr><td>Square inches</td><td>Square centimetres</td><td>6.4516 (exact)</td></tr>
+        <tr><td>Acres</td><td>Square metres</td><td>4,046.8564224 (exact)</td></tr>
+        <tr><td>Hectares</td><td>Acres</td><td>2.47105</td></tr>
+        <tr><td>Square kilometres</td><td>Square miles</td><td>0.386102</td></tr>
+        <tr><td>Square miles</td><td>Square kilometres</td><td>2.589988</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked examples</h3>
+    <ul>
+      <li>A <strong>2,000 ft²</strong> house: 2,000 × 0.09290304 = <strong>185.81 m²</strong>.</li>
+      <li>A <strong>5-acre</strong> plot: 5 × 0.404686 = <strong>2.02 hectares</strong>.</li>
+      <li>One acre is <strong>4,840 square yards</strong>.</li>
+    </ul>
+
+    <h2>Units of area</h2>
+    <ul>
+      <li><strong>Metric:</strong> 1 m² = 10,000 cm²; 1 hectare = 10,000 m²; 1 km² = 100 hectares.</li>
+      <li><strong>Imperial / US:</strong> 1 ft² = 144 in²; 1 yd² = 9 ft²; 1 acre = 43,560 ft²; 1 mi² = 640 acres.</li>
+    </ul>
+    <p>To work out an area from measurements, use the <a href="/area-calculator">area calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
