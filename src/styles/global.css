@@ -18,6 +18,7 @@
   --brand-soft: #eef0ff;
   --accent: #0ea5a4;
   --warn: #d97706;
+  --danger: #dc2626;
   --chart-1: #4f46e5;
   --chart-2: #0ea5a4;
   --chart-3: #f59e0b;
@@ -39,6 +40,7 @@
     --brand-soft: #1e2347;
     --accent: #2dd4bf;
     --warn: #fbbf24;
+    --danger: #f87171;
     --chart-1: #8b93ff;
     --chart-2: #2dd4bf;
     --chart-3: #fbbf24;
@@ -60,6 +62,7 @@
   --brand-soft: #1e2347;
   --accent: #2dd4bf;
   --warn: #fbbf24;
+  --danger: #f87171;
   --chart-1: #8b93ff;
   --chart-2: #2dd4bf;
   --chart-3: #fbbf24;
@@ -81,6 +84,7 @@
   --color-brand-soft: var(--brand-soft);
   --color-accent: var(--accent);
   --color-warn: var(--warn);
+  --color-danger: var(--danger);
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);

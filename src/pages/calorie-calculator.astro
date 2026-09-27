@@ -1,0 +1,82 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import CalorieCalculator from '@/components/calculators/CalorieCalculator';
+
+const faqs = [
+  {
+    q: 'How many calories should I eat a day?',
+    a: 'It depends on your age, sex, size and how active you are. As a rough guide, many adult women need around 1,800–2,400 kcal and men around 2,200–3,000 kcal to maintain their weight. The calculator estimates your own figure.',
+  },
+  {
+    q: 'How accurate is this calorie calculator?',
+    a: 'It uses the Mifflin–St Jeor equation, which studies have found to be the most accurate of the common formulas for most adults, typically within about 10% of measured values. Treat the result as a starting point and adjust it based on how your weight changes over a few weeks.',
+  },
+  {
+    q: 'How many calories do I need to cut to lose weight?',
+    a: 'A kilogram of body fat stores about 7,700 kcal (about 3,500 kcal per pound). Eating 550 kcal a day less than you burn gives a loss of about 0.5 kg (1 lb) a week. Most guidance suggests losing no more than 0.5–1 kg (1–2 lb) a week.',
+  },
+  {
+    q: 'What is the difference between BMR and TDEE?',
+    a: 'BMR (basal metabolic rate) is the energy your body uses at complete rest, just to keep you alive. TDEE (total daily energy expenditure) adds everything you do in a day, from walking to exercise. TDEE is BMR multiplied by an activity factor.',
+  },
+  {
+    q: 'Which activity level should I choose?',
+    a: 'Most people overestimate. If you have a desk job and exercise two or three times a week, “Lightly active” is usually closer than “Moderately active”. If you’re not losing or gaining as expected, try the next level down or up.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="calorie-calculator"
+  title="Calorie Calculator – Daily Calories to Lose or Gain Weight"
+  description="Free calorie calculator. Estimate the calories you need each day to maintain, lose or gain weight, based on your age, sex, height, weight and activity level."
+  intro="Estimate how many calories you burn each day and how many to eat to maintain, lose or gain weight, based on your age, sex, size and how active you are."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <CalorieCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the calorie calculator</h2>
+    <ol>
+      <li><strong>Enter your sex, age, height and weight.</strong></li>
+      <li><strong>Choose your activity level</strong> honestly; it has the biggest effect on the result.</li>
+    </ol>
+    <p>You’ll see the calories to maintain your weight, plus daily targets for gentle, steady or faster weight loss or gain.</p>
+
+    <h2>How the calculation works</h2>
+    <p>First, your basal metabolic rate (BMR) is estimated with the <strong>Mifflin–St Jeor equation</strong>:</p>
+    <div class="formula">Men: BMR = 10 × weight (kg) + 6.25 × height (cm) − 5 × age + 5</div>
+    <div class="formula">Women: BMR = 10 × weight (kg) + 6.25 × height (cm) − 5 × age − 161</div>
+    <p>Then it’s multiplied by an activity factor to get your total daily energy expenditure (TDEE):</p>
+    <table>
+      <thead><tr><th>Activity level</th><th>Factor</th></tr></thead>
+      <tbody>
+        <tr><td>Sedentary: little or no exercise</td><td>1.2</td></tr>
+        <tr><td>Lightly active: 1–3 days a week</td><td>1.375</td></tr>
+        <tr><td>Moderately active: 3–5 days a week</td><td>1.55</td></tr>
+        <tr><td>Very active: 6–7 days a week</td><td>1.725</td></tr>
+        <tr><td>Extra active: physical job or training twice a day</td><td>1.9</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked example</h3>
+    <p>
+      A <strong>30-year-old man</strong>, <strong>80 kg</strong> and <strong>180 cm</strong>, who exercises 3–5 days a week:
+    </p>
+    <div class="formula">BMR = 10 × 80 + 6.25 × 180 − 5 × 30 + 5 = 1,780 kcal</div>
+    <div class="formula">TDEE = 1,780 × 1.55 ≈ 2,759 kcal a day</div>
+    <p>
+      To lose about <strong>0.5 kg a week</strong>, he would eat about 550 kcal less: roughly <strong>2,209 kcal a day</strong> (0.5 kg × 7,700 kcal ÷ 7 days = 550 kcal).
+    </p>
+
+    <h2>Tips for using your calorie target</h2>
+    <ul>
+      <li><strong>Track for two to three weeks,</strong> then adjust: if your weight isn’t changing as expected, move your target by 100–200 kcal.</li>
+      <li><strong>Recalculate as your weight changes,</strong> since a smaller body burns fewer calories.</li>
+      <li><strong>Prioritise protein, fibre and whole foods</strong> to stay full on fewer calories.</li>
+      <li><strong>Don’t go too low:</strong> very low-calorie diets should only be followed under medical supervision.</li>
+    </ul>
+    <p>Want to check whether your weight is in a healthy range first? Use the <a href="/bmi-calculator">BMI calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
