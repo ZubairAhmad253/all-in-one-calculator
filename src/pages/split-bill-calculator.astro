@@ -1,0 +1,64 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import SplitBillCalculator from '@/components/calculators/SplitBillCalculator';
+
+const faqs = [
+  {
+    q: 'How do I split a bill evenly with a tip?',
+    a: 'Add the tip to the bill, then divide by the number of people. A $186.40 bill with a 15% tip is $214.36 in total, or $53.59 each for four people.',
+  },
+  {
+    q: 'How do I split a bill by what each person ordered?',
+    a: 'Add up each person’s items, give everyone an equal share of anything shared, then add tax and tip in proportion. Someone who ordered more pays more tax and tip, which is fairer than an even split.',
+  },
+  {
+    q: 'Should the tip be calculated before or after tax?',
+    a: 'Etiquette guides in the US usually suggest tipping on the pre-tax amount. This calculator applies the tip to the items before tax in “by what each ordered” mode, and to the bill total you enter when splitting evenly.',
+  },
+  {
+    q: 'What if the bill already includes a service charge?',
+    a: 'Set the tip to 0%, or to any extra you want to add. In many countries service is included, and tipping on top of it is optional.',
+  },
+  {
+    q: 'How do I avoid awkward cents when splitting?',
+    a: 'Tick “Round each share up” to round everyone’s share up to a whole amount. The small extra goes to the tip.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="split-bill-calculator"
+  title="Split Bill Calculator – Split the Check with Tip"
+  description="Free split bill calculator. Split a restaurant bill evenly or by what each person ordered, with shared items, tax and tip divided fairly, in any currency."
+  intro="Split a bill evenly or by what each person ordered, with shared dishes, tax and tip divided fairly and each person’s share worked out."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <SplitBillCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the split bill calculator</h2>
+    <ul>
+      <li><strong>Split evenly:</strong> enter the bill, the number of people and the tip.</li>
+      <li><strong>By what each ordered:</strong> enter each person’s items, any shared items, tax and tip.</li>
+    </ul>
+
+    <h2>Formulas</h2>
+    <div class="formula">Even: share = bill × (1 + tip %) ÷ people &nbsp;&nbsp; By items: share = (own items + shared ÷ people) × (1 + tax % + tip %)</div>
+
+    <h3>Worked example: splitting by items</h3>
+    <p>Four friends order $42.50, $38.00, $55.90 and $31.00, plus $18 of shared starters, with 8% tax and a 15% tip:</p>
+    <table>
+      <thead><tr><th>Person</th><th>Items + shared</th><th>Pays</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>$47.00</td><td>$57.81</td></tr>
+        <tr><td>2</td><td>$42.50</td><td>$52.28</td></tr>
+        <tr><td>3</td><td>$60.40</td><td>$74.29</td></tr>
+        <tr><td>4</td><td>$35.50</td><td>$43.67</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>$185.40</strong></td><td><strong>$228.04</strong></td></tr>
+      </tbody>
+    </table>
+    <p>Splitting evenly instead would be $57.01 each, which overcharges the lightest eater by more than $13.</p>
+    <p>Only need the tip? Use the <a href="/tip-calculator">tip calculator</a>. Splitting fuel for a road trip? Try the <a href="/fuel-cost-calculator">fuel cost calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
