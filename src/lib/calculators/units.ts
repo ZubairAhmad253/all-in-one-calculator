@@ -15,6 +15,8 @@ export interface Unit {
   symbol: string;
   toBase: (v: number) => number;
   fromBase: (v: number) => number;
+  /** Inversely proportional to the base (e.g. L/100 km against km/L). */
+  inverse?: boolean;
 }
 
 /** A unit that is a fixed multiple of the base unit. */
@@ -356,6 +358,39 @@ export const ENERGY: Quantity = {
   positiveOnly: true,
 };
 
+/** A unit where the base value is `k ÷ value`. */
+const reciprocal = (id: string, name: string, symbol: string, k: number): Unit => ({
+  id,
+  name,
+  symbol,
+  toBase: (v) => k / v,
+  fromBase: (v) => k / v,
+  inverse: true,
+});
+
+export const FUEL_ECONOMY: Quantity = {
+  id: 'fuel',
+  noun: 'fuel economy',
+  // Base unit: kilometres per litre. L/100 km is its reciprocal (× 100).
+  units: [
+    linear('kmpl', 'Kilometres per litre', 'km/L', 1),
+    reciprocal('l100', 'Litres per 100 km', 'L/100 km', 100),
+    linear('mpg', 'Miles per gallon (US)', 'mpg (US)', MI / 1000 / US_GAL),
+    linear('mpg-uk', 'Miles per gallon (UK)', 'mpg (UK)', MI / 1000 / UK_GAL),
+    linear('mpl', 'Miles per litre', 'mi/L', MI / 1000),
+  ],
+  defaults: { value: 30, from: 'mpg', to: 'l100' },
+  popular: [
+    ['mpg', 'l100'],
+    ['l100', 'mpg'],
+    ['mpg-uk', 'l100'],
+    ['l100', 'mpg-uk'],
+    ['mpg', 'mpg-uk'],
+    ['kmpl', 'l100'],
+  ],
+  positiveOnly: true,
+};
+
 export const QUANTITIES: Record<string, Quantity> = {
   length: LENGTH,
   weight: WEIGHT,
@@ -367,6 +402,7 @@ export const QUANTITIES: Record<string, Quantity> = {
   data: DATA,
   pressure: PRESSURE,
   energy: ENERGY,
+  fuel: FUEL_ECONOMY,
 };
 
 export function findUnit(q: Quantity, id: string): Unit | undefined {

@@ -80,6 +80,8 @@ export default function UnitConverter({ quantity }: { quantity: string }) {
       return `Multiply by ${formatValue(f)} to get ${major}, then multiply the decimal part by ${c.ratio} for ${findUnit(q, c.minor)!.name.toLowerCase()}`;
     }
     if (c && from === c.id) return `Add the ${findUnit(q, c.minor)!.name.toLowerCase()} ÷ ${c.ratio} to the ${findUnit(q, c.major)!.name.toLowerCase()}, then multiply by ${formatValue(f)}`;
+    // Inversely related units (mpg and L/100 km): result = k ÷ value.
+    if (!!findUnit(q, base(from))?.inverse !== !!findUnit(q, base(to))?.inverse) return `Divide ${formatValue(f)} by the ${findUnit(q, base(from))!.symbol} value`;
     return `Multiply by ${formatValue(f)}`;
   })();
 

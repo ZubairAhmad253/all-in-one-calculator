@@ -1,0 +1,76 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import UnitConverter from '@/components/calculators/UnitConverter';
+
+const faqs = [
+  {
+    q: 'How do I convert mpg to L/100 km?',
+    a: 'Divide 235.215 by the US mpg figure. 30 mpg (US) is 235.215 ÷ 30 = 7.84 L/100 km. For UK mpg, divide 282.481 instead: 30 mpg (UK) is 9.42 L/100 km.',
+  },
+  {
+    q: 'Why isn’t it a simple multiplication?',
+    a: 'mpg measures distance per fuel (higher is better) while L/100 km measures fuel per distance (lower is better). They are reciprocals, so doubling mpg halves L/100 km.',
+  },
+  {
+    q: 'Why are UK mpg figures higher than US mpg?',
+    a: 'An imperial gallon (4.546 L) is about 20% bigger than a US gallon (3.785 L), so the same car goes further on a UK gallon. 40 mpg (UK) is only about 33.3 mpg (US).',
+  },
+  {
+    q: 'What is good fuel economy?',
+    a: 'For a petrol car, under about 6 L/100 km (over 39 mpg US / 47 mpg UK) is efficient. Many hybrids manage 4–5 L/100 km. Large SUVs and trucks are often 10 L/100 km or more.',
+  },
+  {
+    q: 'Which is better for comparing cars, mpg or L/100 km?',
+    a: 'L/100 km, because fuel used scales directly with it. Going from 10 to 5 L/100 km saves 5 litres per 100 km; going from 50 to 55 mpg saves far less fuel than going from 15 to 20 mpg, even though both are +5 mpg.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="fuel-economy-converter"
+  title="Fuel Economy Converter – mpg to L/100 km"
+  description="Free fuel economy converter. Convert US mpg, UK mpg, litres per 100 km, km per litre and miles per litre, handling the inverse mpg ↔ L/100 km relationship."
+  intro="Convert between US and UK miles per gallon, litres per 100 km and kilometres per litre, with the inverse maths handled for you."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <UnitConverter quantity="fuel" client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the fuel economy converter</h2>
+    <ol>
+      <li><strong>Pick the units</strong> to convert from and to. Make sure you choose US or UK mpg correctly.</li>
+      <li><strong>Type a value in either box</strong> to convert in either direction.</li>
+      <li><strong>See every unit at once</strong> in the list below.</li>
+    </ol>
+
+    <h2>Fuel economy formulas</h2>
+    <div class="formula">L/100 km = 235.215 ÷ mpg (US) = 282.481 ÷ mpg (UK) = 100 ÷ km/L</div>
+
+    <h2>mpg to L/100 km chart</h2>
+    <table>
+      <thead><tr><th>mpg</th><th>L/100 km (from US mpg)</th><th>L/100 km (from UK mpg)</th></tr></thead>
+      <tbody>
+        <tr><td>20</td><td>11.76</td><td>14.12</td></tr>
+        <tr><td>25</td><td>9.41</td><td>11.30</td></tr>
+        <tr><td>30</td><td>7.84</td><td>9.42</td></tr>
+        <tr><td>35</td><td>6.72</td><td>8.07</td></tr>
+        <tr><td>40</td><td>5.88</td><td>7.06</td></tr>
+        <tr><td>50</td><td>4.70</td><td>5.65</td></tr>
+      </tbody>
+    </table>
+
+    <h3>L/100 km to mpg</h3>
+    <table>
+      <thead><tr><th>L/100 km</th><th>mpg (US)</th><th>mpg (UK)</th></tr></thead>
+      <tbody>
+        <tr><td>4</td><td>58.8</td><td>70.6</td></tr>
+        <tr><td>5</td><td>47.0</td><td>56.5</td></tr>
+        <tr><td>6</td><td>39.2</td><td>47.1</td></tr>
+        <tr><td>8</td><td>29.4</td><td>35.3</td></tr>
+        <tr><td>10</td><td>23.5</td><td>28.2</td></tr>
+      </tbody>
+    </table>
+    <p>Work out what a trip will cost with the <a href="/fuel-cost-calculator">fuel cost calculator</a>, or convert distances with the <a href="/length-converter">length converter</a>.</p>
+  </Fragment>
+</CalculatorLayout>
