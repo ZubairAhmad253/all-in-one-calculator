@@ -1,0 +1,95 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import UnitConverter from '@/components/calculators/UnitConverter';
+
+const faqs = [
+  {
+    q: 'How many pounds are in a kilogram?',
+    a: 'One kilogram is about 2.2046 pounds. The pound is defined as exactly 0.45359237 kg, so to convert pounds to kilograms, multiply by 0.45359237 (or divide by 2.2046).',
+  },
+  {
+    q: 'How many grams are in an ounce?',
+    a: 'One ounce (avoirdupois, used for food and most goods) is exactly 28.349523125 grams, usually rounded to 28.35 g. There are 16 ounces in a pound.',
+  },
+  {
+    q: 'How do I convert stone to kilograms?',
+    a: 'One stone is 14 pounds, or about 6.35 kg. For 11 st 7 lb: 11 × 14 + 7 = 161 lb, and 161 × 0.4536 ≈ 73.0 kg. Choose “Stone + pounds” in the converter to enter both parts.',
+  },
+  {
+    q: 'What is the difference between a US ton and a metric tonne?',
+    a: 'A US (short) ton is 2,000 lb, about 907 kg. A metric tonne is 1,000 kg, about 2,205 lb. A UK (long) ton is 2,240 lb, about 1,016 kg. Check which one a document uses, as the difference is up to 12%.',
+  },
+  {
+    q: 'Is weight the same as mass?',
+    a: 'Strictly, kilograms and pounds measure mass, while weight is the force of gravity on that mass. In everyday use, including on scales and in shops, “weight” means mass, and that is what this converter uses.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="weight-converter"
+  title="Weight Converter – kg to lb, Stone, Ounces, Grams"
+  description="Free weight converter. Convert kilograms, pounds, stone, ounces, grams, milligrams and tonnes, including stone and pounds, using exact definitions."
+  intro="Convert between kilograms, grams, pounds, ounces, stone and tons, including stone and pounds together, for cooking, shipping, body weight and more."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <UnitConverter quantity="weight" client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the weight converter</h2>
+    <ol>
+      <li><strong>Pick the units</strong> to convert from and to.</li>
+      <li><strong>Type a value in either box</strong> to convert in either direction.</li>
+      <li><strong>Choose “Stone + pounds”</strong> for body weights like 11 st 7 lb.</li>
+    </ol>
+
+    <h2>Weight conversion factors</h2>
+    <table>
+      <thead><tr><th>From</th><th>To</th><th>Multiply by</th></tr></thead>
+      <tbody>
+        <tr><td>Pounds</td><td>Kilograms</td><td>0.45359237 (exact)</td></tr>
+        <tr><td>Kilograms</td><td>Pounds</td><td>2.20462</td></tr>
+        <tr><td>Ounces</td><td>Grams</td><td>28.3495</td></tr>
+        <tr><td>Grams</td><td>Ounces</td><td>0.035274</td></tr>
+        <tr><td>Stone</td><td>Kilograms</td><td>6.35029</td></tr>
+        <tr><td>Stone</td><td>Pounds</td><td>14 (exact)</td></tr>
+        <tr><td>Metric tonnes</td><td>Pounds</td><td>2,204.62</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked example</h3>
+    <p>A suitcase allowance of <strong>23 kg</strong> is 23 × 2.2046 ≈ <strong>50.7 lb</strong>. A recipe calling for <strong>8 oz</strong> of flour needs 8 × 28.35 ≈ <strong>227 g</strong>.</p>
+
+    <h2>Kilograms to pounds chart</h2>
+    <table>
+      <thead><tr><th>Kilograms</th><th>Pounds</th></tr></thead>
+      <tbody>
+        <tr><td>1 kg</td><td>2.20 lb</td></tr>
+        <tr><td>5 kg</td><td>11.02 lb</td></tr>
+        <tr><td>10 kg</td><td>22.05 lb</td></tr>
+        <tr><td>50 kg</td><td>110.23 lb</td></tr>
+        <tr><td>60 kg</td><td>132.28 lb</td></tr>
+        <tr><td>70 kg</td><td>154.32 lb</td></tr>
+        <tr><td>80 kg</td><td>176.37 lb</td></tr>
+        <tr><td>100 kg</td><td>220.46 lb</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Stone to kilograms chart</h2>
+    <table>
+      <thead><tr><th>Stone</th><th>Kilograms</th><th>Pounds</th></tr></thead>
+      <tbody>
+        <tr><td>8 st</td><td>50.8 kg</td><td>112 lb</td></tr>
+        <tr><td>9 st</td><td>57.2 kg</td><td>126 lb</td></tr>
+        <tr><td>10 st</td><td>63.5 kg</td><td>140 lb</td></tr>
+        <tr><td>11 st</td><td>69.9 kg</td><td>154 lb</td></tr>
+        <tr><td>12 st</td><td>76.2 kg</td><td>168 lb</td></tr>
+        <tr><td>13 st</td><td>82.6 kg</td><td>182 lb</td></tr>
+        <tr><td>14 st</td><td>88.9 kg</td><td>196 lb</td></tr>
+        <tr><td>15 st</td><td>95.3 kg</td><td>210 lb</td></tr>
+      </tbody>
+    </table>
+    <p>Checking your body weight? The <a href="/bmi-calculator">BMI calculator</a> works in kilograms or pounds.</p>
+  </Fragment>
+</CalculatorLayout>

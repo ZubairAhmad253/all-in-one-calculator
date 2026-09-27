@@ -1,0 +1,85 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import UnitConverter from '@/components/calculators/UnitConverter';
+
+const faqs = [
+  {
+    q: 'How do I convert Celsius to Fahrenheit?',
+    a: 'Multiply by 9/5 (or 1.8) and add 32: °F = °C × 9/5 + 32. So 20 °C × 1.8 + 32 = 68 °F. A quick mental estimate is to double the Celsius figure and add 30, which gives 70 °F.',
+  },
+  {
+    q: 'How do I convert Fahrenheit to Celsius?',
+    a: 'Subtract 32 and multiply by 5/9: °C = (°F − 32) × 5/9. So (100 °F − 32) × 5/9 ≈ 37.8 °C. For a rough estimate, subtract 30 and halve.',
+  },
+  {
+    q: 'At what temperature are Celsius and Fahrenheit the same?',
+    a: 'At −40. −40 °C is exactly −40 °F, the only point where the two scales meet.',
+  },
+  {
+    q: 'What is Kelvin?',
+    a: 'Kelvin is the scientific temperature scale. It starts at absolute zero (0 K, or −273.15 °C), the coldest possible temperature, and its steps are the same size as Celsius degrees. To convert, add 273.15 to the Celsius temperature. Kelvin is written without a degree sign.',
+  },
+  {
+    q: 'What is normal body temperature?',
+    a: 'Around 37 °C (98.6 °F) on average, though anything from about 36.1 °C to 37.2 °C (97 °F to 99 °F) is usually normal. A temperature of 38 °C (100.4 °F) or higher is generally considered a fever.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="temperature-converter"
+  title="Temperature Converter – Celsius, Fahrenheit, Kelvin"
+  description="Free temperature converter. Convert between Celsius, Fahrenheit and Kelvin, with the formulas, common reference temperatures and an oven temperature chart."
+  intro="Convert temperatures between Celsius, Fahrenheit and Kelvin, with the formula for each conversion, everyday reference points and an oven temperature chart for cooking."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <UnitConverter quantity="temperature" client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the temperature converter</h2>
+    <p>Pick the scales to convert between and type a temperature in either box; negative temperatures are fine. The formula for the conversion is shown under the result.</p>
+
+    <h2>Temperature formulas</h2>
+    <div class="formula">°F = °C × 9/5 + 32 &nbsp;&nbsp; °C = (°F − 32) × 5/9</div>
+    <div class="formula">K = °C + 273.15 &nbsp;&nbsp; °C = K − 273.15</div>
+
+    <h3>Worked example</h3>
+    <p>
+      A summer day of <strong>30 °C</strong>: 30 × 9/5 + 32 = <strong>86 °F</strong>. A US recipe that says <strong>350 °F</strong>: (350 − 32) × 5/9 ≈ <strong>176.7 °C</strong>, which
+      recipes round to 180 °C.
+    </p>
+
+    <h2>Common temperatures</h2>
+    <table>
+      <thead><tr><th></th><th>Celsius</th><th>Fahrenheit</th><th>Kelvin</th></tr></thead>
+      <tbody>
+        <tr><td>Absolute zero</td><td>−273.15 °C</td><td>−459.67 °F</td><td>0 K</td></tr>
+        <tr><td>Celsius equals Fahrenheit</td><td>−40 °C</td><td>−40 °F</td><td>233.15 K</td></tr>
+        <tr><td>Water freezes</td><td>0 °C</td><td>32 °F</td><td>273.15 K</td></tr>
+        <tr><td>Room temperature</td><td>20 °C</td><td>68 °F</td><td>293.15 K</td></tr>
+        <tr><td>Normal body temperature</td><td>37 °C</td><td>98.6 °F</td><td>310.15 K</td></tr>
+        <tr><td>Fever</td><td>38 °C</td><td>100.4 °F</td><td>311.15 K</td></tr>
+        <tr><td>Water boils (sea level)</td><td>100 °C</td><td>212 °F</td><td>373.15 K</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Oven temperature chart</h2>
+    <p>Recipes round oven temperatures to convenient numbers, so the usual recipe figure is a little different from the exact conversion.</p>
+    <table>
+      <thead><tr><th>Celsius</th><th>Exact °F</th><th>Recipe °F</th><th>Gas mark</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>140 °C</td><td>284 °F</td><td>275 °F</td><td>1</td><td>Very low</td></tr>
+        <tr><td>150 °C</td><td>302 °F</td><td>300 °F</td><td>2</td><td>Low</td></tr>
+        <tr><td>170 °C</td><td>338 °F</td><td>325 °F</td><td>3</td><td>Moderately low</td></tr>
+        <tr><td>180 °C</td><td>356 °F</td><td>350 °F</td><td>4</td><td>Moderate</td></tr>
+        <tr><td>190 °C</td><td>374 °F</td><td>375 °F</td><td>5</td><td>Moderately hot</td></tr>
+        <tr><td>200 °C</td><td>392 °F</td><td>400 °F</td><td>6</td><td>Hot</td></tr>
+        <tr><td>220 °C</td><td>428 °F</td><td>425 °F</td><td>7</td><td>Hot</td></tr>
+        <tr><td>230 °C</td><td>446 °F</td><td>450 °F</td><td>8</td><td>Very hot</td></tr>
+        <tr><td>240 °C</td><td>464 °F</td><td>475 °F</td><td>9</td><td>Very hot</td></tr>
+      </tbody>
+    </table>
+    <p>For fan (convection) ovens, reduce the temperature by about 20 °C (25 °F).</p>
+  </Fragment>
+</CalculatorLayout>
