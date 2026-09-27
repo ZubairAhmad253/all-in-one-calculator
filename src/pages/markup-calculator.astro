@@ -1,0 +1,68 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import MarkupCalculator from '@/components/calculators/MarkupCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate markup?',
+    a: 'Markup = (price − cost) ÷ cost × 100. An item that costs $40 and sells for $60 has a $20 profit and a 50% markup.',
+  },
+  {
+    q: 'How do I find the selling price from a markup?',
+    a: 'Multiply the cost by (1 + markup). A 50% markup on a $40 cost gives 40 × 1.5 = $60.',
+  },
+  {
+    q: 'Why is my margin lower than my markup?',
+    a: 'They measure the same profit against different amounts. Markup divides by cost, margin divides by the (larger) price. So a 50% markup is only a 33.3% margin, and a 100% markup (doubling the cost) is a 50% margin.',
+  },
+  {
+    q: 'What is keystone pricing?',
+    a: 'Keystone pricing means doubling the wholesale cost: a 100% markup, which is a 50% margin. It’s a common starting point in retail.',
+  },
+  {
+    q: 'Should I price by markup or margin?',
+    a: 'Many retailers set prices with a markup because it starts from cost, but report profitability as margin. Just be clear which one you mean: mixing them up is a common and costly mistake.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="markup-calculator"
+  title="Markup Calculator – Selling Price from Cost"
+  description="Free markup calculator. Find the selling price from cost and markup, or the markup from cost and price, and see the matching profit margin."
+  intro="Work out the selling price from your cost and markup, or find the markup you’re charging, and see the profit margin it gives."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <MarkupCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the markup calculator</h2>
+    <ol>
+      <li><strong>Find the price:</strong> enter your cost and markup.</li>
+      <li><strong>Find my markup:</strong> enter your cost and selling price.</li>
+    </ol>
+
+    <h2>Markup formulas</h2>
+    <div class="formula">Price = Cost × (1 + Markup ÷ 100) &nbsp;&nbsp; Markup = (Price − Cost) ÷ Cost × 100</div>
+    <div class="formula">Margin = Markup ÷ (100 + Markup) × 100</div>
+
+    <h3>Worked example</h3>
+    <p>A product costs <strong>$40</strong>. With a <strong>50% markup</strong>, the price is 40 × 1.5 = <strong>$60</strong>. The $20 profit is a 33.3% margin.</p>
+
+    <h2>Markup to margin conversion</h2>
+    <table>
+      <thead><tr><th>Markup</th><th>Margin</th><th>Price for a $40 cost</th></tr></thead>
+      <tbody>
+        <tr><td>10%</td><td>9.1%</td><td>$44.00</td></tr>
+        <tr><td>25%</td><td>20.0%</td><td>$50.00</td></tr>
+        <tr><td>33.3%</td><td>25.0%</td><td>$53.33</td></tr>
+        <tr><td>50%</td><td>33.3%</td><td>$60.00</td></tr>
+        <tr><td>75%</td><td>42.9%</td><td>$70.00</td></tr>
+        <tr><td>100%</td><td>50.0%</td><td>$80.00</td></tr>
+        <tr><td>200%</td><td>66.7%</td><td>$120.00</td></tr>
+      </tbody>
+    </table>
+    <p>Working the other way from a target margin? Use the <a href="/profit-margin-calculator">profit margin calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
