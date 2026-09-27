@@ -1,0 +1,67 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import SavingsGoalCalculator from '@/components/calculators/SavingsGoalCalculator';
+
+const faqs = [
+  {
+    q: 'How long will it take to reach my savings goal?',
+    a: 'It depends on what you have now, how much you add each month and the interest rate. Starting with $2,000 and saving $400 a month at 4%, you’d reach $20,000 in 42 months (3½ years).',
+  },
+  {
+    q: 'How much do I need to save each month?',
+    a: 'Choose “How much to save” and enter your deadline. To grow $2,000 to $20,000 in 36 months at 4%, you’d need to save about $464.77 a month. Without interest it would be $500.',
+  },
+  {
+    q: 'Does interest make much difference to short-term savings?',
+    a: 'Over a few years it helps, but your monthly deposits matter far more. In the example above, interest adds about $1,500 on the way to $20,000. For longer goals, interest plays a bigger part.',
+  },
+  {
+    q: 'Where should I keep savings for a goal?',
+    a: 'For goals within a few years, a high-interest savings account or fixed deposit keeps the money safe and accessible. For goals more than five years away, some people consider investing, accepting that the value can go down as well as up.',
+  },
+  {
+    q: 'What is a good savings goal to start with?',
+    a: 'Many people start with an emergency fund of three to six months of essential expenses, then save for specific goals like a car, a holiday or a home deposit.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="savings-calculator"
+  title="Savings Goal Calculator – How Long to Reach Your Target"
+  description="Free savings goal calculator. See how long it will take to reach a savings target, or how much to save each month to get there by a date, including interest."
+  intro="See how long it will take to reach your savings goal, or how much you need to save each month to get there by a date you choose."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <SavingsGoalCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the savings goal calculator</h2>
+    <ol>
+      <li><strong>Enter your goal</strong>, what you’ve already saved, and your savings rate.</li>
+      <li><strong>Choose what you want to know:</strong> how long it takes at a set monthly amount, or how much to save to reach it by a date.</li>
+    </ol>
+
+    <h2>The formulas</h2>
+    <p>To find the monthly saving needed to reach a target in n months at a monthly rate i:</p>
+    <div class="formula">Monthly saving = (Goal − Savings × (1 + i)<sup>n</sup>) × i ÷ ((1 + i)<sup>n</sup> − 1)</div>
+    <p>To find the time, the calculator adds a month’s interest and deposit at a time until the goal is reached.</p>
+
+    <h3>Worked example</h3>
+    <p>
+      You want <strong>$20,000</strong>, have <strong>$2,000</strong> saved and can put away <strong>$400 a month</strong> in an account paying <strong>4%</strong>. You’ll reach your goal
+      in <strong>42 months</strong>. You pay in $18,800 and interest adds about $1,500.
+    </p>
+    <p>To get there in 3 years instead, you’d need about <strong>$464.77 a month</strong>; in 2 years, about $714.98.</p>
+
+    <h2>Tips to reach your goal faster</h2>
+    <ul>
+      <li><strong>Automate it:</strong> set up a transfer on payday so saving happens first.</li>
+      <li><strong>Give each goal its own account</strong> so you can see progress.</li>
+      <li><strong>Add windfalls:</strong> tax refunds, bonuses and gifts.</li>
+      <li><strong>Shop for a better rate:</strong> high-interest accounts can pay several times more than a standard one.</li>
+    </ul>
+    <p>Saving for longer-term goals? The <a href="/investment-calculator">investment calculator</a> shows how investing could grow your money.</p>
+  </Fragment>
+</CalculatorLayout>
