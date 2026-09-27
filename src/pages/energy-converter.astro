@@ -1,0 +1,77 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import UnitConverter from '@/components/calculators/UnitConverter';
+
+const faqs = [
+  {
+    q: 'How do I convert calories to kilojoules?',
+    a: 'Multiply kilocalories (food Calories) by 4.184. A 250 kcal snack is 1,046 kJ. To go from kJ to kcal, multiply by 0.239 (or divide by 4.184).',
+  },
+  {
+    q: 'Is a food Calorie the same as a calorie?',
+    a: 'No. The Calorie on food labels (often written with a capital C) is a kilocalorie: 1,000 small calories. So a “200 Calorie” drink contains 200 kcal, or 836.8 kJ.',
+  },
+  {
+    q: 'How many BTU are in a kWh?',
+    a: 'About 3,412 BTU. Air conditioners are often rated in BTU per hour: a 12,000 BTU/h unit moves about 3.52 kW of heat.',
+  },
+  {
+    q: 'What is a kilowatt-hour?',
+    a: 'The energy used by a 1,000-watt appliance running for one hour: exactly 3.6 megajoules. It’s the unit electricity bills use. A 2 kW heater running for 3 hours uses 6 kWh.',
+  },
+  {
+    q: 'How many kWh are in a therm?',
+    a: 'A US therm is about 29.3 kWh. Gas is often billed in therms in the US and in kWh in the UK and Europe, so this helps compare prices.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="energy-converter"
+  title="Energy Converter – Joules, Calories, kWh & BTU"
+  description="Free energy converter. Convert joules, kilojoules, calories, kilocalories, watt-hours, kilowatt-hours, BTU, therms, foot-pounds and electronvolts."
+  intro="Convert between joules, calories, kilocalories, kilowatt-hours, BTU, therms and other energy units, in either direction."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <UnitConverter quantity="energy" client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the energy converter</h2>
+    <ol>
+      <li><strong>Pick the units</strong> to convert from and to.</li>
+      <li><strong>Type a value in either box</strong> to convert in either direction.</li>
+      <li><strong>See every unit at once</strong> in the list below.</li>
+    </ol>
+
+    <h2>Energy conversion factors</h2>
+    <table>
+      <thead><tr><th>Unit</th><th>Joules</th><th>Other</th></tr></thead>
+      <tbody>
+        <tr><td>1 calorie (cal)</td><td>4.184 (exact)</td><td></td></tr>
+        <tr><td>1 kilocalorie (kcal)</td><td>4,184</td><td>4.184 kJ</td></tr>
+        <tr><td>1 watt-hour (Wh)</td><td>3,600</td><td></td></tr>
+        <tr><td>1 kilowatt-hour (kWh)</td><td>3,600,000</td><td>3,412.14 BTU · 860.42 kcal</td></tr>
+        <tr><td>1 BTU</td><td>1,055.06</td><td>1.05506 kJ</td></tr>
+        <tr><td>1 therm (US)</td><td>105,480,400</td><td>29.30 kWh</td></tr>
+        <tr><td>1 foot-pound</td><td>1.35582</td><td></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked examples</h3>
+    <ul>
+      <li>A <strong>2,000 kcal</strong> daily diet is <strong>8,368 kJ</strong>, or about <strong>2.32 kWh</strong>.</li>
+      <li><strong>10 kWh</strong> of electricity is <strong>36 MJ</strong>.</li>
+      <li>A <strong>12,000 BTU</strong> air conditioner moves about <strong>3.52 kWh</strong> of heat per hour.</li>
+    </ul>
+
+    <h2>Which unit is used where?</h2>
+    <ul>
+      <li><strong>Food:</strong> kilocalories (US, UK) or kilojoules (Australia, EU labels show both).</li>
+      <li><strong>Electricity:</strong> kilowatt-hours.</li>
+      <li><strong>Heating and cooling:</strong> BTU and therms in the US; kWh elsewhere.</li>
+      <li><strong>Physics:</strong> joules, and electronvolts for particles.</li>
+    </ul>
+    <p>Estimate a power bill with the <a href="/electricity-bill-calculator">electricity bill calculator</a>, or see how many calories you burn with the <a href="/calorie-calculator">calorie calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>

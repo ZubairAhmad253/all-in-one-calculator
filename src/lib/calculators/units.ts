@@ -325,6 +325,37 @@ export const PRESSURE: Quantity = {
   positiveOnly: true,
 };
 
+export const ENERGY: Quantity = {
+  id: 'energy',
+  noun: 'energy',
+  // Base unit: joule. Calories are thermochemical (4.184 J); BTU is the International Table value.
+  units: [
+    linear('j', 'Joules', 'J', 1),
+    linear('kj', 'Kilojoules', 'kJ', 1000),
+    linear('mj', 'Megajoules', 'MJ', 1e6),
+    linear('cal', 'Calories (small)', 'cal', 4.184),
+    linear('kcal', 'Kilocalories (food Calories)', 'kcal', 4184),
+    linear('wh', 'Watt-hours', 'Wh', 3600),
+    linear('kwh', 'Kilowatt-hours', 'kWh', 3.6e6),
+    linear('btu', 'British thermal units', 'BTU', 1055.05585262),
+    linear('therm', 'Therms (US)', 'thm', 105_480_400),
+    linear('ftlb', 'Foot-pounds', 'ft·lbf', 1.3558179483314004),
+    linear('ev', 'Electronvolts', 'eV', 1.602176634e-19),
+  ],
+  defaults: { value: 1, from: 'kwh', to: 'kj' },
+  popular: [
+    ['kcal', 'kj'],
+    ['kj', 'kcal'],
+    ['kwh', 'btu'],
+    ['btu', 'kwh'],
+    ['j', 'cal'],
+    ['kwh', 'mj'],
+    ['therm', 'kwh'],
+    ['kcal', 'kwh'],
+  ],
+  positiveOnly: true,
+};
+
 export const QUANTITIES: Record<string, Quantity> = {
   length: LENGTH,
   weight: WEIGHT,
@@ -335,6 +366,7 @@ export const QUANTITIES: Record<string, Quantity> = {
   time: TIME,
   data: DATA,
   pressure: PRESSURE,
+  energy: ENERGY,
 };
 
 export function findUnit(q: Quantity, id: string): Unit | undefined {
