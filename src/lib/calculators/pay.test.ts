@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { cagr, convertPay, gst, projectValue, workYear } from './pay';
+import { cagr, convertPay, gst, projectValue, splitOvertime, workYear } from './pay';
 import { rentVsBuy } from './housing';
 
 const fullTime = { hoursPerWeek: 40, daysPerWeek: 5, unpaidDays: 0 };
@@ -88,5 +88,20 @@ describe('rentVsBuy', () => {
     const r = rentVsBuy({ ...base, years: 1 });
     expect(r.years[0].rentPaid).toBeCloseTo(2_200 * 12, 6);
     expect(r.years[0].ownPaid).toBeGreaterThan(r.upfront + 2_022.62 * 12);
+  });
+});
+
+describe('overtime', () => {
+  const week = [9, 9, 9, 9, 9, 0, 0].map((h) => h * 60);
+  it('splits weekly overtime over 40 hours', () => {
+    expect(splitOvertime(week, 'weekly')).toEqual({ total: 2700, regular: 2400, overtime: 300 });
+  });
+  it('splits daily overtime over 8 hours', () => {
+    expect(splitOvertime(week, 'daily')).toEqual({ total: 2700, regular: 2400, overtime: 300 });
+    expect(splitOvertime([10 * 60, 6 * 60], 'daily').overtime).toBe(120);
+    expect(splitOvertime([10 * 60, 6 * 60], 'weekly').overtime).toBe(0);
+  });
+  it('can switch overtime off', () => {
+    expect(splitOvertime(week, 'none').overtime).toBe(0);
   });
 });

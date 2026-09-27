@@ -62,3 +62,20 @@ export function cagr(start: number, end: number, years: number): number {
 
 /** Value after growing at `ratePct` a year for `years`. */
 export const projectValue = (start: number, ratePct: number, years: number) => start * Math.pow(1 + ratePct / 100, years);
+
+// -------------------------------------------------------------- overtime
+
+export type OvertimeRule = 'weekly' | 'daily' | 'none';
+
+/**
+ * Split a week of daily minutes into regular and overtime minutes.
+ * weekly: over `weeklyLimit` hours in the week; daily: over `dailyLimit`
+ * hours on any day (and never more than the week's total).
+ */
+export function splitOvertime(dailyMinutes: number[], rule: OvertimeRule, dailyLimit = 8, weeklyLimit = 40) {
+  const total = dailyMinutes.reduce((a, m) => a + Math.max(0, m), 0);
+  let overtime = 0;
+  if (rule === 'weekly') overtime = Math.max(0, total - weeklyLimit * 60);
+  if (rule === 'daily') overtime = dailyMinutes.reduce((a, m) => a + Math.max(0, m - dailyLimit * 60), 0);
+  return { total, regular: total - overtime, overtime };
+}
