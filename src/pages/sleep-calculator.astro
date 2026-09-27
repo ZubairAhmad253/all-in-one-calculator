@@ -1,0 +1,72 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import SleepCalculator from '@/components/calculators/SleepCalculator';
+
+const faqs = [
+  {
+    q: 'What time should I go to bed to wake up at 7 AM?',
+    a: 'For 5 full sleep cycles (7.5 hours), fall asleep by 11:30 PM, so be in bed by about 11:15 PM if you take 15 minutes to drop off. For 6 cycles (9 hours), be in bed by 9:45 PM.',
+  },
+  {
+    q: 'How long is a sleep cycle?',
+    a: 'About 90 minutes on average, though it ranges from roughly 70 to 120 minutes. Each cycle moves through light sleep, deep sleep and REM sleep; a typical night has 4–6 cycles.',
+  },
+  {
+    q: 'Why do I feel groggy even after enough sleep?',
+    a: 'Waking during deep sleep causes “sleep inertia”, that heavy, confused feeling. Timing your alarm for the end of a cycle, when sleep is lighter, can help you wake up more easily.',
+  },
+  {
+    q: 'How much sleep do adults need?',
+    a: 'The US National Sleep Foundation recommends 7–9 hours for adults aged 18–64 and 7–8 hours for those 65 and over. Teenagers need 8–10 hours and school-age children 9–11.',
+  },
+  {
+    q: 'How long should a nap be?',
+    a: 'Either a short 10–20 minute nap, which stays in light sleep, or a full 90-minute cycle. Naps of 30–60 minutes often end in deep sleep and leave you groggier.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="sleep-calculator"
+  title="Sleep Calculator – Best Time to Sleep and Wake Up"
+  description="Free sleep calculator. Find the best time to go to bed for your wake-up time, or when to wake after going to bed now, based on 90-minute sleep cycles."
+  intro="Find the best time to go to bed for your alarm, or when to wake up if you go to bed now, so you wake between 90-minute sleep cycles."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <SleepCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the sleep calculator</h2>
+    <ol>
+      <li><strong>Choose a direction:</strong> enter the time you need to wake up, or the time you’re going to bed. Tap <em>I’m going to bed now</em> to use the current time.</li>
+      <li><strong>Adjust how long you take to fall asleep</strong> if it isn’t about 15 minutes.</li>
+      <li><strong>Pick a time</strong>, ideally one with 5 or 6 full cycles.</li>
+    </ol>
+
+    <h2>How it works</h2>
+    <div class="formula">Bedtime = wake time − (cycles × 90 min) − time to fall asleep</div>
+
+    <h3>Worked examples</h3>
+    <table>
+      <thead><tr><th>Wake at</th><th>6 cycles (9 h)</th><th>5 cycles (7.5 h)</th><th>4 cycles (6 h)</th></tr></thead>
+      <tbody>
+        <tr><td>6:00 AM</td><td>8:45 PM</td><td>10:15 PM</td><td>11:45 PM</td></tr>
+        <tr><td>7:00 AM</td><td>9:45 PM</td><td>11:15 PM</td><td>12:45 AM</td></tr>
+      </tbody>
+    </table>
+    <p>Going to bed at 11:00 PM? Wake at 5:15 AM (4 cycles), <strong>6:45 AM</strong> (5 cycles) or 8:15 AM (6 cycles).</p>
+
+    <h2>Recommended sleep by age</h2>
+    <table>
+      <thead><tr><th>Age</th><th>Hours per night</th></tr></thead>
+      <tbody>
+        <tr><td>6–13 years</td><td>9–11</td></tr>
+        <tr><td>14–17 years</td><td>8–10</td></tr>
+        <tr><td>18–64 years</td><td>7–9</td></tr>
+        <tr><td>65+ years</td><td>7–8</td></tr>
+      </tbody>
+    </table>
+    <p>Source: US National Sleep Foundation. For hours between two clock times, use the <a href="/hours-calculator">hours calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
