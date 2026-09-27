@@ -1,0 +1,68 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import WorkingDaysCalculator from '@/components/calculators/WorkingDaysCalculator';
+
+const faqs = [
+  {
+    q: 'How many working days are in 2026?',
+    a: 'There are 261 weekdays (Monday to Friday) in 2026, before public holidays. Subtract your country’s holidays that fall on weekdays: with 8 such holidays, that leaves 253 working days.',
+  },
+  {
+    q: 'How do I count business days between two dates?',
+    a: 'Count every day in the range, then take away weekend days and any public holidays. The calculator does this for any dates and can include or leave out the end date.',
+  },
+  {
+    q: 'Can I use a Friday–Saturday weekend?',
+    a: 'Yes. Choose the weekend days that apply to you: Saturday and Sunday, Friday and Saturday (common in parts of the Middle East), or a single weekend day.',
+  },
+  {
+    q: 'How do I exclude public holidays?',
+    a: 'Type or paste the dates in YYYY-MM-DD format, such as 2026-12-25. Holidays that fall on a weekend are ignored because those days are already excluded.',
+  },
+  {
+    q: 'How many working hours are in a year?',
+    a: 'Multiply working days by hours per day. 261 weekdays × 8 hours = 2,088 hours in 2026 before holidays and leave. The calculator shows this for any date range.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="working-days-calculator"
+  title="Working Days Calculator – Business Days Between Dates"
+  description="Free working days calculator. Count business days between two dates, excluding weekends and public holidays, with custom weekends and total working hours."
+  intro="Count the working days between two dates, excluding weekends and any holidays you add, with custom weekend days and total working hours."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <WorkingDaysCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the working days calculator</h2>
+    <ol>
+      <li><strong>Pick the start and end dates</strong>, and choose whether to include the end date.</li>
+      <li><strong>Set your weekend days</strong> if they aren’t Saturday and Sunday.</li>
+      <li><strong>Add public holidays</strong> to exclude them.</li>
+    </ol>
+
+    <h2>How it’s counted</h2>
+    <div class="formula">Working days = calendar days − weekend days − holidays on weekdays</div>
+
+    <h2>Weekdays per month in 2026</h2>
+    <table>
+      <thead><tr><th>Month</th><th>Weekdays</th><th>Month</th><th>Weekdays</th></tr></thead>
+      <tbody>
+        <tr><td>January</td><td>22</td><td>July</td><td>23</td></tr>
+        <tr><td>February</td><td>20</td><td>August</td><td>21</td></tr>
+        <tr><td>March</td><td>22</td><td>September</td><td>22</td></tr>
+        <tr><td>April</td><td>22</td><td>October</td><td>22</td></tr>
+        <tr><td>May</td><td>21</td><td>November</td><td>21</td></tr>
+        <tr><td>June</td><td>22</td><td>December</td><td>23</td></tr>
+      </tbody>
+    </table>
+    <p>Total: <strong>261 weekdays</strong> in 2026, before public holidays.</p>
+
+    <h3>Worked example</h3>
+    <p>December 2026 has 23 weekdays. Excluding 25 December (a Friday) and 26 December (a Saturday, already a weekend day) leaves <strong>22 working days</strong>.</p>
+    <p>To find the date a number of business days away, use the <a href="/add-days-calculator">add days calculator</a>. For every day between two dates, see the <a href="/date-difference-calculator">date difference calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
