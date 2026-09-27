@@ -1,0 +1,73 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import SlopeCalculator from '@/components/calculators/SlopeCalculator';
+
+const faqs = [
+  {
+    q: 'How do I find the slope between two points?',
+    a: 'Divide the change in y by the change in x: m = (y₂ − y₁) ÷ (x₂ − x₁). For (1, 2) and (4, 8), that’s (8 − 2) ÷ (4 − 1) = 6 ÷ 3 = 2.',
+  },
+  {
+    q: 'What does a negative slope mean?',
+    a: 'The line falls from left to right: y goes down as x goes up. A slope of 0 is a flat line, and a vertical line has an undefined slope because the run is zero.',
+  },
+  {
+    q: 'How do I write the equation of a line?',
+    a: 'Find the slope m, then the y-intercept b = y₁ − m × x₁, and write y = mx + b. Through (1, 2) and (4, 8): m = 2 and b = 2 − 2 × 1 = 0, so y = 2x.',
+  },
+  {
+    q: 'How do I convert slope to an angle or percentage grade?',
+    a: 'Angle = arctan(slope), and grade = slope × 100%. A 5% road grade is a slope of 0.05, an angle of about 2.86°. A slope of 1 is a 100% grade at 45°.',
+  },
+  {
+    q: 'What is the slope of a perpendicular line?',
+    a: 'The negative reciprocal: −1 ÷ m. A line perpendicular to one with slope 2 has slope −0.5. Parallel lines share the same slope.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="slope-calculator"
+  title="Slope Calculator – Slope, Equation & Distance of a Line"
+  description="Free slope calculator. Find the slope between two points, the line equation y = mx + b, angle, grade, intercepts, distance and midpoint, with a graph."
+  intro="Enter two points, or a point and a slope, to get the slope, the line equation y = mx + b, its angle, grade, intercepts, distance and midpoint, drawn on a graph."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <SlopeCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the slope calculator</h2>
+    <ol>
+      <li><strong>Enter two points</strong> (x₁, y₁) and (x₂, y₂), or switch to <strong>Point and slope</strong>.</li>
+      <li><strong>Read the slope</strong> as a decimal and a fraction, plus the equation of the line.</li>
+      <li><strong>Check the graph</strong>: the dashed lines show the rise and run.</li>
+    </ol>
+
+    <h2>Slope formulas</h2>
+    <div class="formula">m = (y₂ − y₁) ÷ (x₂ − x₁) &nbsp;&nbsp; y = mx + b &nbsp;&nbsp; d = √((x₂ − x₁)² + (y₂ − y₁)²)</div>
+
+    <h3>Worked example: (−2, 3) and (4, −1)</h3>
+    <ul>
+      <li><strong>Slope:</strong> (−1 − 3) ÷ (4 − (−2)) = −4 ÷ 6 = <strong>−2/3</strong> ≈ −0.6667</li>
+      <li><strong>y-intercept:</strong> 3 − (−2/3)(−2) = 3 − 4/3 = <strong>5/3</strong> ≈ 1.6667</li>
+      <li><strong>Equation:</strong> y = −(2/3)x + 5/3</li>
+      <li><strong>Distance:</strong> √(6² + 4²) = √52 ≈ <strong>7.2111</strong></li>
+      <li><strong>Midpoint:</strong> <strong>(1, 1)</strong></li>
+    </ul>
+
+    <h2>Slope, angle and grade</h2>
+    <table>
+      <thead><tr><th>Slope</th><th>Grade</th><th>Angle</th></tr></thead>
+      <tbody>
+        <tr><td>0.05</td><td>5%</td><td>2.86°</td></tr>
+        <tr><td>0.0833 (1:12 ramp)</td><td>8.33%</td><td>4.76°</td></tr>
+        <tr><td>0.25</td><td>25%</td><td>14.04°</td></tr>
+        <tr><td>0.5</td><td>50%</td><td>26.57°</td></tr>
+        <tr><td>1</td><td>100%</td><td>45°</td></tr>
+        <tr><td>2</td><td>200%</td><td>63.43°</td></tr>
+      </tbody>
+    </table>
+    <p>For the length of a sloped side, try the <a href="/pythagorean-theorem-calculator">Pythagorean theorem calculator</a>. Working on a roof? The <a href="/roofing-calculator">roofing calculator</a> uses pitch.</p>
+  </Fragment>
+</CalculatorLayout>
