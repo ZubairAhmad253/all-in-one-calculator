@@ -1,0 +1,66 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import ElectricityBillCalculator from '@/components/calculators/ElectricityBillCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate electricity cost?',
+    a: 'Multiply the appliance’s power in kilowatts by the hours it runs to get kilowatt-hours (kWh), then multiply by your price per kWh. A 2,000 W heater used for 3 hours uses 6 kWh; at $0.30 per kWh that’s $1.80.',
+  },
+  {
+    q: 'How many kWh does a house use per month?',
+    a: 'It varies widely with climate, heating and home size. Average US homes use about 850–900 kWh a month; many European homes use 250–350 kWh. Heating, cooling and water heating are usually the biggest users.',
+  },
+  {
+    q: 'How much does it cost to run an air conditioner?',
+    a: 'A 1,500 W unit running 6 hours a day uses 9 kWh a day, about 270 kWh a month. At $0.15 per kWh that’s about $40.50 a month. Real use is often lower because the compressor cycles on and off.',
+  },
+  {
+    q: 'What is the difference between watts and kWh?',
+    a: 'Watts measure power, how fast energy is used at a moment. Kilowatt-hours measure energy, power over time. A 100 W TV on for 10 hours uses 1,000 Wh, which is 1 kWh.',
+  },
+  {
+    q: 'Where do I find my price per kWh?',
+    a: 'On your electricity bill, usually labelled “unit rate” or “energy charge”. Bills often add a fixed daily or monthly charge too; add that separately for a closer estimate.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="electricity-bill-calculator"
+  title="Electricity Bill Calculator – Appliance Running Costs"
+  description="Free electricity bill calculator. Estimate daily, monthly and yearly electricity use and cost for your appliances from watts, hours per day and your price per kWh."
+  intro="Estimate your electricity use and bill from your appliances’ wattage and daily hours, and see which appliances cost the most to run."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <ElectricityBillCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the electricity bill calculator</h2>
+    <ol>
+      <li><strong>Pick your appliances.</strong> Typical wattages fill in automatically; adjust them from the label if you know better.</li>
+      <li><strong>Set the hours per day</strong> each one runs and how many you have.</li>
+      <li><strong>Enter your price per kWh</strong> and any fixed monthly charge from your bill.</li>
+    </ol>
+
+    <h2>Electricity cost formula</h2>
+    <div class="formula">kWh = watts × hours ÷ 1,000 &nbsp;&nbsp; Cost = kWh × price per kWh</div>
+
+    <h3>Worked example</h3>
+    <p>A fridge (150 W, 24 h), TV (100 W, 4 h), 8 LED bulbs (10 W, 5 h), washing machine (500 W, 1 h) and computer (200 W, 6 h) use <strong>6.1 kWh a day</strong>, about <strong>186 kWh a month</strong>. At $0.25 per kWh, that’s about <strong>$46.39 a month</strong>.</p>
+
+    <h2>Typical appliance wattages</h2>
+    <table>
+      <thead><tr><th>Appliance</th><th>Watts</th><th>Appliance</th><th>Watts</th></tr></thead>
+      <tbody>
+        <tr><td>LED bulb</td><td>8–12</td><td>Microwave</td><td>800–1,200</td></tr>
+        <tr><td>Laptop</td><td>30–70</td><td>Dishwasher</td><td>1,200–1,500</td></tr>
+        <tr><td>TV</td><td>60–150</td><td>Air conditioner</td><td>1,000–3,500</td></tr>
+        <tr><td>Fridge-freezer</td><td>100–250</td><td>Kettle</td><td>2,000–3,000</td></tr>
+        <tr><td>Washing machine</td><td>400–600</td><td>Tumble dryer</td><td>2,000–3,000</td></tr>
+      </tbody>
+    </table>
+    <p>Convert between kWh, BTU and other units with the <a href="/energy-converter">energy converter</a>.</p>
+  </Fragment>
+</CalculatorLayout>
