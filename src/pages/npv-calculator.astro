@@ -1,0 +1,76 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import NpvCalculator from '@/components/calculators/NpvCalculator';
+
+const faqs = [
+  {
+    q: 'What is NPV?',
+    a: 'Net present value is the value today of all a project’s future cash flows, discounted at your required rate of return, minus what you invest. A positive NPV means the project earns more than that rate.',
+  },
+  {
+    q: 'How do I calculate NPV?',
+    a: 'Divide each year’s cash flow by (1 + rate) raised to the year number, add them up, and subtract the initial investment. For $10,000 invested with cash flows of $3,000, $4,000, $4,000 and $3,000 at 10%, NPV = $1,087.36.',
+  },
+  {
+    q: 'What discount rate should I use?',
+    a: 'Use the return you could get elsewhere for similar risk, often your cost of capital or a target return. Riskier projects deserve higher rates. Try a few rates to see how sensitive the result is.',
+  },
+  {
+    q: 'What is the difference between NPV and IRR?',
+    a: 'NPV gives an amount of value at a chosen rate; IRR gives the rate at which NPV is zero. When comparing projects of different sizes, NPV is usually the better guide because it measures how much value is created.',
+  },
+  {
+    q: 'What is the profitability index?',
+    a: 'The present value of the future cash flows divided by the initial investment. Above 1 means a positive NPV. In the example, 11,087.36 ÷ 10,000 = 1.109.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="npv-calculator"
+  title="NPV Calculator – Net Present Value of Cash Flows"
+  description="Free NPV calculator. Find the net present value of an investment from yearly cash flows and a discount rate, with present values, IRR and profitability index."
+  intro="Find the net present value of an investment from its yearly cash flows and your required return, with the present value of each year, the IRR and the profitability index."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <NpvCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the NPV calculator</h2>
+    <ol>
+      <li><strong>Enter the initial investment</strong> (money spent today).</li>
+      <li><strong>Set the discount rate:</strong> the return you require.</li>
+      <li><strong>Enter the cash flow for each year.</strong> Add or remove years as needed.</li>
+    </ol>
+
+    <h2>NPV formula</h2>
+    <div class="formula">NPV = −Initial investment + CF₁ ÷ (1 + r) + CF₂ ÷ (1 + r)² + … + CFₙ ÷ (1 + r)ⁿ</div>
+
+    <h3>Worked example</h3>
+    <p>You invest <strong>$10,000</strong> and expect $3,000, $4,000, $4,000 and $3,000 over four years. At a <strong>10%</strong> discount rate:</p>
+    <table>
+      <thead><tr><th>Year</th><th>Cash flow</th><th>Present value</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>$3,000</td><td>$2,727.27</td></tr>
+        <tr><td>2</td><td>$4,000</td><td>$3,305.79</td></tr>
+        <tr><td>3</td><td>$4,000</td><td>$3,005.26</td></tr>
+        <tr><td>4</td><td>$3,000</td><td>$2,049.04</td></tr>
+      </tbody>
+    </table>
+    <p>The present values add up to $11,087.36, so <strong>NPV = $1,087.36</strong>: the project is worth taking at a 10% required return.</p>
+
+    <h2>How the discount rate changes NPV</h2>
+    <table>
+      <thead><tr><th>Discount rate</th><th>NPV</th></tr></thead>
+      <tbody>
+        <tr><td>5%</td><td>$2,408.72</td></tr>
+        <tr><td>8%</td><td>$1,587.55</td></tr>
+        <tr><td>10%</td><td>$1,087.36</td></tr>
+        <tr><td>12%</td><td>$621.02</td></tr>
+        <tr><td>15%</td><td>−$21.41</td></tr>
+      </tbody>
+    </table>
+    <p>NPV turns negative just below 15%, which is where the IRR is (14.90%). Find it exactly with the <a href="/irr-calculator">IRR calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
