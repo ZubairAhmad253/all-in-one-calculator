@@ -1,0 +1,81 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import UnitConverter from '@/components/calculators/UnitConverter';
+
+const faqs = [
+  {
+    q: 'How do I convert bar to psi?',
+    a: 'Multiply by 14.5038. A tyre at 2.2 bar is about 31.9 psi. To go from psi to bar, multiply by 0.0689476 (or divide by 14.5038): 32 psi is about 2.21 bar.',
+  },
+  {
+    q: 'What should my tyre pressure be in kPa?',
+    a: 'Most car tyres run at 30–35 psi, which is about 207–241 kPa (2.1–2.4 bar). Always use the figure on the sticker inside the driver’s door or in the owner’s manual.',
+  },
+  {
+    q: 'What is standard atmospheric pressure?',
+    a: 'One standard atmosphere is exactly 101,325 Pa, which is 1.01325 bar, 1013.25 hPa (millibars), 14.696 psi, 760 torr or 29.92 inches of mercury.',
+  },
+  {
+    q: 'What is the difference between hPa and mbar?',
+    a: 'None. One hectopascal equals one millibar (100 Pa). Weather forecasts use either; typical sea-level pressure ranges from about 980 hPa in a storm to 1,040 hPa in a strong high.',
+  },
+  {
+    q: 'Why is blood pressure measured in mmHg?',
+    a: 'Early instruments measured how high blood pressure could push a column of mercury. The unit stuck: 120 mmHg is about 16 kPa. One mmHg is 133.322 Pa, very slightly different from a torr.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="pressure-converter"
+  title="Pressure Converter – bar, psi, kPa, atm & More"
+  description="Free pressure converter. Convert bar, psi, pascals, kPa, MPa, hPa, millibar, atmospheres, mmHg, inches of mercury and torr, for tyres, weather and engineering."
+  intro="Convert between bar, psi, pascals, kilopascals, hectopascals, atmospheres, mmHg, inches of mercury and torr, in either direction."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <UnitConverter quantity="pressure" client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the pressure converter</h2>
+    <ol>
+      <li><strong>Pick the units</strong> to convert from and to.</li>
+      <li><strong>Type a value in either box</strong> to convert in either direction.</li>
+      <li><strong>See every unit at once</strong> in the list below.</li>
+    </ol>
+
+    <h2>Pressure conversion factors</h2>
+    <table>
+      <thead><tr><th>Unit</th><th>Pascals</th><th>psi</th></tr></thead>
+      <tbody>
+        <tr><td>1 bar</td><td>100,000</td><td>14.5038</td></tr>
+        <tr><td>1 psi</td><td>6,894.76</td><td>1</td></tr>
+        <tr><td>1 kPa</td><td>1,000</td><td>0.145038</td></tr>
+        <tr><td>1 atm</td><td>101,325 (exact)</td><td>14.6959</td></tr>
+        <tr><td>1 hPa / 1 mbar</td><td>100</td><td>0.0145038</td></tr>
+        <tr><td>1 mmHg</td><td>133.322</td><td>0.0193368</td></tr>
+        <tr><td>1 inHg</td><td>3,386.39</td><td>0.491154</td></tr>
+        <tr><td>1 torr</td><td>133.322</td><td>0.0193368</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Tyre pressure chart</h2>
+    <table>
+      <thead><tr><th>psi</th><th>bar</th><th>kPa</th></tr></thead>
+      <tbody>
+        <tr><td>28</td><td>1.93</td><td>193</td></tr>
+        <tr><td>30</td><td>2.07</td><td>207</td></tr>
+        <tr><td>32</td><td>2.21</td><td>221</td></tr>
+        <tr><td>35</td><td>2.41</td><td>241</td></tr>
+        <tr><td>40</td><td>2.76</td><td>276</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked examples</h3>
+    <ul>
+      <li>Standard sea-level pressure, <strong>1013.25 hPa</strong>, is <strong>29.92 inHg</strong>.</li>
+      <li>A blood pressure of <strong>120 mmHg</strong> is <strong>16.0 kPa</strong>.</li>
+    </ul>
+    <p>For other everyday conversions, see the <a href="/temperature-converter">temperature converter</a> and <a href="/weight-converter">weight converter</a>.</p>
+  </Fragment>
+</CalculatorLayout>
