@@ -42,7 +42,13 @@ export function monthlyPayment(principal: number, annualRate: number, months: nu
  * Month-by-month schedule. `extraPerMonth` goes straight to principal, so
  * the loan can finish before `months`.
  */
-export function amortize(principal: number, annualRate: number, months: number, extraPerMonth = 0): Amortization {
+/** A single extra payment made with scheduled payment number `month` (1-based). */
+export interface OneTimePayment {
+  month: number;
+  amount: number;
+}
+
+export function amortize(principal: number, annualRate: number, months: number, extraPerMonth = 0, oneTime?: OneTimePayment): Amortization {
   const payment = monthlyPayment(principal, annualRate, months);
   const r = annualRate / 100 / 12;
   const extra = Math.max(extraPerMonth, 0);
@@ -52,7 +58,8 @@ export function amortize(principal: number, annualRate: number, months: number, 
 
   while (balance > 0.005 && monthly.length < months) {
     const interest = balance * r;
-    let toPrincipal = Math.min(payment + extra - interest, balance);
+    const lump = oneTime && oneTime.month === monthly.length + 1 ? Math.max(oneTime.amount, 0) : 0;
+    let toPrincipal = Math.min(payment + extra + lump - interest, balance);
     // Clear floating-point dust (fractions of a cent) on the final payment.
     if (balance - toPrincipal < 0.005) toPrincipal = balance;
     balance -= toPrincipal;
@@ -90,9 +97,10 @@ export interface LoanResult extends Amortization {
 }
 
 /** Amortization plus the savings from an extra monthly payment. */
-export function calculateLoan(principal: number, annualRate: number, months: number, extraPerMonth = 0): LoanResult {
-  const withExtra = amortize(principal, annualRate, months, extraPerMonth);
-  const baseline = extraPerMonth > 0 ? amortize(principal, annualRate, months) : withExtra;
+export function calculateLoan(principal: number, annualRate: number, months: number, extraPerMonth = 0, oneTime?: OneTimePayment): LoanResult {
+  const withExtra = amortize(principal, annualRate, months, extraPerMonth, oneTime);
+  const hasExtra = extraPerMonth > 0 || (oneTime !== undefined && oneTime.amount > 0);
+  const baseline = hasExtra ? amortize(principal, annualRate, months) : withExtra;
   return {
     ...withExtra,
     interestSaved: baseline.totalInterest - withExtra.totalInterest,

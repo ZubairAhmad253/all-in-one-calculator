@@ -1,0 +1,76 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import CreditCardPayoffCalculator from '@/components/calculators/CreditCardPayoffCalculator';
+
+const faqs = [
+  {
+    q: 'How long will it take to pay off my credit card?',
+    a: 'It depends on your balance, APR and payment. A $5,000 balance at 22% takes 34 months with $200 a month, but 21 months with $300 a month. Enter your own numbers above to see yours.',
+  },
+  {
+    q: 'Why does paying the minimum take so long?',
+    a: 'Minimum payments are set low, often about 1% of the balance plus interest, so most of each payment covers interest. Paying only the minimum on $5,000 at 22% could take around 19 years and cost about $8,100 in interest.',
+  },
+  {
+    q: 'How much do I need to pay to clear my card in a year?',
+    a: 'Choose “Be debt-free by…” and enter 12 months. For $5,000 at 22%, you’d need to pay about $467.97 a month.',
+  },
+  {
+    q: 'Should I use a balance transfer card?',
+    a: 'A 0% balance transfer can save a lot of interest if you pay the balance off before the offer ends. Check the transfer fee (often 3–5%) and the rate afterwards, and avoid new spending on the card.',
+  },
+  {
+    q: 'How is credit card interest calculated?',
+    a: 'Most cards charge interest daily at the APR ÷ 365 on your balance, added monthly. This calculator uses APR ÷ 12 each month, which gives very close results.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="credit-card-payoff-calculator"
+  title="Credit Card Payoff Calculator – How Long to Pay Off Debt"
+  description="Free credit card payoff calculator. See how long it takes to clear your balance, how much interest you'll pay, and the payment needed to be debt-free by a date."
+  intro="See how long it will take to pay off your credit card, how much interest it will cost, and the monthly payment you need to be debt-free by a date you choose."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <CreditCardPayoffCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the credit card payoff calculator</h2>
+    <ol>
+      <li><strong>Enter your balance and APR</strong> from your statement.</li>
+      <li><strong>Choose a plan:</strong> a fixed monthly payment, or a date to be debt-free by.</li>
+    </ol>
+    <p>You’ll see how long it takes, the total interest, and how it compares with paying only the minimum.</p>
+
+    <h2>How payoff time is calculated</h2>
+    <p>Each month, interest is added (balance × APR ÷ 12) and your payment is taken off. This repeats until the balance reaches zero. In closed form:</p>
+    <div class="formula">Months = −ln(1 − r × Balance ÷ Payment) ÷ ln(1 + r), where r = APR ÷ 12</div>
+
+    <h3>Worked example</h3>
+    <p>
+      A <strong>$5,000</strong> balance at <strong>22% APR</strong>, paying <strong>$200 a month</strong>: the card is clear after <strong>34 payments</strong>, with about
+      <strong>$1,750</strong> in interest. Raising the payment to $300 clears it in 21 months with about $1,022 in interest.
+    </p>
+
+    <h2>Fixed payment vs minimum payment</h2>
+    <table>
+      <thead><tr><th>Plan on $5,000 at 22%</th><th>Time to pay off</th><th>Interest</th></tr></thead>
+      <tbody>
+        <tr><td>Minimum only (1% + interest)</td><td>About 19 years</td><td>About $8,100</td></tr>
+        <tr><td>$200 a month</td><td>34 months</td><td>About $1,750</td></tr>
+        <tr><td>$300 a month</td><td>21 months</td><td>About $1,022</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Ways to pay off your card faster</h2>
+    <ul>
+      <li><strong>Pay a fixed amount,</strong> not the minimum, and set it up automatically.</li>
+      <li><strong>Stop using the card</strong> while you pay it down.</li>
+      <li><strong>Consider a 0% balance transfer</strong> if you can clear it within the offer period.</li>
+      <li><strong>Ask for a lower rate:</strong> a phone call to your card company sometimes works.</li>
+    </ul>
+    <p>Got more than one debt? The <a href="/debt-payoff-calculator">debt payoff calculator</a> compares the snowball and avalanche methods.</p>
+  </Fragment>
+</CalculatorLayout>
