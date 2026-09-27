@@ -1,0 +1,71 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import HeartRateZoneCalculator from '@/components/calculators/HeartRateZoneCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate my heart rate zones?',
+    a: 'Estimate your maximum heart rate, then take percentages of it: zone 2 is 60–70%, for example. With a max of 180 bpm, zone 2 is 108–126 bpm. Adding your resting heart rate (the Karvonen method) makes the zones more personal.',
+  },
+  {
+    q: 'What is the most accurate max heart rate formula?',
+    a: 'Tanaka’s 208 − 0.7 × age is more accurate than the classic 220 − age, especially for older adults. For women, Gulati’s 206 − 0.88 × age fits research data better. All age formulas can still be 10–20 bpm off for an individual.',
+  },
+  {
+    q: 'What is the Karvonen method?',
+    a: 'It applies zone percentages to your heart rate reserve (max minus resting) and then adds the resting rate back. With a max of 180 and a resting rate of 60, zone 2 at 60–70% is 60 + 0.6 × 120 = 132 to 60 + 0.7 × 120 = 144 bpm.',
+  },
+  {
+    q: 'What is zone 2 training?',
+    a: 'Easy aerobic exercise at 60–70% of max, where you can still hold a conversation. It builds endurance and fat-burning capacity with little fatigue, so many coaches recommend spending about 80% of training time in zones 1–2.',
+  },
+  {
+    q: 'What is a good resting heart rate?',
+    a: 'For adults, 60–100 bpm is the normal range, and fit people are often in the 40s or 50s. A resting rate that rises by several beats over a few days can be a sign of fatigue, illness or overtraining.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="heart-rate-zone-calculator"
+  title="Heart Rate Zone Calculator – Training Zones by Age"
+  description="Free heart rate zone calculator. Find your max heart rate and five training zones in bpm by age, using % of max or the Karvonen method with your resting heart rate."
+  intro="Find your maximum heart rate and five training zones in beats per minute, from your age or a measured max, with the Karvonen method if you know your resting rate."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <HeartRateZoneCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the heart rate zone calculator</h2>
+    <ol>
+      <li><strong>Enter your age</strong> and choose a max heart rate formula, or type in a max you’ve measured.</li>
+      <li><strong>Add your resting heart rate</strong> for Karvonen zones, or set it to 0 for simple % of max.</li>
+      <li><strong>Use the zones</strong> with a heart rate monitor or watch during training.</li>
+    </ol>
+
+    <h2>Formulas</h2>
+    <div class="formula">% of max: target = max HR × % &nbsp;&nbsp; Karvonen: target = resting + (max − resting) × %</div>
+
+    <h3>Worked example: age 40 (max 180 bpm), resting 60 bpm</h3>
+    <table>
+      <thead><tr><th>Zone</th><th>% range</th><th>% of max</th><th>Karvonen</th></tr></thead>
+      <tbody>
+        <tr><td>1 · Recovery</td><td>50–60%</td><td>90–108 bpm</td><td>120–132 bpm</td></tr>
+        <tr><td>2 · Endurance</td><td>60–70%</td><td>108–126 bpm</td><td>132–144 bpm</td></tr>
+        <tr><td>3 · Tempo</td><td>70–80%</td><td>126–144 bpm</td><td>144–156 bpm</td></tr>
+        <tr><td>4 · Threshold</td><td>80–90%</td><td>144–162 bpm</td><td>156–168 bpm</td></tr>
+        <tr><td>5 · Maximum</td><td>90–100%</td><td>162–180 bpm</td><td>168–180 bpm</td></tr>
+      </tbody>
+    </table>
+    <p>Tanaka: 208 − 0.7 × 40 = 180 bpm.</p>
+
+    <h2>How to spend training time</h2>
+    <ul>
+      <li><strong>Zones 1–2:</strong> most of your weekly time (about 80%) for base fitness and recovery.</li>
+      <li><strong>Zone 3:</strong> steady tempo runs or rides, in moderation.</li>
+      <li><strong>Zones 4–5:</strong> intervals and races, about 10–20% of training.</li>
+    </ul>
+    <p>Turn zones into run targets with the <a href="/pace-calculator">pace calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
