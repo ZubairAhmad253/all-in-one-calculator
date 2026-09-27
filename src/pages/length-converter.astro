@@ -1,0 +1,88 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import UnitConverter from '@/components/calculators/UnitConverter';
+
+const faqs = [
+  {
+    q: 'How many centimetres are in an inch?',
+    a: 'Exactly 2.54 centimetres. Since 1959 the inch has been defined as 25.4 mm exactly, so the conversion never changes. To convert inches to cm, multiply by 2.54; to convert cm to inches, divide by 2.54.',
+  },
+  {
+    q: 'How do I convert feet and inches to centimetres?',
+    a: 'Turn the height into inches first (feet × 12 + inches), then multiply by 2.54. For 5 ft 9 in: 5 × 12 + 9 = 69 inches, and 69 × 2.54 = 175.26 cm. Choose “Feet + inches” in the converter to do this in one step.',
+  },
+  {
+    q: 'How many feet are in a metre?',
+    a: 'One metre is about 3.2808 feet (3 feet 3.37 inches). One foot is exactly 0.3048 metres.',
+  },
+  {
+    q: 'How far is a mile in kilometres?',
+    a: 'One mile is exactly 1.609344 km, so 5 miles is about 8.05 km. One kilometre is about 0.6214 miles, which is why a 10 km race is about 6.2 miles.',
+  },
+  {
+    q: 'What is a nautical mile?',
+    a: 'A nautical mile is exactly 1,852 metres (about 1.15 ordinary miles). It’s used at sea and in aviation because it relates to the Earth’s latitude: one nautical mile is about one minute of latitude.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="length-converter"
+  title="Length Converter – cm, m, km, Inches, Feet, Miles"
+  description="Free length converter. Convert between millimetres, centimetres, metres, kilometres, inches, feet, yards and miles, including feet and inches, with exact factors."
+  intro="Convert between metric and imperial lengths: millimetres, centimetres, metres and kilometres, or inches, feet, yards and miles, including feet and inches together."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <UnitConverter quantity="length" client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the length converter</h2>
+    <ol>
+      <li><strong>Pick the units</strong> to convert from and to.</li>
+      <li><strong>Type a value in either box.</strong> Both work, so you can convert in either direction without swapping.</li>
+      <li><strong>Choose “Feet + inches”</strong> to enter or show heights like 5 ft 9 in.</li>
+    </ol>
+    <p>The list underneath shows your value in every unit at once. Tap a row to convert to that unit, or the copy icon to copy the result.</p>
+
+    <h2>Length conversion factors</h2>
+    <table>
+      <thead><tr><th>From</th><th>To</th><th>Multiply by</th></tr></thead>
+      <tbody>
+        <tr><td>Inches</td><td>Centimetres</td><td>2.54 (exact)</td></tr>
+        <tr><td>Centimetres</td><td>Inches</td><td>0.3937</td></tr>
+        <tr><td>Feet</td><td>Metres</td><td>0.3048 (exact)</td></tr>
+        <tr><td>Metres</td><td>Feet</td><td>3.2808</td></tr>
+        <tr><td>Yards</td><td>Metres</td><td>0.9144 (exact)</td></tr>
+        <tr><td>Miles</td><td>Kilometres</td><td>1.609344 (exact)</td></tr>
+        <tr><td>Kilometres</td><td>Miles</td><td>0.6214</td></tr>
+        <tr><td>Nautical miles</td><td>Kilometres</td><td>1.852 (exact)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked example</h3>
+    <p>A TV screen is <strong>55 inches</strong> across: 55 × 2.54 = <strong>139.7 cm</strong>. A <strong>5 km</strong> run is 5 × 0.6214 ≈ <strong>3.11 miles</strong>.</p>
+
+    <h2>Height conversion chart</h2>
+    <table>
+      <thead><tr><th>Feet and inches</th><th>Centimetres</th></tr></thead>
+      <tbody>
+        <tr><td>5 ft 0 in</td><td>152.4 cm</td></tr>
+        <tr><td>5 ft 2 in</td><td>157.5 cm</td></tr>
+        <tr><td>5 ft 4 in</td><td>162.6 cm</td></tr>
+        <tr><td>5 ft 6 in</td><td>167.6 cm</td></tr>
+        <tr><td>5 ft 8 in</td><td>172.7 cm</td></tr>
+        <tr><td>5 ft 10 in</td><td>177.8 cm</td></tr>
+        <tr><td>6 ft 0 in</td><td>182.9 cm</td></tr>
+        <tr><td>6 ft 2 in</td><td>188.0 cm</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Metric and imperial units</h2>
+    <p>
+      The <strong>metric system</strong> is based on the metre, with prefixes in powers of ten: 1 km = 1,000 m, 1 m = 100 cm = 1,000 mm. The <strong>imperial system</strong>, still used in the
+      US and partly in the UK, uses 12 inches to a foot, 3 feet to a yard and 1,760 yards to a mile. Since 1959 imperial units have been defined exactly in terms of the metre.
+    </p>
+    <p>Need a height for a health check? The <a href="/bmi-calculator">BMI calculator</a> accepts both feet and inches and centimetres.</p>
+  </Fragment>
+</CalculatorLayout>
