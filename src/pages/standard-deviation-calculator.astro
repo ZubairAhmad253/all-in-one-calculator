@@ -1,0 +1,70 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import StandardDeviationCalculator from '@/components/calculators/StandardDeviationCalculator';
+
+const faqs = [
+  {
+    q: 'What does standard deviation tell you?',
+    a: 'How spread out the numbers are around the mean. A small standard deviation means values cluster close to the average; a large one means they’re widely scattered. It’s in the same units as the data.',
+  },
+  {
+    q: 'Should I use sample or population standard deviation?',
+    a: 'Use population (divide by N) only when your data includes every member of the group, such as all 30 students in one class. If your data is a subset used to estimate a larger group, use sample (divide by n − 1). When in doubt, use sample.',
+  },
+  {
+    q: 'Why divide by n − 1 for a sample?',
+    a: 'A sample’s values sit closer to the sample’s own mean than to the true population mean, so dividing by n would underestimate the spread. Dividing by n − 1 (Bessel’s correction) removes that bias.',
+  },
+  {
+    q: 'What is the difference between variance and standard deviation?',
+    a: 'Variance is the average squared distance from the mean; standard deviation is its square root. Standard deviation is easier to interpret because it’s in the original units rather than squared units.',
+  },
+  {
+    q: 'What is the 68-95-99.7 rule?',
+    a: 'For normally distributed data, about 68% of values lie within 1 standard deviation of the mean, 95% within 2 and 99.7% within 3. Values more than 3 standard deviations away are unusual.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="standard-deviation-calculator"
+  title="Standard Deviation Calculator – Sample & Population"
+  description="Free standard deviation calculator. Find sample and population standard deviation, variance, mean and standard error, with a step-by-step table of deviations."
+  intro="Paste a data set to get its sample or population standard deviation, variance, mean and standard error, with every step of the working shown."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <StandardDeviationCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the standard deviation calculator</h2>
+    <ol>
+      <li><strong>Enter your data</strong>, separated by commas, spaces or new lines.</li>
+      <li><strong>Choose sample or population.</strong> Most real-world data is a sample.</li>
+      <li><strong>Read the result</strong> and the table showing each value’s deviation from the mean.</li>
+    </ol>
+
+    <h2>Standard deviation formulas</h2>
+    <div class="formula">Sample: s = √( Σ(x − x̄)² ÷ (n − 1) ) &nbsp;&nbsp; Population: σ = √( Σ(x − μ)² ÷ N )</div>
+
+    <h3>Worked example</h3>
+    <p>Data: <strong>2, 4, 4, 4, 5, 5, 7, 9</strong></p>
+    <ol>
+      <li>Mean = 40 ÷ 8 = <strong>5</strong></li>
+      <li>Squared deviations: 9, 1, 1, 1, 0, 0, 4, 16, which sum to <strong>32</strong></li>
+      <li>Population variance = 32 ÷ 8 = 4, so <strong>σ = 2</strong></li>
+      <li>Sample variance = 32 ÷ 7 = 4.571, so <strong>s = 2.138</strong></li>
+    </ol>
+
+    <h2>The 68-95-99.7 rule</h2>
+    <table>
+      <thead><tr><th>Range</th><th>Share of normal data</th></tr></thead>
+      <tbody>
+        <tr><td>Mean ± 1 SD</td><td>≈ 68.3%</td></tr>
+        <tr><td>Mean ± 2 SD</td><td>≈ 95.4%</td></tr>
+        <tr><td>Mean ± 3 SD</td><td>≈ 99.7%</td></tr>
+      </tbody>
+    </table>
+    <p>For the mean, median and mode alone, use the <a href="/average-calculator">average calculator</a>. For chances and outcomes, see the <a href="/probability-calculator">probability calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
