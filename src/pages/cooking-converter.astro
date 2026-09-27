@@ -1,0 +1,82 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import CookingConverter from '@/components/calculators/CookingConverter';
+
+const faqs = [
+  {
+    q: 'How many grams are in a cup of flour?',
+    a: 'About 120 g of all-purpose flour per US cup when it’s spooned in and levelled. Scooping straight from the bag can pack in 140 g or more, which is why bakers prefer weighing.',
+  },
+  {
+    q: 'How many grams are in a cup of sugar?',
+    a: 'About 200 g of granulated sugar per US cup. Packed brown sugar is heavier at about 213 g, and powdered (icing) sugar lighter at about 120 g.',
+  },
+  {
+    q: 'Why does a cup of flour weigh less than a cup of water?',
+    a: 'Cups measure volume, not weight, and flour is much less dense than water. A cup of water weighs about 237 g, a cup of flour about half that. Each ingredient needs its own conversion.',
+  },
+  {
+    q: 'How many tablespoons are in a cup?',
+    a: '16 US tablespoons, or 48 teaspoons. Half a cup is 8 tablespoons and a quarter cup is 4. A tablespoon of butter weighs about 14 g.',
+  },
+  {
+    q: 'Is a metric cup the same as a US cup?',
+    a: 'Not quite. A metric cup (used in Australia, New Zealand and Canada) is 250 ml, while a US cup is 236.6 ml, about 5% smaller. For most recipes the difference is small, but it adds up in baking.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="cooking-converter"
+  title="Cooking Measurement Converter – Cups to Grams"
+  description="Free cooking converter. Convert cups, tablespoons, teaspoons and millilitres to grams and ounces for flour, sugar, butter, milk and 16 more ingredients."
+  intro="Convert recipe measurements between cups, spoons, millilitres, grams and ounces, with ingredient-specific weights for flour, sugar, butter and more."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <CookingConverter client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the cooking converter</h2>
+    <ol>
+      <li><strong>Choose the ingredient.</strong> It only matters when converting between volume (cups) and weight (grams).</li>
+      <li><strong>Enter the amount</strong> and pick the units to convert from and to.</li>
+      <li><strong>Use the table</strong> for common cup fractions of that ingredient.</li>
+    </ol>
+
+    <h2>Cups to grams for common ingredients</h2>
+    <table>
+      <thead><tr><th>Ingredient</th><th>1 US cup</th><th>1 tablespoon</th></tr></thead>
+      <tbody>
+        <tr><td>All-purpose flour</td><td>120 g (4.23 oz)</td><td>7.5 g</td></tr>
+        <tr><td>Granulated sugar</td><td>200 g (7.05 oz)</td><td>12.5 g</td></tr>
+        <tr><td>Brown sugar, packed</td><td>213 g (7.51 oz)</td><td>13.3 g</td></tr>
+        <tr><td>Powdered sugar</td><td>120 g (4.23 oz)</td><td>7.5 g</td></tr>
+        <tr><td>Butter</td><td>227 g (8.01 oz)</td><td>14.2 g</td></tr>
+        <tr><td>Milk</td><td>242 g (8.54 oz)</td><td>15.1 g</td></tr>
+        <tr><td>Honey</td><td>340 g (11.99 oz)</td><td>21.3 g</td></tr>
+        <tr><td>Cocoa powder</td><td>85 g (3.00 oz)</td><td>5.3 g</td></tr>
+        <tr><td>Rolled oats</td><td>90 g (3.17 oz)</td><td>5.6 g</td></tr>
+        <tr><td>Rice, uncooked</td><td>185 g (6.53 oz)</td><td>11.6 g</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Volume equivalents</h2>
+    <table>
+      <thead><tr><th>US measure</th><th>Equals</th><th>Millilitres</th></tr></thead>
+      <tbody>
+        <tr><td>1 teaspoon</td><td></td><td>4.93 ml</td></tr>
+        <tr><td>1 tablespoon</td><td>3 teaspoons</td><td>14.79 ml</td></tr>
+        <tr><td>1 fluid ounce</td><td>2 tablespoons</td><td>29.57 ml</td></tr>
+        <tr><td>1 cup</td><td>16 tablespoons = 8 fl oz</td><td>236.59 ml</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked examples</h3>
+    <ul>
+      <li>A recipe needs <strong>250 g of flour</strong>: that’s 250 ÷ 120 ≈ <strong>2 cups</strong> (2.08).</li>
+      <li><strong>½ cup of butter</strong> is <strong>113.5 g</strong>, one standard US stick.</li>
+    </ul>
+    <p>For other liquid volumes, use the <a href="/volume-converter">volume converter</a>. For oven temperatures, see the <a href="/temperature-converter">temperature converter</a>.</p>
+  </Fragment>
+</CalculatorLayout>
