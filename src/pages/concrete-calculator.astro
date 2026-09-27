@@ -1,0 +1,79 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import ConcreteCalculator from '@/components/calculators/ConcreteCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate how much concrete I need?',
+    a: 'Multiply length × width × thickness, all in the same unit. A 3 × 3 m slab 10 cm thick is 3 × 3 × 0.1 = 0.9 m³. Add 5–10% for spillage and uneven ground: 0.99 m³ with 10% extra.',
+  },
+  {
+    q: 'How many cubic yards of concrete do I need for a 10 × 10 slab?',
+    a: 'At 4 inches thick: 10 × 10 × (4 ÷ 12) = 33.3 ft³, and 33.3 ÷ 27 = 1.23 cubic yards. With 10% extra, order about 1.36 yd³.',
+  },
+  {
+    q: 'How many bags of concrete do I need?',
+    a: 'Divide the volume by the bag’s yield. An 80 lb bag makes about 0.6 ft³ (0.017 m³), so a 0.99 m³ slab needs about 59 bags. That’s a lot of mixing; beyond about 1 m³, ready-mix is usually better.',
+  },
+  {
+    q: 'How thick should a concrete slab be?',
+    a: 'About 10 cm (4 in) for patios, paths and shed bases, 12–15 cm (5–6 in) for driveways that take cars, and more for heavy loads. Check local building codes for structural work.',
+  },
+  {
+    q: 'How much does concrete weigh?',
+    a: 'Normal concrete weighs about 2,400 kg per m³ (roughly 4,000 lb per cubic yard). A 0.99 m³ slab is about 2.4 tonnes, which matters for trailers and suspended floors.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="concrete-calculator"
+  title="Concrete Calculator – Slabs, Footings & Columns"
+  description="Free concrete calculator. Work out cubic metres or cubic yards of concrete for slabs, footings, round columns and tubes, with waste and the number of premixed bags."
+  intro="Work out how much concrete you need for a slab, footing, round column or tube, in cubic metres or yards, with waste and the number of premixed bags."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <ConcreteCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the concrete calculator</h2>
+    <ol>
+      <li><strong>Choose metric or US units</strong> and the shape of the pour.</li>
+      <li><strong>Enter the measurements</strong> and how many identical pours there are (for example, 4 post holes).</li>
+      <li><strong>Add extra for waste</strong>, and optionally a ready-mix price.</li>
+    </ol>
+
+    <h2>Concrete volume formulas</h2>
+    <table>
+      <thead><tr><th>Shape</th><th>Volume</th></tr></thead>
+      <tbody>
+        <tr><td>Slab, footing or wall</td><td>length × width × thickness</td></tr>
+        <tr><td>Round column or hole</td><td>π × (diameter ÷ 2)² × height</td></tr>
+        <tr><td>Hollow tube</td><td>π × ((outer ÷ 2)² − (inner ÷ 2)²) × height</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked examples (with 10% extra)</h3>
+    <table>
+      <thead><tr><th>Pour</th><th>Volume</th><th>80 lb bags</th><th>25 kg bags</th></tr></thead>
+      <tbody>
+        <tr><td>3 × 3 m slab, 10 cm thick</td><td>0.99 m³</td><td>59</td><td>83</td></tr>
+        <tr><td>10 × 10 ft slab, 4 in thick</td><td>1.36 yd³</td><td>62</td><td>87</td></tr>
+        <tr><td>4 post holes, 30 cm wide, 1 m deep</td><td>0.31 m³</td><td>19</td><td>26</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Bag yields</h2>
+    <table>
+      <thead><tr><th>Bag</th><th>Yield</th></tr></thead>
+      <tbody>
+        <tr><td>80 lb</td><td>0.60 ft³ (0.017 m³)</td></tr>
+        <tr><td>60 lb</td><td>0.45 ft³ (0.0127 m³)</td></tr>
+        <tr><td>40 lb</td><td>0.30 ft³ (0.0085 m³)</td></tr>
+        <tr><td>25 kg</td><td>about 0.012 m³</td></tr>
+      </tbody>
+    </table>
+    <p>Building a wall on top? Use the <a href="/brick-calculator">brick calculator</a>. For the volume of other shapes, see the <a href="/volume-calculator">volume calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
