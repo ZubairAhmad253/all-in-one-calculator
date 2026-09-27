@@ -1,0 +1,72 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import WaistToHipRatioCalculator from '@/components/calculators/WaistToHipRatioCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate waist-to-hip ratio?',
+    a: 'Divide your waist measurement by your hip measurement, using the same unit for both. A 76 cm waist and 100 cm hips give a ratio of 76 ÷ 100 = 0.76.',
+  },
+  {
+    q: 'What is a healthy waist-to-hip ratio?',
+    a: 'For women, 0.80 or below is low risk and above 0.85 is high. For men, 0.95 or below is low risk and above 1.0 is high. The WHO uses 0.85 (women) and 0.90 (men) as the point where risk rises substantially.',
+  },
+  {
+    q: 'How do I measure my waist and hips?',
+    a: 'Stand straight and breathe out gently. Measure your waist at its narrowest point, or just above the belly button, and your hips around the widest part of your buttocks. Keep the tape level and snug but not tight.',
+  },
+  {
+    q: 'Is waist-to-hip ratio better than BMI?',
+    a: 'It adds something BMI misses: where fat is stored. Belly fat is more strongly linked to heart disease and diabetes, so two people with the same BMI can have different risks. Using both gives a fuller picture.',
+  },
+  {
+    q: 'What is waist-to-height ratio?',
+    a: 'Waist divided by height. Keeping it under 0.5, meaning your waist is less than half your height, is a simple guide that works across ages and ethnic groups. A 76 cm waist at 165 cm tall is 0.46.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="waist-to-hip-ratio-calculator"
+  title="Waist-to-Hip Ratio Calculator – WHR & Health Risk"
+  description="Free waist-to-hip ratio calculator. Find your WHR, health risk level by WHO guidance, body shape and waist-to-height ratio, in centimetres or inches."
+  intro="Find your waist-to-hip ratio, what it means for health risk, your body shape and your waist-to-height ratio, in centimetres or inches."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <WaistToHipRatioCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the waist-to-hip ratio calculator</h2>
+    <ol>
+      <li><strong>Choose your sex</strong> and units.</li>
+      <li><strong>Measure your waist and hips</strong> with a soft tape.</li>
+      <li><strong>Optionally add your height</strong> for your waist-to-height ratio.</li>
+    </ol>
+
+    <h2>Formula</h2>
+    <div class="formula">Waist-to-hip ratio = waist ÷ hips &nbsp;&nbsp; Waist-to-height ratio = waist ÷ height</div>
+
+    <h2>Health risk by waist-to-hip ratio</h2>
+    <table>
+      <thead><tr><th>Risk</th><th>Women</th><th>Men</th></tr></thead>
+      <tbody>
+        <tr><td>Low</td><td>0.80 or less</td><td>0.95 or less</td></tr>
+        <tr><td>Moderate</td><td>0.81–0.85</td><td>0.96–1.00</td></tr>
+        <tr><td>High</td><td>Over 0.85</td><td>Over 1.00</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked examples</h3>
+    <table>
+      <thead><tr><th>Person</th><th>Waist ÷ hips</th><th>Ratio</th><th>Risk</th></tr></thead>
+      <tbody>
+        <tr><td>Woman</td><td>76 cm ÷ 100 cm</td><td>0.76</td><td>Low</td></tr>
+        <tr><td>Woman</td><td>32 in ÷ 40 in</td><td>0.80</td><td>Low</td></tr>
+        <tr><td>Man</td><td>34 in ÷ 38 in</td><td>0.89</td><td>Low</td></tr>
+        <tr><td>Man</td><td>94 cm ÷ 99 cm</td><td>0.95</td><td>Low (at the limit)</td></tr>
+      </tbody>
+    </table>
+    <p>Get another view of body composition with the <a href="/body-fat-calculator">body fat calculator</a> and <a href="/bmi-calculator">BMI calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
