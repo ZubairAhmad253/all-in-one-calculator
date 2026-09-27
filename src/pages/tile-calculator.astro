@@ -1,0 +1,69 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import TileCalculator from '@/components/calculators/TileCalculator';
+
+const faqs = [
+  {
+    q: 'How many tiles do I need?',
+    a: 'Divide the area by the area of one tile (including its grout joint), then add 10% for cuts and breakages. A 4 × 3 m floor with 30 × 30 cm tiles and 3 mm grout needs about 131 tiles, or 144 with 10% extra.',
+  },
+  {
+    q: 'How much extra tile should I buy?',
+    a: 'About 10% for a straight layout, 15% for diagonal or herringbone patterns that need more cuts, and up to 20% for awkward rooms or very large tiles. Leftovers are useful for future repairs.',
+  },
+  {
+    q: 'How many tiles are in a square metre?',
+    a: 'It depends on the size: about 10.9 tiles of 30 × 30 cm (with 3 mm grout), 5.5 tiles of 60 × 30 cm, or about 96 mosaic tiles of 10 × 10 cm with 2 mm grout.',
+  },
+  {
+    q: 'Does grout width change the number of tiles?',
+    a: 'Slightly. Wider joints mean each tile covers a bit more area, so you need fewer tiles; the effect is bigger with small tiles. Typical joints are 2–3 mm for wall tiles and 3–5 mm for floor tiles.',
+  },
+  {
+    q: 'How many 12 × 12 inch tiles do I need for 120 square feet?',
+    a: 'About 118 tiles to cover it with ⅛-inch grout joints, or 130 with 10% extra. At 10 tiles per box, that’s 13 boxes.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="tile-calculator"
+  title="Tile Calculator – How Many Tiles Do I Need?"
+  description="Free tile calculator. Work out how many floor or wall tiles you need from the area, tile size and grout joint, with waste for your layout and the number of boxes."
+  intro="Work out how many tiles you need for a floor or wall from the area, tile size and grout joint, with waste for your layout and the boxes to buy."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <TileCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the tile calculator</h2>
+    <ol>
+      <li><strong>Choose metric or US units</strong> and enter the length and width of the area.</li>
+      <li><strong>Enter the tile size</strong> and grout joint.</li>
+      <li><strong>Pick your layout</strong> to set the waste allowance, and the number of tiles per box.</li>
+    </ol>
+
+    <h2>Tile formula</h2>
+    <div class="formula">Tiles = area ÷ ((tile length + grout) × (tile width + grout)) × (1 + waste %)</div>
+
+    <h3>Worked examples</h3>
+    <table>
+      <thead><tr><th>Area</th><th>Tile</th><th>Grout</th><th>Waste</th><th>Tiles</th><th>Boxes</th></tr></thead>
+      <tbody>
+        <tr><td>4 × 3 m (12 m²)</td><td>30 × 30 cm</td><td>3 mm</td><td>10%</td><td>144</td><td>14 of 11</td></tr>
+        <tr><td>12 m²</td><td>60 × 30 cm</td><td>3 mm</td><td>10%</td><td>73</td><td>10 of 8</td></tr>
+        <tr><td>12 × 10 ft (120 ft²)</td><td>12 × 12 in</td><td>⅛ in</td><td>10%</td><td>130</td><td>13 of 10</td></tr>
+        <tr><td>4.8 m² wall</td><td>10 × 10 cm</td><td>2 mm</td><td>15%</td><td>531</td><td>6 of 100</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Tiling tips</h2>
+    <ul>
+      <li>Start from the centre of the room so cut tiles at the edges are even.</li>
+      <li>Check every box has the same batch or lot number for matching colour.</li>
+      <li>Let adhesive cure as the manufacturer recommends before grouting.</li>
+    </ul>
+    <p>Laying planks or carpet instead? Use the <a href="/flooring-calculator">flooring calculator</a>. For any shape’s area, see the <a href="/area-calculator">area calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
