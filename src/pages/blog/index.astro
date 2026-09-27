@@ -1,10 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { categoryById, type CategoryId } from '@/data/categories';
+import { CATEGORIES, categoryById, type CategoryId } from '@/data/categories';
+import { readingMinutes } from '@/lib/format/readingTime';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const date = (d: Date) => d.toLocaleDateString('en', { year: 'numeric', month: 'short', day: 'numeric' });
+// Only offer filters for categories that have posts.
+const used = CATEGORIES.filter((c) => posts.some((p) => p.data.category === c.id));
 ---
 
 <BaseLayout title="Blog – Guides to Money, Health and Everyday Maths" description="Plain-English guides that explain the maths behind mortgages, interest, BMI, calories, percentages and more, with worked examples.">
@@ -12,17 +15,56 @@ const date = (d: Date) => d.toLocaleDateString('en', { year: 'numeric', month: '
     <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">Blog</h1>
     <p class="mt-3 max-w-2xl text-lg text-muted">Guides that explain the maths behind everyday decisions.</p>
 
-    <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+    {
+      used.length > 1 && (
+        <div role="group" aria-label="Filter by topic" class="mt-8 flex flex-wrap gap-2" id="blog-filters">
+          <button type="button" data-filter="all" aria-pressed="true" class="filter-chip">All</button>
+          {used.map((c) => (
+            <button type="button" data-filter={c.id} aria-pressed="false" class="filter-chip">
+              {c.name}
+            </button>
+          ))}
+        </div>
+      )
+    }
+
+    <div class="mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3" id="blog-list">
       {
         posts.map((p) => (
-          <a href={`/blog/${p.id}`} class="card group flex flex-col p-6">
+          <a href={`/blog/${p.id}`} class="card group flex flex-col p-6" data-category={p.data.category}>
             <p class="text-xs font-medium tracking-wide text-brand uppercase">{categoryById(p.data.category as CategoryId).name}</p>
             <h2 class="mt-2 text-lg font-semibold group-hover:text-brand">{p.data.title}</h2>
             <p class="mt-2 flex-1 text-sm text-muted">{p.data.description}</p>
-            <p class="mt-4 text-xs text-muted">{date(p.data.pubDate)}</p>
+            <p class="mt-4 text-xs text-muted">
+              {date(p.data.pubDate)} · {readingMinutes(p.body)} min read
+            </p>
           </a>
         ))
       }
     </div>
   </div>
 </BaseLayout>
+
+<style>
+  @reference "../../styles/global.css";
+
+  .filter-chip {
+    @apply h-9 rounded-full border border-line bg-surface px-4 text-sm font-medium text-muted transition hover:border-brand/40 hover:text-fg;
+  }
+  .filter-chip[aria-pressed='true'] {
+    @apply border-brand bg-brand-soft text-brand;
+  }
+</style>
+
+<script>
+  // Progressive enhancement: without JavaScript, every post is simply listed.
+  const chips = document.querySelectorAll<HTMLButtonElement>('#blog-filters [data-filter]');
+  const cards = document.querySelectorAll<HTMLElement>('#blog-list [data-category]');
+  chips.forEach((chip) =>
+    chip.addEventListener('click', () => {
+      const f = chip.dataset.filter;
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+      cards.forEach((card) => (card.hidden = f !== 'all' && card.dataset.category !== f));
+    }),
+  );
+</script>

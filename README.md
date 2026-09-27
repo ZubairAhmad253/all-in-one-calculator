@@ -148,6 +148,12 @@ Your content. Use ## for sections: they become the table of contents.
 
 The `calculators` field links the post both ways. The post shows a "Try the calculator" card, and the calculator page lists the post under "Guides". The build fails if the frontmatter doesn't match the schema in `src/content.config.ts`.
 
+- **Author:** posts use `SITE.author` from `src/config/site.ts` ("Editorial Team" for now) unless the frontmatter sets `author:`. Change it in one place when you pick a byline.
+- **Reading time** is worked out automatically from the post's length.
+- **Topic filters** on `/blog` appear automatically for every category that has posts.
+- **MDX syntax:** avoid bare `{`, `}` and `<` in the text, because MDX reads them as code. Write "under 18.5", not "< 18.5".
+- **Numbers:** work out every example figure with the calculator code, so posts and calculators always agree.
+
 ## Design system
 
 All colours are CSS variables in `src/styles/global.css`, exposed to Tailwind as `bg-surface`, `text-muted`, `border-line`, `text-brand`, `chart-1…4` and so on. Dark mode swaps only the variable values, so components never need `dark:` classes for colour. To change the brand colour, edit `--brand` (and its dark-mode value) in one place.

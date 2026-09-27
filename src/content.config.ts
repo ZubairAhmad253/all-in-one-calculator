@@ -2,6 +2,7 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { CATEGORIES } from '@/data/categories';
+import { SITE } from '@/config/site';
 
 const categoryIds = CATEGORIES.map((c) => c.id) as [string, ...string[]];
 
@@ -13,7 +14,7 @@ const blog = defineCollection({
     description: z.string().min(50).max(170),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
-    author: z.string().default('Editorial Team'),
+    author: z.string().default(SITE.author),
     category: z.enum(categoryIds),
     /** Slugs of calculators this post supports; drives cross-linking both ways. */
     calculators: z.array(z.string()).default([]),
