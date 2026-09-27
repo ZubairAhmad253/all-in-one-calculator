@@ -3,7 +3,16 @@ import {
   addDays,
   bmi,
   bmiCategory,
+  bmiBodyFat,
   bmr,
+  bmrHarrisBenedict,
+  bmrKatchMcArdle,
+  bodyFatCategory,
+  idealWeights,
+  macroGrams,
+  navyBodyFat,
+  proteinRange,
+  waterIntake,
   calorieGoals,
   cmFromFtIn,
   daysBetween,
@@ -122,5 +131,34 @@ describe('pregnancy', () => {
     const m = milestoneDates('2026-10-08');
     expect(m.find((x) => x.label.startsWith('Third trimester'))!.date).toBe('2026-07-16');
     expect(m.find((x) => x.label.startsWith('Full term'))!.date).toBe('2026-10-01');
+  });
+});
+
+describe('body composition', () => {
+  it('computes BMR by three equations', () => {
+    expect(bmrHarrisBenedict('male', 70, 175, 30)).toBeCloseTo(1695.667, 3);
+    expect(bmrHarrisBenedict('female', 60, 165, 30)).toBeCloseTo(1383.683, 3);
+    expect(bmrKatchMcArdle(70, 15)).toBeCloseTo(1655.2, 6);
+  });
+  it('estimates body fat with the Navy and BMI methods', () => {
+    expect(navyBodyFat('male', 178, 38, 86, 0)).toBeCloseTo(17.2, 1);
+    expect(navyBodyFat('female', 165, 33, 75, 97)).toBeCloseTo(27.9, 0);
+    expect(navyBodyFat('male', 178, 40, 38, 0)).toBeNaN();
+    expect(bmiBodyFat('male', 22.9, 30)).toBeCloseTo(18.18, 2);
+    expect(bodyFatCategory('male', 17.2)).toBe('Fitness');
+    expect(bodyFatCategory('female', 33)).toBe('Obese');
+    expect(bodyFatCategory('male', 1)).toBe('Below essential fat');
+  });
+  it('gives ideal weights by formula', () => {
+    const w = idealWeights('male', 177.8); // 5 ft 10 in
+    expect(w.find((x) => x.id === 'devine')!.kg).toBeCloseTo(73, 6);
+    expect(w.find((x) => x.id === 'robinson')!.kg).toBeCloseTo(71, 6);
+  });
+  it('splits calories into macros', () => {
+    expect(macroGrams(2000, { protein: 30, carbs: 40, fat: 30 })).toEqual({ protein: 150, carbs: 200, fat: 2000 * 0.3 / 9 });
+  });
+  it('recommends protein and water', () => {
+    expect(proteinRange(70, 'muscle').max).toBeCloseTo(154, 6);
+    expect(waterIntake(70, 60, true).total).toBeCloseTo(2.45 + 0.7 + 0.5, 10);
   });
 });

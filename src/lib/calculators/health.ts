@@ -162,3 +162,115 @@ export function milestoneDates(due: IsoDate) {
   const start = addDays(due, -280);
   return MILESTONES.map((m) => ({ ...m, date: addDays(start, m.day) }));
 }
+
+// ------------------------------------------------------------------ BMR
+
+/** Revised Harris–Benedict (Roza & Shizgal, 1984), kcal/day. */
+export function bmrHarrisBenedict(sex: Sex, kg: number, cm: number, age: number): number {
+  return sex === 'male' ? 88.362 + 13.397 * kg + 4.799 * cm - 5.677 * age : 447.593 + 9.247 * kg + 3.098 * cm - 4.33 * age;
+}
+
+/** Katch–McArdle, from lean body mass; kcal/day. */
+export const bmrKatchMcArdle = (kg: number, bodyFatPct: number) => 370 + 21.6 * kg * (1 - bodyFatPct / 100);
+
+// ------------------------------------------------------------- body fat
+
+/** US Navy circumference method (lengths in cm). NaN if the tape measurements can't apply. */
+export function navyBodyFat(sex: Sex, cm: number, neck: number, waist: number, hip: number): number {
+  if (sex === 'male') {
+    if (waist <= neck) return Number.NaN;
+    return 495 / (1.0324 - 0.19077 * Math.log10(waist - neck) + 0.15456 * Math.log10(cm)) - 450;
+  }
+  if (waist + hip <= neck) return Number.NaN;
+  return 495 / (1.29579 - 0.35004 * Math.log10(waist + hip - neck) + 0.221 * Math.log10(cm)) - 450;
+}
+
+/** Deurenberg estimate of body fat % from BMI and age (adults). */
+export const bmiBodyFat = (sex: Sex, bmiValue: number, age: number) => 1.2 * bmiValue + 0.23 * age - 10.8 * (sex === 'male' ? 1 : 0) - 5.4;
+
+/** American Council on Exercise categories: lower bound (%) of each band. */
+export const BODY_FAT_CATEGORIES: Record<Sex, { label: string; min: number }[]> = {
+  male: [
+    { label: 'Essential fat', min: 2 },
+    { label: 'Athletes', min: 6 },
+    { label: 'Fitness', min: 14 },
+    { label: 'Average', min: 18 },
+    { label: 'Obese', min: 25 },
+  ],
+  female: [
+    { label: 'Essential fat', min: 10 },
+    { label: 'Athletes', min: 14 },
+    { label: 'Fitness', min: 21 },
+    { label: 'Average', min: 25 },
+    { label: 'Obese', min: 32 },
+  ],
+};
+
+export function bodyFatCategory(sex: Sex, pct: number): string {
+  const bands = BODY_FAT_CATEGORIES[sex];
+  if (pct < bands[0].min) return 'Below essential fat';
+  return [...bands].reverse().find((b) => pct >= b.min)!.label;
+}
+
+// --------------------------------------------------------- ideal weight
+
+/** kg at 5 ft plus kg per inch over 5 ft, for each classic formula. */
+export const IDEAL_WEIGHT_FORMULAS = [
+  { id: 'robinson', label: 'Robinson (1983)', male: [52, 1.9], female: [49, 1.7] },
+  { id: 'miller', label: 'Miller (1983)', male: [56.2, 1.41], female: [53.1, 1.36] },
+  { id: 'devine', label: 'Devine (1974)', male: [50, 2.3], female: [45.5, 2.3] },
+  { id: 'hamwi', label: 'Hamwi (1964)', male: [48, 2.7], female: [45.5, 2.2] },
+] as const;
+
+/** Ideal weight in kg by each formula. Below 5 ft the lines are extended downwards. */
+export function idealWeights(sex: Sex, cm: number) {
+  const over = cm / CM_PER_IN - 60;
+  return IDEAL_WEIGHT_FORMULAS.map((f) => {
+    const [base, perInch] = f[sex];
+    return { id: f.id, label: f.label, kg: base + perInch * over };
+  });
+}
+
+// ---------------------------------------------------------------- macros
+
+export const KCAL_PER_GRAM = { protein: 4, carbs: 4, fat: 9 } as const;
+
+/** Grams of each macro for a calorie target and a % split that adds up to 100. */
+export function macroGrams(calories: number, split: { protein: number; carbs: number; fat: number }) {
+  return {
+    protein: (calories * split.protein) / 100 / KCAL_PER_GRAM.protein,
+    carbs: (calories * split.carbs) / 100 / KCAL_PER_GRAM.carbs,
+    fat: (calories * split.fat) / 100 / KCAL_PER_GRAM.fat,
+  };
+}
+
+// --------------------------------------------------------------- protein
+
+/** Daily protein ranges in g per kg of body weight, from sports-nutrition and RDA guidance. */
+export const PROTEIN_GOALS = [
+  { id: 'rda', label: 'Minimum (RDA), sedentary adult', min: 0.8, max: 0.8 },
+  { id: 'active', label: 'Active, general fitness', min: 1.2, max: 1.6 },
+  { id: 'muscle', label: 'Building muscle', min: 1.6, max: 2.2 },
+  { id: 'cut', label: 'Losing fat, keeping muscle', min: 1.8, max: 2.7 },
+  { id: 'older', label: 'Older adult (65+)', min: 1.0, max: 1.2 },
+  { id: 'endurance', label: 'Endurance training', min: 1.2, max: 1.4 },
+] as const;
+export type ProteinGoalId = (typeof PROTEIN_GOALS)[number]['id'];
+
+export function proteinRange(kg: number, goal: ProteinGoalId) {
+  const g = PROTEIN_GOALS.find((p) => p.id === goal) ?? PROTEIN_GOALS[0];
+  return { min: g.min * kg, max: g.max * kg, perKg: [g.min, g.max] as const };
+}
+
+// ----------------------------------------------------------------- water
+
+/**
+ * Daily drinking water estimate in litres: 35 ml per kg, plus 0.35 L per
+ * 30 minutes of exercise, plus 0.5 L in hot weather.
+ */
+export function waterIntake(kg: number, exerciseMin: number, hot: boolean) {
+  const base = (kg * 35) / 1000;
+  const exercise = (Math.max(0, exerciseMin) / 30) * 0.35;
+  const heat = hot ? 0.5 : 0;
+  return { base, exercise, heat, total: base + exercise + heat };
+}

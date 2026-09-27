@@ -1,0 +1,79 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import BmrCalculator from '@/components/calculators/BmrCalculator';
+
+const faqs = [
+  {
+    q: 'What is BMR?',
+    a: 'Basal metabolic rate is the number of calories your body burns at complete rest to keep you alive: breathing, circulating blood, repairing cells and keeping warm. For most people it’s 60–70% of the calories they burn in a day.',
+  },
+  {
+    q: 'How is BMR calculated?',
+    a: 'Most calculators use the Mifflin–St Jeor equation: 10 × weight (kg) + 6.25 × height (cm) − 5 × age + 5 for men, or − 161 for women. A 30-year-old man who is 175 cm and 70 kg has a BMR of about 1,649 kcal a day.',
+  },
+  {
+    q: 'What is the difference between BMR and TDEE?',
+    a: 'BMR is what you burn at rest. TDEE (total daily energy expenditure) adds everything else: moving, exercising and digesting food. TDEE is BMR multiplied by an activity factor from 1.2 (sedentary) to 1.9 (extra active).',
+  },
+  {
+    q: 'Which BMR formula is most accurate?',
+    a: 'Studies find Mifflin–St Jeor the most accurate for the general population. If you know your body fat percentage, Katch–McArdle can be better for lean, muscular people because it uses lean body mass.',
+  },
+  {
+    q: 'Can I increase my BMR?',
+    a: 'Building muscle raises it slightly, because muscle uses more energy than fat even at rest. BMR falls with age and with weight loss, which is one reason weight loss slows over time.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="bmr-calculator"
+  title="BMR Calculator – Basal Metabolic Rate (Mifflin–St Jeor)"
+  description="Free BMR calculator. Find your basal metabolic rate with the Mifflin–St Jeor, Harris–Benedict and Katch–McArdle equations, plus daily calories by activity level."
+  intro="Find how many calories your body burns at rest using three proven equations, and see your daily calorie needs at each activity level."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <BmrCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the BMR calculator</h2>
+    <ol>
+      <li><strong>Enter your sex, age, height and weight</strong> in metric or imperial units.</li>
+      <li><strong>Optionally add your body fat percentage</strong> for the Katch–McArdle result.</li>
+      <li><strong>Read your BMR</strong> and the table of daily calories for each activity level.</li>
+    </ol>
+
+    <h2>BMR formulas</h2>
+    <table>
+      <thead><tr><th>Equation</th><th>Men</th><th>Women</th></tr></thead>
+      <tbody>
+        <tr><td>Mifflin–St Jeor</td><td>10W + 6.25H − 5A + 5</td><td>10W + 6.25H − 5A − 161</td></tr>
+        <tr><td>Harris–Benedict (revised)</td><td>88.362 + 13.397W + 4.799H − 5.677A</td><td>447.593 + 9.247W + 3.098H − 4.330A</td></tr>
+        <tr><td>Katch–McArdle</td><td colspan="2">370 + 21.6 × lean body mass (kg)</td></tr>
+      </tbody>
+    </table>
+    <p>W = weight in kg, H = height in cm, A = age in years.</p>
+
+    <h3>Worked example</h3>
+    <p>A 30-year-old man, 175 cm and 70 kg:</p>
+    <ul>
+      <li><strong>Mifflin–St Jeor:</strong> 700 + 1,093.75 − 150 + 5 = <strong>1,649 kcal</strong></li>
+      <li><strong>Harris–Benedict:</strong> <strong>1,696 kcal</strong></li>
+      <li><strong>Katch–McArdle</strong> at 15% body fat (59.5 kg lean): <strong>1,655 kcal</strong></li>
+    </ul>
+
+    <h2>From BMR to daily calories</h2>
+    <table>
+      <thead><tr><th>Activity level</th><th>Multiply BMR by</th><th>Example (1,649 BMR)</th></tr></thead>
+      <tbody>
+        <tr><td>Sedentary</td><td>1.2</td><td>1,979 kcal</td></tr>
+        <tr><td>Lightly active</td><td>1.375</td><td>2,267 kcal</td></tr>
+        <tr><td>Moderately active</td><td>1.55</td><td>2,556 kcal</td></tr>
+        <tr><td>Very active</td><td>1.725</td><td>2,844 kcal</td></tr>
+        <tr><td>Extra active</td><td>1.9</td><td>3,133 kcal</td></tr>
+      </tbody>
+    </table>
+    <p>To plan weight loss or gain, use the <a href="/calorie-calculator">calorie calculator</a>. To split calories into protein, carbs and fat, try the <a href="/macro-calculator">macro calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
