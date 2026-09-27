@@ -1,0 +1,69 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import CountdownCalculator from '@/components/calculators/CountdownCalculator';
+
+const faqs = [
+  {
+    q: 'How many days until Christmas?',
+    a: 'The countdown opens on Christmas by default and shows the exact days, hours, minutes and seconds left in your time zone. From 27 September, for example, there are 89 days to go.',
+  },
+  {
+    q: 'How do I count down to my own event?',
+    a: 'Type a name, pick the date and, if it matters, the time. The countdown updates every second. Use Share to copy a link that opens the same countdown for anyone.',
+  },
+  {
+    q: 'Does the countdown include today?',
+    a: 'It counts the exact time remaining from this moment, so part of today is included. “Weekdays left” counts full Monday-to-Friday days from today up to, but not including, the event day.',
+  },
+  {
+    q: 'Which time zone does the countdown use?',
+    a: 'Your device’s time zone. If you share a countdown with someone in another time zone, it counts down to the same local time where they are. To compare times across zones, use the time zone converter.',
+  },
+  {
+    q: 'Can I count up from a past date?',
+    a: 'Yes. Pick a date in the past and it shows how much time has passed since then, which is handy for anniversaries and streaks.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="countdown-calculator"
+  title="Countdown Calculator – Days Until Any Date"
+  description="Free countdown calculator. See exactly how many days, hours, minutes and seconds until any date or event, with weekdays left and a live, shareable countdown."
+  intro="Count down to any date or event in days, hours, minutes and seconds, live, with the total weeks and weekdays left and a link you can share."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <CountdownCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the countdown calculator</h2>
+    <ol>
+      <li><strong>Name your event</strong> (optional) and <strong>pick its date</strong> and time.</li>
+      <li><strong>Or tap a quick pick</strong> such as New Year or Christmas; it chooses the next occurrence.</li>
+      <li><strong>Watch it count down</strong> live, and share the link with friends.</li>
+    </ol>
+
+    <h2>How it works</h2>
+    <div class="formula">Time left = event date and time − now &nbsp;&nbsp; (1 day = 86,400 seconds)</div>
+    <p>The remaining time is split into whole days, then hours, minutes and seconds.</p>
+
+    <h3>Worked examples (from 27 September 2026)</h3>
+    <table>
+      <thead><tr><th>Event</th><th>Date</th><th>Days to go</th></tr></thead>
+      <tbody>
+        <tr><td>Christmas</td><td>25 December 2026</td><td>89</td></tr>
+        <tr><td>New Year</td><td>1 January 2027</td><td>96</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Ideas for countdowns</h2>
+    <ul>
+      <li>Weddings, birthdays and anniversaries</li>
+      <li>Holidays, trips and concerts</li>
+      <li>Exams, project deadlines and product launches</li>
+      <li>Retirement or the end of a contract</li>
+    </ul>
+    <p>For the gap between any two dates, use the <a href="/date-difference-calculator">date difference calculator</a>. To count only working days, try the <a href="/working-days-calculator">working days calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
