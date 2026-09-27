@@ -1,0 +1,69 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import IdealWeightCalculator from '@/components/calculators/IdealWeightCalculator';
+
+const faqs = [
+  {
+    q: 'What is my ideal weight?',
+    a: 'There isn’t one perfect number. A healthy range is the weight that gives a BMI of 18.5 to 24.9 at your height: 56.7–76.3 kg (125–168 lb) for someone 175 cm (5 ft 9 in) tall. The classic formulas give single values inside that range.',
+  },
+  {
+    q: 'Which ideal weight formula is best?',
+    a: 'None is clearly best. Devine (1974) is the one most used in medicine, originally for drug dosing. Robinson and Miller (1983) are refinements, and Hamwi (1964) is common in nutrition. Their spread is a good sense of a reasonable target.',
+  },
+  {
+    q: 'How is the Devine formula calculated?',
+    a: 'Men: 50 kg + 2.3 kg for every inch over 5 feet. Women: 45.5 kg + 2.3 kg per inch over 5 feet. A man 5 ft 10 in tall has a Devine ideal weight of 50 + 2.3 × 10 = 73 kg (161 lb).',
+  },
+  {
+    q: 'Do ideal weight formulas work for athletes?',
+    a: 'Not well. They only use height and sex, so they ignore muscle. A muscular person can be healthy well above their “ideal” weight. Body fat percentage is a better guide for them.',
+  },
+  {
+    q: 'Does ideal weight change with age?',
+    a: 'The formulas don’t change, but some research suggests a slightly higher BMI (up to about 27) is linked to better outcomes in adults over 65. Ask your doctor what’s right for you.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="ideal-weight-calculator"
+  title="Ideal Weight Calculator – Healthy Weight for Your Height"
+  description="Free ideal weight calculator. Find your healthy weight range for your height, plus ideal weight by the Robinson, Miller, Devine and Hamwi formulas, in kg or lb."
+  intro="Find a healthy weight range for your height, and your ideal weight by four classic formulas, in kilograms or pounds."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <IdealWeightCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the ideal weight calculator</h2>
+    <ol>
+      <li><strong>Choose your sex</strong> and enter your height.</li>
+      <li><strong>Optionally enter your current weight</strong> to see how it compares.</li>
+      <li><strong>Read your healthy range</strong> and the result of each formula, shown on a scale.</li>
+    </ol>
+
+    <h2>Ideal weight formulas</h2>
+    <p>Each adds a fixed amount per inch of height over 5 feet (152.4 cm):</p>
+    <table>
+      <thead><tr><th>Formula</th><th>Men</th><th>Women</th></tr></thead>
+      <tbody>
+        <tr><td>Robinson (1983)</td><td>52 kg + 1.9 kg/in</td><td>49 kg + 1.7 kg/in</td></tr>
+        <tr><td>Miller (1983)</td><td>56.2 kg + 1.41 kg/in</td><td>53.1 kg + 1.36 kg/in</td></tr>
+        <tr><td>Devine (1974)</td><td>50 kg + 2.3 kg/in</td><td>45.5 kg + 2.3 kg/in</td></tr>
+        <tr><td>Hamwi (1964)</td><td>48 kg + 2.7 kg/in</td><td>45.5 kg + 2.2 kg/in</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked examples</h3>
+    <table>
+      <thead><tr><th>Height</th><th>Robinson</th><th>Miller</th><th>Devine</th><th>Hamwi</th><th>Healthy BMI range</th></tr></thead>
+      <tbody>
+        <tr><td>Man, 5 ft 10 in (177.8 cm)</td><td>71.0 kg</td><td>70.3 kg</td><td>73.0 kg</td><td>75.0 kg</td><td>58.5–78.7 kg</td></tr>
+        <tr><td>Woman, 5 ft 4 in (162.6 cm)</td><td>55.8 kg</td><td>58.5 kg</td><td>54.7 kg</td><td>54.3 kg</td><td>48.9–65.8 kg</td></tr>
+      </tbody>
+    </table>
+    <p>Check where you are now with the <a href="/bmi-calculator">BMI calculator</a>, or plan a change with the <a href="/calorie-calculator">calorie calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
