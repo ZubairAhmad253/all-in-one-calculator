@@ -1,0 +1,72 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import BodyFatCalculator from '@/components/calculators/BodyFatCalculator';
+
+const faqs = [
+  {
+    q: 'How do I measure body fat with a tape measure?',
+    a: 'The US Navy method needs your height and a few circumferences: neck (just below the Adam’s apple) and waist (at the navel for men, the narrowest point for women), plus hips at the widest point for women. Measure on bare skin, relaxed, without pulling the tape tight.',
+  },
+  {
+    q: 'What is a healthy body fat percentage?',
+    a: 'The American Council on Exercise puts average at 18–24% for men and 25–31% for women, with fitness ranges of 14–17% and 21–24%. Obesity starts at 25% for men and 32% for women.',
+  },
+  {
+    q: 'How accurate is the US Navy method?',
+    a: 'It’s usually within 3–4 percentage points of a DEXA scan, which is similar to smart scales and skinfold calipers. Measure at the same time of day each time and track the trend rather than any single reading.',
+  },
+  {
+    q: 'Why do women have more body fat than men?',
+    a: 'Women need more essential fat (about 10–13% versus 2–5% for men) for hormone production and reproduction. That’s why every category range is higher for women.',
+  },
+  {
+    q: 'Is body fat percentage better than BMI?',
+    a: 'For individuals, usually yes. BMI can’t tell muscle from fat, so a muscular athlete can be “overweight” by BMI while having low body fat. Body fat percentage measures composition directly.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="body-fat-calculator"
+  title="Body Fat Calculator – US Navy Method"
+  description="Free body fat calculator using the US Navy tape-measure method. Get your body fat percentage, category, fat mass and lean mass, with a BMI-based estimate to compare."
+  intro="Estimate your body fat percentage from a few tape measurements using the US Navy method, and see your category, fat mass and lean mass."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <BodyFatCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the body fat calculator</h2>
+    <ol>
+      <li><strong>Enter your sex, age, height and weight.</strong></li>
+      <li><strong>Measure your neck and waist</strong> (and hips, for women) with a soft tape measure.</li>
+      <li><strong>Read your body fat percentage</strong>, where it sits on the ACE scale, and your fat and lean mass.</li>
+    </ol>
+
+    <h2>US Navy body fat formulas</h2>
+    <p>All measurements in centimetres:</p>
+    <div class="formula">Men: 495 ÷ (1.0324 − 0.19077 × log₁₀(waist − neck) + 0.15456 × log₁₀(height)) − 450</div>
+    <div class="formula">Women: 495 ÷ (1.29579 − 0.35004 × log₁₀(waist + hip − neck) + 0.22100 × log₁₀(height)) − 450</div>
+
+    <h3>Worked example</h3>
+    <p>A man 175 cm tall weighing 70 kg, with a 38 cm neck and 86 cm waist:</p>
+    <ul>
+      <li>Body fat ≈ <strong>17.7%</strong>, in the <strong>Fitness</strong> range</li>
+      <li>Fat mass ≈ 70 × 0.177 = <strong>12.4 kg</strong>, lean mass ≈ <strong>57.6 kg</strong></li>
+    </ul>
+
+    <h2>Body fat categories (ACE)</h2>
+    <table>
+      <thead><tr><th>Category</th><th>Men</th><th>Women</th></tr></thead>
+      <tbody>
+        <tr><td>Essential fat</td><td>2–5%</td><td>10–13%</td></tr>
+        <tr><td>Athletes</td><td>6–13%</td><td>14–20%</td></tr>
+        <tr><td>Fitness</td><td>14–17%</td><td>21–24%</td></tr>
+        <tr><td>Average</td><td>18–24%</td><td>25–31%</td></tr>
+        <tr><td>Obese</td><td>25%+</td><td>32%+</td></tr>
+      </tbody>
+    </table>
+    <p>Compare with the <a href="/bmi-calculator">BMI calculator</a>, or use your lean mass in the <a href="/bmr-calculator">BMR calculator</a>’s Katch–McArdle equation.</p>
+  </Fragment>
+</CalculatorLayout>
