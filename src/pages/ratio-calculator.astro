@@ -1,0 +1,70 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import RatioCalculator from '@/components/calculators/RatioCalculator';
+
+const faqs = [
+  {
+    q: 'How do I simplify a ratio?',
+    a: 'Divide every term by their greatest common divisor. For 12 : 18, the GCD is 6, so the ratio simplifies to 2 : 3. With decimals, first multiply every term by 10 or 100 to make them whole: 1.5 : 2.25 becomes 150 : 225, which simplifies to 2 : 3.',
+  },
+  {
+    q: 'How do I solve a proportion?',
+    a: 'Cross-multiply. If A : B = C : x, then x = B × C ÷ A. For 3 : 4 = 12 : x, x = 4 × 12 ÷ 3 = 16.',
+  },
+  {
+    q: 'How do I split an amount in a ratio?',
+    a: 'Add up the parts, divide the amount by the total, then multiply by each part. To split $500 in the ratio 2 : 3, there are 5 parts of $100, so the shares are $200 and $300.',
+  },
+  {
+    q: 'How do I turn a ratio into a percentage?',
+    a: 'Divide each part by the total of all parts and multiply by 100. In 2 : 3, the first part is 2 ÷ 5 = 40% and the second is 60%.',
+  },
+  {
+    q: 'What does a ratio like 16:9 mean?',
+    a: 'It compares two quantities: for a 16:9 screen, the width is 16 units for every 9 units of height. It’s already in simplest form because 16 and 9 share no common factor.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="ratio-calculator"
+  title="Ratio Calculator – Simplify Ratios & Solve Proportions"
+  description="Free ratio calculator. Simplify ratios with two or three terms, including decimals, see each part as a percentage, and solve proportions like A:B = C:?."
+  intro="Simplify ratios with two or three terms, see what share each part is, and solve proportions to find a missing value."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <RatioCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the ratio calculator</h2>
+    <ul>
+      <li><strong>Simplify a ratio:</strong> enter two or three terms to get the simplest whole-number form and each part’s share.</li>
+      <li><strong>Solve A : B = C : ?:</strong> enter three values to find the fourth.</li>
+    </ul>
+
+    <h2>Ratio formulas</h2>
+    <div class="formula">Simplest form: divide every term by their greatest common divisor</div>
+    <div class="formula">If A : B = C : x, then x = B × C ÷ A</div>
+
+    <h3>Worked examples</h3>
+    <ul>
+      <li><strong>12 : 18</strong> simplifies to <strong>2 : 3</strong> (divide by 6), so the parts are 40% and 60%.</li>
+      <li><strong>4 : 8 : 12</strong> simplifies to <strong>1 : 2 : 3</strong>.</li>
+      <li><strong>3 : 4 = 12 : ?</strong> gives 4 × 12 ÷ 3 = <strong>16</strong>.</li>
+    </ul>
+
+    <h2>Common ratios</h2>
+    <table>
+      <thead><tr><th>Ratio</th><th>Where you’ll see it</th></tr></thead>
+      <tbody>
+        <tr><td>16 : 9</td><td>Widescreen TVs and video</td></tr>
+        <tr><td>4 : 3</td><td>Older screens and many photos</td></tr>
+        <tr><td>3 : 2</td><td>35 mm photos</td></tr>
+        <tr><td>1 : 1.618</td><td>The golden ratio</td></tr>
+        <tr><td>1 : 2 : 3</td><td>A common mortar or concrete mix (cement : sand : gravel)</td></tr>
+      </tbody>
+    </table>
+    <p>Working with fractions instead? Try the <a href="/fraction-calculator">fraction calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
