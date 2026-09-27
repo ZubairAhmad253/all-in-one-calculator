@@ -1,0 +1,69 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import FinalGradeCalculator from '@/components/calculators/FinalGradeCalculator';
+
+const faqs = [
+  {
+    q: 'What do I need on my final to get a B?',
+    a: 'It depends on your current grade and how much the final is worth. With 84% now and a final worth 30%, you need (80 − 84 × 0.7) ÷ 0.3 = 70.67% on the final for an 80% B.',
+  },
+  {
+    q: 'How is the final exam score needed calculated?',
+    a: 'Required = (target − current × (1 − final weight)) ÷ final weight, with the weight as a decimal. It works because your course grade is a weighted average of your current grade and the final.',
+  },
+  {
+    q: 'What if the score needed is over 100%?',
+    a: 'Then the target can’t be reached with the final alone, unless there’s extra credit. With 84% now and a 30% final, an A (90%) would need 104%. The table shows the best course grade you can still reach.',
+  },
+  {
+    q: 'What if I get a zero on the final?',
+    a: 'Your course grade becomes your current grade × (1 − final weight). With 84% now and a 30% final, a zero leaves you at 58.8%. The table shows every outcome from 0% to 100%.',
+  },
+  {
+    q: 'Where do I find the final exam weight?',
+    a: 'In your syllabus or course outline, often listed as a percentage of the grade, such as “Final exam: 30%”. If your course uses points instead, divide the final’s points by the course total.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="final-grade-calculator"
+  title="Final Grade Calculator – What Do I Need on My Final?"
+  description="Free final grade calculator. Find the score you need on your final exam to reach a target course grade, plus the score needed for an A, B, C or D."
+  intro="Find the score you need on your final exam to reach the course grade you want, and see your final grade for every possible exam score."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <FinalGradeCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the final grade calculator</h2>
+    <ol>
+      <li><strong>Enter your current grade</strong> in the class.</li>
+      <li><strong>Enter the final exam’s weight</strong> from your syllabus.</li>
+      <li><strong>Choose the grade you want</strong>, or tap A, B, C or D.</li>
+    </ol>
+
+    <h2>Formula</h2>
+    <div class="formula">Final exam score needed = (target − current × (1 − w)) ÷ w &nbsp;&nbsp; (w = final weight as a decimal)</div>
+
+    <h3>Worked examples</h3>
+    <table>
+      <thead><tr><th>Current</th><th>Final weight</th><th>Target</th><th>Needed on final</th></tr></thead>
+      <tbody>
+        <tr><td>84%</td><td>30%</td><td>80%</td><td>70.67%</td></tr>
+        <tr><td>84%</td><td>30%</td><td>90%</td><td>104% (out of reach)</td></tr>
+        <tr><td>78%</td><td>40%</td><td>85%</td><td>95.5%</td></tr>
+        <tr><td>88%</td><td>20%</td><td>90%</td><td>98%</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Tips</h2>
+    <ul>
+      <li>A heavily weighted final can move your grade a long way in either direction.</li>
+      <li>If the target is out of reach, look at the next grade down; it may need much less.</li>
+      <li>Check whether your class rounds (for example 89.5% up to an A).</li>
+    </ul>
+    <p>To work out your current grade from assignments and tests, use the <a href="/grade-calculator">grade calculator</a>. For your overall GPA, see the <a href="/gpa-calculator">GPA calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
