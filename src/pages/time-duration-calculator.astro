@@ -1,0 +1,69 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import TimeDurationCalculator from '@/components/calculators/TimeDurationCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate the time between two times?',
+    a: 'Subtract the start from the end. From 9:15 AM to 5:45 PM: 17:45 − 9:15 = 8 hours 30 minutes. If the minutes of the end time are smaller, borrow an hour (60 minutes) first.',
+  },
+  {
+    q: 'How do I calculate time across midnight?',
+    a: 'Add 24 hours to the end time. From 10:00 PM to 6:30 AM: 6:30 + 24:00 − 22:00 = 8 hours 30 minutes. The calculator does this automatically when the end time is earlier than the start.',
+  },
+  {
+    q: 'How do I convert minutes to decimal hours?',
+    a: 'Divide the minutes by 60. 30 minutes is 0.5 hours and 45 minutes is 0.75, so 8 hours 30 minutes is 8.5 hours. Timesheets and payroll often need decimal hours.',
+  },
+  {
+    q: 'What time will it be in 2.5 hours?',
+    a: 'Add 2 hours 30 minutes to the current time. From 9:15 AM that’s 11:45 AM. Use “Add or subtract time” to add any number of hours, minutes and seconds.',
+  },
+  {
+    q: 'Can I calculate a duration over several days?',
+    a: 'Yes. Tick “Span more than one day” to add start and end dates. The result can be any length, shown in hours and minutes, decimal hours, minutes, seconds and days.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="time-duration-calculator"
+  title="Time Duration Calculator – Hours Between Two Times"
+  description="Free time duration calculator. Find the hours and minutes between two times, even across midnight or several days, or add and subtract time from a clock time."
+  intro="Find the hours and minutes between two times, across midnight or several days, or add and subtract hours, minutes and seconds from a time."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <TimeDurationCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the time duration calculator</h2>
+    <ul>
+      <li><strong>Between two times:</strong> enter a start and end time. Tick the box to add dates for spans longer than a day.</li>
+      <li><strong>Add or subtract time:</strong> enter a start time and the hours, minutes and seconds to add or take away.</li>
+    </ul>
+
+    <h2>Formula</h2>
+    <div class="formula">Duration = end time − start time &nbsp;&nbsp; (+ 24 h if the end is past midnight)</div>
+
+    <h3>Worked examples</h3>
+    <table>
+      <thead><tr><th>Calculation</th><th>Result</th><th>Decimal</th></tr></thead>
+      <tbody>
+        <tr><td>9:15 AM → 5:45 PM</td><td>8 h 30 min</td><td>8.5 h</td></tr>
+        <tr><td>10:00 PM → 6:30 AM</td><td>8 h 30 min</td><td>8.5 h</td></tr>
+        <tr><td>9:15 AM + 2 h 30 min</td><td>11:45 AM</td><td></td></tr>
+        <tr><td>135 minutes</td><td>2 h 15 min</td><td>2.25 h</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Minutes to decimal hours</h2>
+    <table>
+      <thead><tr><th>Minutes</th><th>15</th><th>20</th><th>30</th><th>40</th><th>45</th><th>50</th></tr></thead>
+      <tbody>
+        <tr><td>Hours</td><td>0.25</td><td>0.333</td><td>0.5</td><td>0.667</td><td>0.75</td><td>0.833</td></tr>
+      </tbody>
+    </table>
+    <p>For several shifts with breaks and pay, use the <a href="/hours-calculator">hours calculator</a> or the <a href="/time-card-calculator">time card calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
