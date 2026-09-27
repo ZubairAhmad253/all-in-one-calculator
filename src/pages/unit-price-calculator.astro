@@ -1,0 +1,69 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import UnitPriceCalculator from '@/components/calculators/UnitPriceCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate unit price?',
+    a: 'Divide the price by the quantity. A 500 g pack for $3.49 costs $3.49 ÷ 0.5 kg = $6.98 per kg. Comparing prices per kg (or per litre, or per item) shows which pack is really cheaper.',
+  },
+  {
+    q: 'Is the bigger pack always cheaper?',
+    a: 'Often, but not always. In the example, a 1 kg bag at $5.99 is $5.99/kg, cheaper than the 500 g pack at $6.98/kg, but a 200 g pack on offer at $1.29 works out at $6.45/kg, between the two. Always check the unit price.',
+  },
+  {
+    q: 'Can I compare ounces with grams?',
+    a: 'Yes. Any weight unit can be compared with any other, and any volume unit with any other; the calculator converts them. You can’t compare weight with volume, because that depends on the product’s density.',
+  },
+  {
+    q: 'How do I compare multi-packs?',
+    a: 'Enter the total size: a pack of 6 × 330 ml cans is 1,980 ml. For things sold by count, like eggs or nappies, choose “items” as the unit.',
+  },
+  {
+    q: 'Why do shelf labels show a unit price?',
+    a: 'Many countries require supermarkets to show the price per kg, litre or item so shoppers can compare. Labels don’t always use the same unit for similar products, which is where this calculator helps.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="unit-price-calculator"
+  title="Unit Price Calculator – Compare Price per Unit"
+  description="Free unit price calculator. Compare up to 6 products by price per kg, litre or item, across grams, ounces, pounds, millilitres and gallons, to find the best deal."
+  intro="Compare up to six products by price per kilogram, litre or item, even across different units, to see which one is the best value."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <UnitPriceCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the unit price calculator</h2>
+    <ol>
+      <li><strong>Enter each product’s price and size</strong>, and pick its unit.</li>
+      <li><strong>Add more products</strong> to compare, up to six.</li>
+      <li><strong>See the best value</strong> and how much more each of the others costs per unit.</li>
+    </ol>
+
+    <h2>Unit price formula</h2>
+    <div class="formula">Unit price = price ÷ quantity</div>
+
+    <h3>Worked example</h3>
+    <table>
+      <thead><tr><th>Product</th><th>Price</th><th>Size</th><th>Per kg</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td>$3.49</td><td>500 g</td><td>$6.98 (16.5% more)</td></tr>
+        <tr><td>B</td><td>$5.99</td><td>1 kg</td><td><strong>$5.99 (best)</strong></td></tr>
+        <tr><td>C</td><td>$1.29</td><td>200 g</td><td>$6.45 (7.7% more)</td></tr>
+      </tbody>
+    </table>
+    <p>Across units: 16 oz for $4.99 is $11.00 per kg, while 8 oz for $2.99 is $13.18 per kg.</p>
+
+    <h2>Smart shopping tips</h2>
+    <ul>
+      <li>Compare unit prices, not pack prices, especially on “special offers”.</li>
+      <li>Bulk only saves money if you’ll use it before it goes off.</li>
+      <li>Check that shelf labels use the same unit before comparing them.</li>
+    </ul>
+    <p>Working out a sale price? Use the <a href="/discount-calculator">discount calculator</a>. Adding tax? Try the <a href="/sales-tax-calculator">sales tax calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
