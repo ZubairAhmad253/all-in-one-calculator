@@ -1,0 +1,78 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import DateDifferenceCalculator from '@/components/calculators/DateDifferenceCalculator';
+
+const faqs = [
+  {
+    q: 'How many days are there between two dates?',
+    a: 'Subtract the earlier date from the later one. From 1 January to 31 December 2026 is 364 days, or 365 if you count both the first and last day. Tick “Include the end date” to count both.',
+  },
+  {
+    q: 'Should I include the end date?',
+    a: 'It depends on what you’re counting. For how long ago something was, or nights of a hotel stay, don’t include it. For the number of days of an event, holiday or contract that runs from one date to another inclusive, include it.',
+  },
+  {
+    q: 'How are working days counted?',
+    a: 'Working days are Monday to Friday. Saturdays and Sundays are skipped. Public holidays vary by country and region, so they aren’t removed; subtract any that fall in your range.',
+  },
+  {
+    q: 'How many weeks are between two dates?',
+    a: 'Divide the number of days by 7. The calculator shows whole weeks and the days left over, for example 52 weeks and 0 days for 364 days.',
+  },
+  {
+    q: 'Does it count leap years?',
+    a: 'Yes. Every date is checked against the real calendar, so 29 February is included in leap years such as 2028, and ranges across several years are exact.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="date-difference-calculator"
+  title="Days Between Dates Calculator – Date Difference"
+  description="Free date difference calculator. Count the days, weeks, months and years between two dates, with working days, weekend days and the option to include the end date."
+  intro="Count the days between two dates, and see the difference in years, months and days, weeks, working days and weekends."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <DateDifferenceCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the date difference calculator</h2>
+    <ol>
+      <li><strong>Pick a start date and an end date.</strong></li>
+      <li><strong>Tick “Include the end date”</strong> if you want to count both the first and last day.</li>
+    </ol>
+    <p>You’ll see the total days, the gap in years, months and days, and the number of working days and weekend days in between.</p>
+
+    <h2>How the difference is calculated</h2>
+    <div class="formula">Days between = End date − Start date</div>
+    <div class="formula">Including the end date = End date − Start date + 1</div>
+
+    <h3>Worked example</h3>
+    <p>
+      From <strong>1 January 2026</strong> to <strong>31 December 2026</strong> is <strong>364 days</strong>, exactly 52 weeks. Counting both days, it’s 365. Of those 365 days,
+      <strong>261 are weekdays</strong> and 104 are weekend days.
+    </p>
+
+    <h2>Common date differences</h2>
+    <table>
+      <thead><tr><th>Period</th><th>Days</th></tr></thead>
+      <tbody>
+        <tr><td>1 week</td><td>7</td></tr>
+        <tr><td>1 month</td><td>28–31</td></tr>
+        <tr><td>1 quarter</td><td>90–92</td></tr>
+        <tr><td>1 year</td><td>365 (366 in a leap year)</td></tr>
+        <tr><td>Working days in a typical year</td><td>260–262 (before public holidays)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Uses for a date calculator</h2>
+    <ul>
+      <li><strong>Deadlines and notice periods:</strong> check how many working days you have.</li>
+      <li><strong>Countdowns:</strong> days until a holiday, wedding or exam.</li>
+      <li><strong>Contracts and rentals:</strong> the length of an agreement, including the end date.</li>
+      <li><strong>Travel:</strong> nights away (don’t include the end date).</li>
+    </ul>
+    <p>Working out someone’s age? The <a href="/age-calculator">age calculator</a> also gives the next birthday.</p>
+  </Fragment>
+</CalculatorLayout>
