@@ -1,0 +1,71 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import BrickCalculator from '@/components/calculators/BrickCalculator';
+
+const faqs = [
+  {
+    q: 'How many bricks are in a square metre?',
+    a: 'About 60 standard UK/metric bricks (215 × 65 mm face with 10 mm joints) per square metre of single-skin wall, or about 120 for a double-skin wall.',
+  },
+  {
+    q: 'How many bricks per square foot?',
+    a: 'About 6.9 US modular bricks per square foot with ⅜-inch joints, often rounded to 7. Standard 8-inch bricks work out at about 6.5 per square foot.',
+  },
+  {
+    q: 'How do I calculate bricks for a wall?',
+    a: 'Multiply the wall’s length by its height, subtract doors and windows, and multiply by the bricks per square metre (or foot). Add 5% for cuts and breakages. A 6 × 1.8 m single-skin wall is 10.8 m², needing 640 bricks, or 672 with 5% extra.',
+  },
+  {
+    q: 'What is the difference between single and double skin?',
+    a: 'A single-skin (half-brick) wall is one brick thick, about 100 mm, and is used for garden walls and cladding. A double-skin (one-brick) wall uses two layers, about 215 mm thick, for stronger free-standing walls, so it needs twice the bricks.',
+  },
+  {
+    q: 'How much mortar do I need?',
+    a: 'Roughly 0.02 m³ of mortar per square metre of single-skin wall with 10 mm joints, before wastage. The calculator estimates the mortar volume from your brick size and joint.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="brick-calculator"
+  title="Brick Calculator – Bricks & Mortar for a Wall"
+  description="Free brick calculator. Work out how many bricks and how much mortar you need for a wall, for UK, metric and US brick sizes, single or double skin, with waste."
+  intro="Work out how many bricks and how much mortar a wall needs, for UK, metric and US brick sizes, single or double thickness, with waste and cost."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <BrickCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the brick calculator</h2>
+    <ol>
+      <li><strong>Choose metric or US units</strong> and enter the wall’s length and height.</li>
+      <li><strong>Subtract doors and windows</strong> by entering their total area.</li>
+      <li><strong>Pick the brick size, joint and wall thickness</strong>, then a waste allowance and price.</li>
+    </ol>
+
+    <h2>Brick formula</h2>
+    <div class="formula">Bricks per m² = 1 ÷ ((brick length + joint) × (brick height + joint)) &nbsp;&nbsp; Bricks = wall area × bricks per m² × (1 + waste %)</div>
+
+    <h3>Worked examples</h3>
+    <table>
+      <thead><tr><th>Wall</th><th>Brick</th><th>Per unit area</th><th>Bricks (+5%)</th></tr></thead>
+      <tbody>
+        <tr><td>6 × 1.8 m (10.8 m²)</td><td>UK standard, 10 mm joint</td><td>59.3 per m²</td><td>672</td></tr>
+        <tr><td>20 × 6 ft (120 ft²)</td><td>US modular, ⅜ in joint</td><td>6.85 per ft²</td><td>864</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Common brick sizes</h2>
+    <table>
+      <thead><tr><th>Brick</th><th>Size</th><th>Per m² (single skin)</th></tr></thead>
+      <tbody>
+        <tr><td>UK / metric standard</td><td>215 × 102.5 × 65 mm</td><td>about 60</td></tr>
+        <tr><td>US modular</td><td>7⅝ × 3⅝ × 2¼ in</td><td>about 74</td></tr>
+        <tr><td>US standard</td><td>8 × 3⅝ × 2¼ in</td><td>about 70</td></tr>
+        <tr><td>Queen</td><td>7⅝ × 2¾ × 2¾ in</td><td>about 62</td></tr>
+      </tbody>
+    </table>
+    <p>Pouring a footing first? Use the <a href="/concrete-calculator">concrete calculator</a>. For the wall’s area on its own, see the <a href="/area-calculator">area calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
