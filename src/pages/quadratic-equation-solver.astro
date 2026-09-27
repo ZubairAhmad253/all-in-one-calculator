@@ -1,0 +1,65 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import QuadraticSolver from '@/components/calculators/QuadraticSolver';
+
+const faqs = [
+  {
+    q: 'What is the quadratic formula?',
+    a: 'x = (−b ± √(b² − 4ac)) ÷ 2a. It gives the solutions of any equation in the form ax² + bx + c = 0, as long as a is not zero.',
+  },
+  {
+    q: 'What does the discriminant tell me?',
+    a: 'The discriminant is b² − 4ac. If it’s positive there are two real roots, if it’s zero there is one repeated root, and if it’s negative there are no real roots, only two complex ones.',
+  },
+  {
+    q: 'What are complex roots?',
+    a: 'When the discriminant is negative, the square root in the formula is of a negative number, so the roots involve i (the square root of −1). For x² + 2x + 5 = 0, the roots are −1 ± 2i. On a graph, the parabola doesn’t cross the x-axis.',
+  },
+  {
+    q: 'What is the vertex of a parabola?',
+    a: 'The turning point, at x = −b ÷ 2a. It’s the lowest point if a is positive and the highest if a is negative. For x² − 5x + 6, the vertex is at (2.5, −0.25).',
+  },
+  {
+    q: 'Can I solve a quadratic by factoring instead?',
+    a: 'Yes, when it factors neatly. x² − 5x + 6 = (x − 2)(x − 3), so x = 2 or x = 3. The quadratic formula always works, even when factoring is hard.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="quadratic-equation-solver"
+  title="Quadratic Equation Solver – Roots, Steps & Graph"
+  description="Free quadratic equation solver. Solve ax² + bx + c = 0 with the quadratic formula, including complex roots, with step-by-step working, the vertex and a graph."
+  intro="Solve any quadratic equation ax² + bx + c = 0, with real or complex roots, step-by-step working using the quadratic formula, the vertex and a graph."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <QuadraticSolver client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the quadratic solver</h2>
+    <p>Enter the coefficients a, b and c of your equation in the form ax² + bx + c = 0. Use negative numbers for minus signs: for x² − 5x + 6, enter a = 1, b = −5, c = 6.</p>
+
+    <h2>The quadratic formula</h2>
+    <div class="formula">x = (−b ± √(b² − 4ac)) ÷ 2a</div>
+
+    <h3>Worked example</h3>
+    <p>Solve <strong>x² − 5x + 6 = 0</strong>:</p>
+    <ol>
+      <li>a = 1, b = −5, c = 6.</li>
+      <li>Discriminant: (−5)² − 4 × 1 × 6 = 25 − 24 = 1.</li>
+      <li>x = (5 ± √1) ÷ 2, so <strong>x = 2</strong> or <strong>x = 3</strong>.</li>
+    </ol>
+
+    <h2>The three cases</h2>
+    <table>
+      <thead><tr><th>Discriminant</th><th>Roots</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Positive</td><td>Two real roots</td><td>x² − 5x + 6 = 0 → x = 2, 3</td></tr>
+        <tr><td>Zero</td><td>One repeated root</td><td>x² − 4x + 4 = 0 → x = 2</td></tr>
+        <tr><td>Negative</td><td>Two complex roots</td><td>x² + 2x + 5 = 0 → x = −1 ± 2i</td></tr>
+      </tbody>
+    </table>
+    <p>For other calculations, use the <a href="/scientific-calculator">scientific calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
