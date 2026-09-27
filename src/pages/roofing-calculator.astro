@@ -1,0 +1,66 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import RoofingCalculator from '@/components/calculators/RoofingCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate roof area?',
+    a: 'Measure the building’s footprint including the overhang, then multiply by the pitch multiplier. A 40 × 30 ft house with a 1 ft overhang has a 42 × 32 = 1,344 ft² footprint; at a 6/12 pitch (× 1.118) the roof is about 1,503 ft².',
+  },
+  {
+    q: 'What is a roofing square?',
+    a: '100 square feet of roof. Shingles are sold by the square, usually in 3 bundles per square for standard asphalt shingles. A 1,503 ft² roof with 10% waste is about 16.5 squares, so 17 squares or 50 bundles.',
+  },
+  {
+    q: 'What does a 6/12 roof pitch mean?',
+    a: 'The roof rises 6 inches for every 12 inches it runs horizontally. That’s an angle of about 26.6° and a multiplier of 1.118. A 12/12 pitch is 45° with a multiplier of 1.414.',
+  },
+  {
+    q: 'How much waste should I allow for shingles?',
+    a: 'About 10% for a simple gable roof, and 15% or more for roofs with hips, valleys, dormers or many cuts. Starter strips and ridge caps are extra.',
+  },
+  {
+    q: 'How do I find my roof pitch?',
+    a: 'Hold a level horizontally against the roof or a rafter, measure 12 inches along it, then measure straight up to the roof surface. That vertical distance in inches is the rise per 12.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="roofing-calculator"
+  title="Roofing Calculator – Roof Area, Squares & Shingles"
+  description="Free roofing calculator. Work out roof area from the building footprint and pitch, then the roofing squares and bundles of shingles needed, with waste."
+  intro="Work out your roof’s area from the building footprint and pitch, and how many roofing squares and bundles of shingles to buy."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <RoofingCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the roofing calculator</h2>
+    <ol>
+      <li><strong>Enter the building’s length and width</strong> and the eave overhang.</li>
+      <li><strong>Choose the roof pitch</strong> (rise per 12 of run).</li>
+      <li><strong>Set a waste allowance</strong> and, optionally, a price per square.</li>
+    </ol>
+
+    <h2>Roofing formulas</h2>
+    <div class="formula">Roof area = (length + 2 × overhang) × (width + 2 × overhang) × √(1 + (pitch ÷ 12)²) &nbsp;&nbsp; Squares = area ÷ 100 ft²</div>
+
+    <h2>Pitch multipliers</h2>
+    <table>
+      <thead><tr><th>Pitch</th><th>Angle</th><th>Multiplier</th></tr></thead>
+      <tbody>
+        <tr><td>3/12</td><td>14.0°</td><td>1.031</td></tr>
+        <tr><td>4/12</td><td>18.4°</td><td>1.054</td></tr>
+        <tr><td>6/12</td><td>26.6°</td><td>1.118</td></tr>
+        <tr><td>8/12</td><td>33.7°</td><td>1.202</td></tr>
+        <tr><td>12/12</td><td>45.0°</td><td>1.414</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worked example</h3>
+    <p>A 40 × 30 ft house with a 1 ft overhang and a 6/12 roof: footprint 42 × 32 = 1,344 ft², roof area 1,344 × 1.118 ≈ <strong>1,503 ft²</strong>. With 10% waste that’s 1,653 ft², or <strong>17 squares (50 bundles)</strong>. Each rafter is about 17.9 ft.</p>
+    <p>For pitch as a slope or angle, try the <a href="/slope-calculator">slope calculator</a>. For rafter lengths on their own, the <a href="/pythagorean-theorem-calculator">Pythagorean theorem calculator</a> helps.</p>
+  </Fragment>
+</CalculatorLayout>
