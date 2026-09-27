@@ -1,0 +1,78 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import WaterIntakeCalculator from '@/components/calculators/WaterIntakeCalculator';
+
+const faqs = [
+  {
+    q: 'How much water should I drink a day?',
+    a: 'A common guideline is about 35 ml per kg of body weight, plus extra for exercise and heat. A 70 kg adult who exercises for 30 minutes needs about 2.8 litres (95 fl oz) of drinking water a day.',
+  },
+  {
+    q: 'Is 8 glasses of water a day right?',
+    a: '“8 × 8” (eight 8-ounce glasses, about 1.9 litres) is an easy-to-remember rule, not a scientific target. Many adults need more, especially larger or active people, and food and other drinks count too.',
+  },
+  {
+    q: 'How much extra water do I need when exercising?',
+    a: 'Roughly 350 ml (12 fl oz) for every 30 minutes of exercise, more in heat or if you sweat heavily. Weighing yourself before and after a workout shows your sweat loss: each kilogram lost is about a litre to replace.',
+  },
+  {
+    q: 'Do coffee and tea count towards water intake?',
+    a: 'Yes. The mild diuretic effect of caffeine doesn’t cancel out the water in a normal cup, so coffee, tea, milk and other drinks all count. Water-rich foods such as fruit, vegetables and soup add about 20% of daily intake.',
+  },
+  {
+    q: 'Can you drink too much water?',
+    a: 'Yes, though it’s rare. Drinking very large amounts quickly, such as several litres in an hour during endurance events, can dilute blood sodium (hyponatremia). Spread intake through the day and drink to thirst.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="water-intake-calculator"
+  title="Water Intake Calculator – How Much Water Should I Drink?"
+  description="Free water intake calculator. Find how much water to drink a day for your weight, exercise and climate, in litres, fluid ounces, cups and glasses."
+  intro="Find how much water to drink each day based on your weight, exercise and climate, in litres, fluid ounces, cups and glasses."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <WaterIntakeCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the water intake calculator</h2>
+    <ol>
+      <li><strong>Enter your body weight</strong> in kilograms or pounds.</li>
+      <li><strong>Add your daily exercise</strong> in minutes.</li>
+      <li><strong>Say whether it’s hot or humid</strong> where you are.</li>
+    </ol>
+
+    <h2>How the estimate works</h2>
+    <div class="formula">Water (L) = weight (kg) × 0.035 + 0.35 L per 30 min of exercise + 0.5 L in hot weather</div>
+
+    <h3>Worked examples</h3>
+    <table>
+      <thead><tr><th>Person</th><th>Daily water</th></tr></thead>
+      <tbody>
+        <tr><td>60 kg, no exercise</td><td>2.1 L (71 fl oz)</td></tr>
+        <tr><td>70 kg, 30 min exercise</td><td>2.8 L (95 fl oz)</td></tr>
+        <tr><td>160 lb (72.6 kg), no exercise</td><td>2.5 L (86 fl oz)</td></tr>
+        <tr><td>90 kg, 60 min exercise, hot weather</td><td>4.35 L (147 fl oz)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Official reference values</h2>
+    <p>These are <strong>total</strong> water from drinks and food:</p>
+    <table>
+      <thead><tr><th>Source</th><th>Men</th><th>Women</th></tr></thead>
+      <tbody>
+        <tr><td>European Food Safety Authority</td><td>2.5 L/day</td><td>2.0 L/day</td></tr>
+        <tr><td>US National Academies</td><td>3.7 L/day</td><td>2.7 L/day</td></tr>
+      </tbody>
+    </table>
+    <h3>Signs you’re well hydrated</h3>
+    <ul>
+      <li>Pale straw-coloured urine</li>
+      <li>Rarely feeling thirsty</li>
+      <li>Urinating every 3–4 hours during the day</li>
+    </ul>
+    <p>Planning nutrition too? See the <a href="/calorie-calculator">calorie calculator</a> and <a href="/protein-calculator">protein calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
