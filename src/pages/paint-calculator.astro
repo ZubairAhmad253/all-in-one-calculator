@@ -1,0 +1,71 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import PaintCalculator from '@/components/calculators/PaintCalculator';
+
+const faqs = [
+  {
+    q: 'How much paint do I need for a room?',
+    a: 'Work out the wall area (perimeter × height), take off doors and windows, multiply by the number of coats and divide by the coverage. A 4 × 3.5 m room with 2.4 m walls, one door and one window has 32.6 m² of wall; two coats at 10 m² per litre need 6.5 litres.',
+  },
+  {
+    q: 'How much does a gallon of paint cover?',
+    a: 'Usually 350–400 square feet per coat on smooth, primed walls. A 14 × 12 ft room with 8 ft walls has about 380 ft² of wall after a door and window, so two coats need about 2.2 gallons.',
+  },
+  {
+    q: 'How many coats of paint do I need?',
+    a: 'Two coats for most walls, especially when changing colour. One coat can be enough when repainting the same colour in good condition. New plaster, bare wood or a big change from dark to light may need a primer first.',
+  },
+  {
+    q: 'Should I subtract doors and windows?',
+    a: 'Yes, for a closer estimate. A typical door is about 1.9 m² (20 ft²) and a window about 1.5 m² (16 ft²). The calculator takes these off for you.',
+  },
+  {
+    q: 'How much extra paint should I buy?',
+    a: 'Round up to whole tins and keep a little for touch-ups. The calculator picks a sensible combination of tin sizes that covers what you need without buying lots of small tins.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="paint-calculator"
+  title="Paint Calculator – How Much Paint Do I Need?"
+  description="Free paint calculator. Work out how much paint a room needs in litres or gallons from its size, doors, windows, coats and coverage, and which tins to buy."
+  intro="Work out how much paint a room needs from its size, doors, windows and number of coats, in litres or gallons, and which tins to buy."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <PaintCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the paint calculator</h2>
+    <ol>
+      <li><strong>Choose metric or US units</strong> and enter the room’s length, width and wall height.</li>
+      <li><strong>Enter the number of doors, windows and coats</strong>, and tick the ceiling if you’re painting it.</li>
+      <li><strong>Check the coverage</strong> on your paint and adjust it if needed.</li>
+    </ol>
+
+    <h2>Paint formula</h2>
+    <div class="formula">Paint = (2 × (length + width) × height − doors − windows) × coats ÷ coverage</div>
+
+    <h3>Worked examples</h3>
+    <table>
+      <thead><tr><th>Room</th><th>Area to paint</th><th>2 coats</th><th>Buy</th></tr></thead>
+      <tbody>
+        <tr><td>4 × 3.5 m, 2.4 m high, 1 door, 1 window</td><td>32.6 m²</td><td>6.52 L</td><td>5 L + 2.5 L</td></tr>
+        <tr><td>Same room with the ceiling</td><td>46.6 m²</td><td>9.32 L</td><td>10 L</td></tr>
+        <tr><td>14 × 12 ft, 8 ft high, 1 door, 1 window</td><td>379 ft²</td><td>2.17 gal</td><td>2 gallons + 1 quart</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Typical coverage</h2>
+    <table>
+      <thead><tr><th>Surface</th><th>Metric</th><th>US</th></tr></thead>
+      <tbody>
+        <tr><td>Smooth, previously painted</td><td>10–12 m²/L</td><td>350–400 ft²/gal</td></tr>
+        <tr><td>New plaster or drywall (with primer)</td><td>8–10 m²/L</td><td>300–350 ft²/gal</td></tr>
+        <tr><td>Rough or textured</td><td>6–8 m²/L</td><td>200–300 ft²/gal</td></tr>
+      </tbody>
+    </table>
+    <p>Papering instead? Use the <a href="/wallpaper-calculator">wallpaper calculator</a>. For floor area, see the <a href="/flooring-calculator">flooring calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
