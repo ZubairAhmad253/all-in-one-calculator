@@ -4,7 +4,7 @@ A fast, SEO-focused website of free online calculators (finance, math, health, c
 
 > **"All-in-One Calculator" is a placeholder name.** Change it in [`src/config/site.ts`](src/config/site.ts) and it updates everywhere.
 
-**Status:** 111 of 111 planned calculators are live, including all 25 launch (`phase: 1`) calculators. The `LIVE` set in [`src/data/calculators.ts`](src/data/calculators.ts) is the up-to-date list. See [Roadmap](#roadmap).
+**Status:** all 111 calculators are live. Branding, legal pages, deployment and ads come next; see [Roadmap](#roadmap).
 
 ## Features
 
@@ -197,9 +197,9 @@ The build output in `dist/` is a fully static site. Pages are built as `name.htm
 
 ## Roadmap
 
-The full list of 111 calculators, with categories and phases, is in [`src/data/calculators.ts`](src/data/calculators.ts).
+All 111 calculators are live. The full list, with categories, is in [`src/data/calculators.ts`](src/data/calculators.ts).
 
-| Category | Planned |
+| Category | Calculators |
 |---|---|
 | Finance | 31 |
 | Math | 25 |
@@ -209,9 +209,9 @@ The full list of 111 calculators, with categories and phases, is in [`src/data/c
 | Date & Time | 8 |
 | Education | 5 |
 
-- **Phase 1:** the 25 calculators with the highest search demand (marked `phase: 1`), such as loan, EMI, BMI, percentage, age and GPA.
-- **Phase 2:** the rest of the list.
-- **After that:** add calculators based on Search Console data.
+- **Done:** all 111 calculators, each with a how-to guide, formulas, worked examples and FAQs.
+- **Next:** choose a name and branding, add legal pages (terms, cookie notice), deploy, then switch on ads.
+- **After launch:** add calculators based on Search Console data.
 
 ## Pre-launch checklist
 
