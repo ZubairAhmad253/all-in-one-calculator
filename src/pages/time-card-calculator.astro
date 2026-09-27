@@ -1,0 +1,65 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import TimeCardCalculator from '@/components/calculators/TimeCardCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate hours on a time card?',
+    a: 'For each day, subtract the start time from the end time and take away unpaid breaks, then add the days together. 9:00 AM to 5:30 PM with a 30-minute lunch is 8 hours; five such days make 40 hours.',
+  },
+  {
+    q: 'How is overtime calculated?',
+    a: 'Under US federal law (the FLSA), non-exempt employees earn at least 1.5 times their regular rate for hours over 40 in a workweek. Some places, such as California, also pay overtime for hours over 8 in a day. Choose the rule that applies to you.',
+  },
+  {
+    q: 'What is time and a half?',
+    a: '1.5 times the normal hourly rate. At $20 an hour, overtime pays $30 an hour. “Double time” is 2 times the rate; set the multiplier to 2 for that.',
+  },
+  {
+    q: 'How do I convert minutes to decimal hours for payroll?',
+    a: 'Divide by 60. 8 hours 45 minutes is 8.75 hours. The calculator shows totals in both forms, and pay is always worked out from the exact minutes.',
+  },
+  {
+    q: 'What about overnight shifts?',
+    a: 'Enter the end time as it appears on the clock. If it’s earlier than the start, such as 10:00 PM to 6:00 AM, the shift is counted as ending the next morning.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="time-card-calculator"
+  title="Time Card Calculator – Weekly Timesheet with Overtime"
+  description="Free time card calculator. Enter start and end times and breaks for each day to total weekly hours, regular and overtime hours, and gross pay."
+  intro="Fill in a weekly timesheet with start and end times and breaks, and get total hours, regular and overtime hours, and your gross pay."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <TimeCardCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the time card calculator</h2>
+    <ol>
+      <li><strong>Tick the days you worked</strong> and enter the start and end times and any unpaid break.</li>
+      <li><strong>Enter your hourly rate</strong> and currency.</li>
+      <li><strong>Choose when overtime starts</strong> and its multiplier.</li>
+    </ol>
+
+    <h2>Formulas</h2>
+    <div class="formula">Daily hours = end − start − break &nbsp;&nbsp; Pay = regular hours × rate + overtime hours × rate × multiplier</div>
+
+    <h3>Worked example</h3>
+    <p>Monday to Thursday 9:00 AM–5:30 PM and Friday 8:30 AM–6:30 PM, each with a 30-minute break, at $20 an hour:</p>
+    <table>
+      <thead><tr><th></th><th>Hours</th><th>Pay</th></tr></thead>
+      <tbody>
+        <tr><td>Mon–Thu (8 h each)</td><td>32</td><td></td></tr>
+        <tr><td>Friday</td><td>9.5</td><td></td></tr>
+        <tr><td>Regular (first 40)</td><td>40</td><td>$800.00</td></tr>
+        <tr><td>Overtime at ×1.5</td><td>1.5</td><td>$45.00</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>41.5</strong></td><td><strong>$845.00</strong></td></tr>
+      </tbody>
+    </table>
+    <p>With the 8-hours-a-day rule instead, only Friday’s extra 1.5 hours are overtime, which gives the same total here.</p>
+    <p>For shifts that don’t follow a weekly pattern, use the <a href="/hours-calculator">hours calculator</a>. To turn an hourly rate into a yearly salary, try the <a href="/salary-calculator">salary calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
