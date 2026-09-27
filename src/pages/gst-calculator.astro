@@ -1,0 +1,69 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import GstCalculator from '@/components/calculators/GstCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate GST?',
+    a: 'Multiply the price before GST by the GST rate. For ₹1,000 at 18%: 1,000 × 0.18 = ₹180 GST, so the total is ₹1,180. Within a state, that ₹180 is split into ₹90 CGST and ₹90 SGST.',
+  },
+  {
+    q: 'How do I remove GST from a price?',
+    a: 'Divide the GST-inclusive price by 1 plus the rate. For ₹1,180 including 18% GST: 1,180 ÷ 1.18 = ₹1,000, so the GST is ₹180. The shortcut: GST = price × rate ÷ (100 + rate).',
+  },
+  {
+    q: 'What is the difference between CGST, SGST and IGST?',
+    a: 'For a sale within one state, GST is split equally between the central government (CGST) and the state (SGST, or UTGST in union territories). For a sale between states, or an import, the full GST is charged as IGST.',
+  },
+  {
+    q: 'What are the GST rates in India?',
+    a: 'The main slabs are 5%, 12%, 18% and 28%, with some essentials exempt at 0% and a few special rates. Which rate applies depends on the product or service, and rates are revised from time to time, so check the current GST rate for your item.',
+  },
+  {
+    q: 'Can I use this for GST in other countries?',
+    a: 'Yes. Australia (10%), New Zealand (15%), Canada (5%, or HST in some provinces), Singapore and others also have a GST. Enter the rate and use “Within a state”, then ignore the CGST/SGST split.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="gst-calculator"
+  title="GST Calculator – Add or Remove GST, CGST & SGST"
+  description="Free GST calculator. Add GST to a price or remove it from a GST-inclusive price at 5%, 12%, 18% or 28%, with the CGST, SGST or IGST breakdown."
+  intro="Add GST to a price or work back from a GST-inclusive price, at any rate, with the CGST and SGST split for sales within a state or IGST for sales between states."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <GstCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the GST calculator</h2>
+    <ol>
+      <li><strong>Choose Add GST or Remove GST.</strong></li>
+      <li><strong>Enter the amount</strong> and pick a GST slab or type a rate.</li>
+      <li><strong>Choose the type of supply:</strong> within a state (CGST + SGST) or between states (IGST).</li>
+    </ol>
+
+    <h2>GST formulas</h2>
+    <div class="formula">Add GST: GST = Amount × Rate ÷ 100 &nbsp;&nbsp; Total = Amount + GST</div>
+    <div class="formula">Remove GST: GST = Amount × Rate ÷ (100 + Rate) &nbsp;&nbsp; Net = Amount − GST</div>
+
+    <h3>Worked example</h3>
+    <p>
+      A service costs <strong>₹1,000</strong> plus <strong>18% GST</strong>. GST is ₹180, split into <strong>₹90 CGST</strong> and <strong>₹90 SGST</strong> for a sale within the
+      state, making <strong>₹1,180</strong>. For a customer in another state, the full ₹180 is IGST.
+    </p>
+
+    <h2>GST on ₹1,000 at each slab</h2>
+    <table>
+      <thead><tr><th>Rate</th><th>Adding GST to ₹1,000</th><th>GST inside a ₹1,000 price</th></tr></thead>
+      <tbody>
+        <tr><td>5%</td><td>₹50 → ₹1,050</td><td>₹47.62 (net ₹952.38)</td></tr>
+        <tr><td>12%</td><td>₹120 → ₹1,120</td><td>₹107.14 (net ₹892.86)</td></tr>
+        <tr><td>18%</td><td>₹180 → ₹1,180</td><td>₹152.54 (net ₹847.46)</td></tr>
+        <tr><td>28%</td><td>₹280 → ₹1,280</td><td>₹218.75 (net ₹781.25)</td></tr>
+      </tbody>
+    </table>
+    <p>For other sales taxes and VAT, use the <a href="/sales-tax-calculator">sales tax / VAT calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>

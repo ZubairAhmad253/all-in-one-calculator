@@ -1,0 +1,74 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import CagrCalculator from '@/components/calculators/CagrCalculator';
+
+const faqs = [
+  {
+    q: 'What is CAGR?',
+    a: 'CAGR (compound annual growth rate) is the steady yearly rate that would grow a starting value into an ending value over a period. It smooths out ups and downs, so you can compare investments or business results fairly.',
+  },
+  {
+    q: 'What is the CAGR formula?',
+    a: 'CAGR = (Ending value ÷ Starting value)^(1 ÷ years) − 1. An investment that grows from $10,000 to $20,000 in 5 years has a CAGR of (2)^(1/5) − 1 ≈ 14.87% a year.',
+  },
+  {
+    q: 'Why is CAGR different from the average return?',
+    a: 'The simple average ignores compounding. If an investment rises 50% and then falls 50%, the average return is 0%, but you actually lose money: 100 becomes 75, a CAGR of about −13.4% a year.',
+  },
+  {
+    q: 'Can CAGR be negative?',
+    a: 'Yes, if the ending value is lower than the starting value. A fall from $50,000 to $38,000 over 3 years is a CAGR of about −8.74%.',
+  },
+  {
+    q: 'What does CAGR not show?',
+    a: 'It hides volatility: two investments with the same CAGR can have taken very different paths. It also ignores money added or withdrawn during the period. For regular investments, look at an XIRR or use the SIP calculator.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="cagr-calculator"
+  title="CAGR Calculator – Compound Annual Growth Rate"
+  description="Free CAGR calculator. Find the compound annual growth rate between two values, or project a future value from a growth rate, with a year-by-year table."
+  intro="Find the compound annual growth rate between a starting and ending value, or project a future value from a growth rate, with the growth shown year by year."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <CagrCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the CAGR calculator</h2>
+    <ol>
+      <li><strong>Choose Find the CAGR</strong> to get the growth rate from two values, or <strong>Project a value</strong> to see where a growth rate leads.</li>
+      <li><strong>Enter the values and the number of years.</strong> Part years such as 2.5 work too.</li>
+    </ol>
+
+    <h2>CAGR formula</h2>
+    <div class="formula">CAGR = (End ÷ Start)<sup>1 ÷ years</sup> − 1 &nbsp;&nbsp; End = Start × (1 + CAGR)<sup>years</sup></div>
+
+    <h3>Worked examples</h3>
+    <ul>
+      <li>$10,000 grows to $20,000 in <strong>5 years</strong>: CAGR = 2<sup>1/5</sup> − 1 ≈ <strong>14.87%</strong>.</li>
+      <li>Sales grow from 100 to 250 units in <strong>7 years</strong>: CAGR ≈ <strong>13.99%</strong>.</li>
+      <li>$10,000 growing at <strong>12%</strong> a year becomes $17,623.42 in 5 years and $31,058.48 in 10.</li>
+    </ul>
+
+    <h2>CAGR vs average return</h2>
+    <table>
+      <thead><tr><th>Year</th><th>Return</th><th>Value (from 100)</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>+50%</td><td>150</td></tr>
+        <tr><td>2</td><td>−50%</td><td>75</td></tr>
+      </tbody>
+    </table>
+    <p>The average of +50% and −50% is 0%, but the investment lost a quarter of its value. The CAGR of <strong>−13.4%</strong> tells the true story.</p>
+
+    <h2>Where CAGR is used</h2>
+    <ul>
+      <li><strong>Investments:</strong> comparing funds or shares over the same period.</li>
+      <li><strong>Business:</strong> revenue, profit or customer growth.</li>
+      <li><strong>Economics:</strong> population or GDP growth.</li>
+    </ul>
+    <p>For monthly investing, the <a href="/sip-calculator">SIP calculator</a> accounts for money added over time.</p>
+  </Fragment>
+</CalculatorLayout>

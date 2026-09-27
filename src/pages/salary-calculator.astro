@@ -1,0 +1,80 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import SalaryCalculator from '@/components/calculators/SalaryCalculator';
+
+const faqs = [
+  {
+    q: 'How do I convert an hourly wage to a yearly salary?',
+    a: 'Multiply the hourly rate by the hours you work in a year. A standard full-time year is 40 hours × 52 weeks = 2,080 hours, so $25 an hour is $52,000 a year. A quick shortcut: double the hourly rate and add three zeros ($25 → about $50,000).',
+  },
+  {
+    q: 'How do I convert a yearly salary to an hourly rate?',
+    a: 'Divide the salary by the hours worked in a year. $60,000 ÷ 2,080 = $28.85 an hour for a 40-hour week.',
+  },
+  {
+    q: 'What is the difference between biweekly and semi-monthly pay?',
+    a: 'Biweekly means every two weeks: 26 paychecks a year. Semi-monthly means twice a month: 24 paychecks a year. On a $60,000 salary, a biweekly check is $2,307.69 and a semi-monthly check is $2,500.',
+  },
+  {
+    q: 'Should I include holidays and vacation?',
+    a: 'Only count unpaid days off. Paid holidays and paid vacation are part of your salary, so they don’t change the conversion. If you take 10 unpaid days a year at $25 an hour, your yearly pay drops from $52,000 to $50,000.',
+  },
+  {
+    q: 'Does this calculate my take-home pay?',
+    a: 'Only roughly. You can enter a single overall percentage for tax and deductions to estimate take-home pay. Real income tax depends on your country, region, income level and personal allowances.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="salary-calculator"
+  title="Salary Calculator – Hourly to Annual Pay Converter"
+  description="Free salary calculator. Convert pay between hourly, daily, weekly, biweekly, semi-monthly, monthly and yearly, with your working hours and unpaid days off."
+  intro="Convert your pay between hourly, daily, weekly, every two weeks, twice a month, monthly and yearly, based on the hours and days you actually work."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <SalaryCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the salary calculator</h2>
+    <ol>
+      <li><strong>Enter your pay</strong> and how often you’re paid it (per hour, per year and so on).</li>
+      <li><strong>Set your hours and days per week</strong>, and any unpaid days off in the year.</li>
+      <li><strong>Optionally, add an overall tax percentage</strong> for a rough take-home figure.</li>
+    </ol>
+
+    <h2>How pay is converted</h2>
+    <div class="formula">Yearly pay = Hourly rate × Hours per day × Paid days per year</div>
+    <p>A full-time year of 40 hours a week, 5 days a week, is 260 working days and 2,080 hours. Weekly, biweekly, semi-monthly and monthly pay divide the yearly figure by 52, 26, 24 and 12.</p>
+
+    <h3>Worked example</h3>
+    <p>A <strong>$60,000</strong> salary on a 40-hour week works out to:</p>
+    <table>
+      <thead><tr><th>Period</th><th>Pay</th></tr></thead>
+      <tbody>
+        <tr><td>Hourly</td><td>$28.85</td></tr>
+        <tr><td>Daily</td><td>$230.77</td></tr>
+        <tr><td>Weekly</td><td>$1,153.85</td></tr>
+        <tr><td>Every 2 weeks</td><td>$2,307.69</td></tr>
+        <tr><td>Twice a month</td><td>$2,500.00</td></tr>
+        <tr><td>Monthly</td><td>$5,000.00</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Hourly to yearly salary chart</h2>
+    <table>
+      <thead><tr><th>Hourly (40 h/week)</th><th>Monthly</th><th>Yearly</th></tr></thead>
+      <tbody>
+        <tr><td>$15</td><td>$2,600</td><td>$31,200</td></tr>
+        <tr><td>$20</td><td>$3,467</td><td>$41,600</td></tr>
+        <tr><td>$25</td><td>$4,333</td><td>$52,000</td></tr>
+        <tr><td>$30</td><td>$5,200</td><td>$62,400</td></tr>
+        <tr><td>$40</td><td>$6,933</td><td>$83,200</td></tr>
+        <tr><td>$50</td><td>$8,667</td><td>$104,000</td></tr>
+      </tbody>
+    </table>
+    <p>Hours matter: at $25 an hour, a 37.5-hour week is $48,750 a year rather than $52,000.</p>
+    <p>To add up the hours from your timesheet, use the <a href="/hours-calculator">hours worked calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
