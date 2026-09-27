@@ -116,3 +116,14 @@ describe('more quantities', () => {
     expect(c('pressure', 1, 'atm', 'torr')).toBeCloseTo(760, 9);
   });
 });
+
+describe('energy', () => {
+  const c = (v: number, from: string, to: string) => convert(QUANTITIES.energy, v, from, to);
+  it('uses standard definitions', () => {
+    expect(c(1, 'kcal', 'kj')).toBeCloseTo(4.184, 12);
+    expect(c(1, 'kwh', 'mj')).toBeCloseTo(3.6, 12);
+    expect(c(1, 'kwh', 'btu')).toBeCloseTo(3412.14, 2);
+    expect(c(1, 'therm', 'btu')).toBeCloseTo(99_976.1, 0);
+    expect(c(2000, 'kcal', 'kwh')).toBeCloseTo(2.32444, 5);
+  });
+});
