@@ -1,0 +1,81 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import RetirementCalculator from '@/components/calculators/RetirementCalculator';
+
+const faqs = [
+  {
+    q: 'How much do I need to retire?',
+    a: 'Enough to cover the income you want, for as long as you might live, allowing for inflation. The calculator works this out: in its default example, someone wanting $3,000 a month in today’s money from 65 to 90 needs about $1.4 million at retirement.',
+  },
+  {
+    q: 'Why is my retirement income so much higher than I entered?',
+    a: 'You enter the income in today’s money, and the calculator raises it with inflation until you retire. $3,000 a month today is about $6,293 a month in 30 years at 2.5% inflation. It then keeps rising each year during retirement.',
+  },
+  {
+    q: 'What return should I assume?',
+    a: 'Many plans use around 6–7% a year before retirement for a diversified portfolio, and a lower figure such as 4–5% during retirement, when people usually take less risk. Returns aren’t guaranteed, so test lower numbers too.',
+  },
+  {
+    q: 'Does this include my pension or social security?',
+    a: 'No. Enter only the income you need from your own savings, after any pension, social security or other income you expect.',
+  },
+  {
+    q: 'What is the 4% rule?',
+    a: 'A rule of thumb that withdrawing about 4% of your savings in the first year, then adjusting for inflation, has historically lasted around 30 years. It’s a rough guide, not a guarantee.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="retirement-calculator"
+  title="Retirement Calculator – Will My Savings Last?"
+  description="Free retirement calculator. See how much you'll have when you retire, how long it will last with inflation-adjusted withdrawals, and how much you need to save."
+  intro="See how much you’ll have when you retire, whether it will last as long as you need, and how much to save each month to stay on track."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <RetirementCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the retirement calculator</h2>
+    <ol>
+      <li><strong>Enter your age, the age you want to retire, and how long to plan for</strong> (planning to 90 or beyond is sensible).</li>
+      <li><strong>Add your savings so far and what you save each month.</strong></li>
+      <li><strong>Enter the monthly income you want</strong> in today’s money, on top of any pension.</li>
+      <li><strong>Set expected returns</strong> before and during retirement, and inflation.</li>
+    </ol>
+
+    <h2>How the calculation works</h2>
+    <ol>
+      <li><strong>Saving phase:</strong> your savings grow each month with your contributions and returns until you retire.</li>
+      <li><strong>Income phase:</strong> each month you withdraw your income, which rises with inflation, while the rest keeps earning a return.</li>
+      <li><strong>Needed:</strong> the calculator finds the balance at retirement that would last exactly to your planning age, and the monthly saving that gets you there.</li>
+    </ol>
+
+    <h3>Worked example</h3>
+    <p>
+      At <strong>35</strong>, with <strong>$50,000</strong> saved and <strong>$600 a month</strong> going in at 7%, you’d have about <strong>$1,137,807</strong> at 65 (around $542,441
+      in today’s money). Wanting <strong>$3,000 a month</strong> in today’s money means withdrawing about $6,293 a month at first. At 5% returns in retirement, the money would run
+      out at about <strong>84</strong>. To last until 90, you’d need about $1.4 million at 65, which means saving about <strong>$812 a month</strong>.
+    </p>
+
+    <h2>Why starting early matters</h2>
+    <table>
+      <thead><tr><th>Saving $500 a month at 7%, from nothing</th><th>At 65</th><th>Lasts until about</th></tr></thead>
+      <tbody>
+        <tr><td>Starting at 25</td><td>$1,312,407</td><td>Age 81</td></tr>
+        <tr><td>Starting at 45</td><td>$260,463</td><td>Age 69</td></tr>
+      </tbody>
+    </table>
+    <p>Both take $3,000 a month in today’s money from 65. Starting at 45, you’d need to save about $2,094 a month to last until 90.</p>
+
+    <h2>Ways to close a gap</h2>
+    <ul>
+      <li><strong>Save more</strong>, especially while you’re young.</li>
+      <li><strong>Retire a little later:</strong> more years of saving and fewer of spending.</li>
+      <li><strong>Take employer matching</strong> and tax-advantaged accounts.</li>
+      <li><strong>Plan your spending</strong>: a small cut to your retirement income makes a large difference.</li>
+    </ul>
+    <p>This is an estimate for planning, not financial advice. Consider speaking to a qualified adviser.</p>
+  </Fragment>
+</CalculatorLayout>

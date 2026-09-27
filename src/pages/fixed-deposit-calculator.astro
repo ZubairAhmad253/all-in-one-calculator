@@ -1,0 +1,82 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import FixedDepositCalculator from '@/components/calculators/FixedDepositCalculator';
+
+const faqs = [
+  {
+    q: 'How is FD interest calculated?',
+    a: 'Most banks compound fixed deposit interest quarterly: Maturity = P × (1 + r/4)^(4t), where r is the yearly rate as a decimal and t is in years. ₹1,00,000 at 7% for 1 year matures at about ₹1,07,186.',
+  },
+  {
+    q: 'How is RD interest calculated?',
+    a: 'Each monthly instalment earns quarterly-compounded interest for the time it stays in the account, so the first instalment earns the most. ₹5,000 a month for 12 months at 7% matures at about ₹62,311.',
+  },
+  {
+    q: 'What is the difference between the interest rate and the effective yield?',
+    a: 'Because interest is added every quarter and then earns interest itself, you effectively earn a little more than the quoted rate. A 7% FD compounded quarterly has an effective yield of about 7.19% a year.',
+  },
+  {
+    q: 'Is FD interest taxable?',
+    a: 'In most countries, yes. In India, FD and RD interest is added to your income and taxed at your slab rate, and banks deduct TDS if interest crosses a yearly threshold. Senior citizens often get a higher rate and a higher TDS threshold.',
+  },
+  {
+    q: 'Should I choose monthly or cumulative interest payout?',
+    a: 'A cumulative (reinvestment) FD compounds and gives the maturity value shown here. A monthly or quarterly payout FD pays the interest out instead, so it doesn’t compound and the total interest is lower.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="fixed-deposit-calculator"
+  title="FD Calculator – Fixed & Recurring Deposit Maturity"
+  description="Free FD and RD calculator. Find the maturity value and interest on a fixed deposit or recurring deposit with quarterly compounding, plus the effective yield."
+  intro="Find the maturity value and interest on a fixed deposit or a recurring deposit, using the quarterly compounding most banks use."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <FixedDepositCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the FD calculator</h2>
+    <ol>
+      <li><strong>Choose FD or RD.</strong> An FD is a single lump sum; an RD is a fixed amount deposited every month.</li>
+      <li><strong>Enter the amount, interest rate and tenure.</strong></li>
+      <li><strong>For an FD, pick the compounding frequency</strong>; quarterly is standard.</li>
+    </ol>
+
+    <h2>FD formula</h2>
+    <div class="formula">Maturity = P × (1 + r ÷ n)<sup>n × t</sup></div>
+    <p>P is the deposit, r the yearly rate as a decimal, n the number of times interest is compounded per year (4 for quarterly) and t the tenure in years.</p>
+
+    <h3>Worked example: FD</h3>
+    <p>
+      <strong>₹1,00,000</strong> at <strong>7%</strong> for <strong>5 years</strong>, compounded quarterly: 1,00,000 × (1 + 0.07 ÷ 4)<sup>20</sup> ≈ <strong>₹1,41,478</strong>,
+      so you earn ₹41,478 in interest.
+    </p>
+
+    <h3>Worked example: RD</h3>
+    <p>
+      <strong>₹5,000 a month</strong> for <strong>5 years</strong> at <strong>7%</strong>: you deposit ₹3,00,000 and the RD matures at about <strong>₹3,59,664</strong>, earning
+      ₹59,664 in interest.
+    </p>
+
+    <h2>How compounding frequency changes the result</h2>
+    <table>
+      <thead><tr><th>₹1,00,000 at 7% for 1 year</th><th>Maturity</th><th>Effective yield</th></tr></thead>
+      <tbody>
+        <tr><td>Yearly</td><td>₹1,07,000</td><td>7.000%</td></tr>
+        <tr><td>Half-yearly</td><td>₹1,07,122</td><td>7.122%</td></tr>
+        <tr><td>Quarterly</td><td>₹1,07,186</td><td>7.186%</td></tr>
+        <tr><td>Monthly</td><td>₹1,07,229</td><td>7.229%</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Tips for fixed deposits</h2>
+    <ul>
+      <li><strong>Compare rates</strong> across banks and small finance banks, and check deposit insurance limits.</li>
+      <li><strong>Ladder your FDs</strong> (split across several tenures) so some money matures every year.</li>
+      <li><strong>Think after tax:</strong> compare the post-tax return with other options.</li>
+    </ul>
+    <p>Investing monthly in mutual funds instead? Compare with the <a href="/sip-calculator">SIP calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>

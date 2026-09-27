@@ -1,0 +1,76 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import InflationCalculator from '@/components/calculators/InflationCalculator';
+
+const faqs = [
+  {
+    q: 'How do I calculate the future cost with inflation?',
+    a: 'Multiply today’s price by (1 + inflation rate) for each year: future cost = price × (1 + r)^years. At 3% a year, something costing $1,000 today costs about $1,343.92 in 10 years.',
+  },
+  {
+    q: 'How much will my money be worth in the future?',
+    a: 'Divide by the same factor: value in today’s money = amount ÷ (1 + r)^years. At 3% inflation, $1,000 in 10 years buys what about $744.09 buys today, a 25.6% loss of buying power.',
+  },
+  {
+    q: 'How long does it take for prices to double?',
+    a: 'Use the Rule of 70: divide 70 by the inflation rate. At 3%, prices double in about 23 years; at 7%, in about 10 years.',
+  },
+  {
+    q: 'What is a normal inflation rate?',
+    a: 'Many central banks, including the US Federal Reserve, the Bank of England and the European Central Bank, target about 2% a year. Actual inflation varies by country and year, and can be much higher.',
+  },
+  {
+    q: 'How do I protect my savings from inflation?',
+    a: 'Aim for returns above inflation. Cash savings often earn less than inflation, while long-term investments, inflation-linked bonds and some property have historically kept pace better, with more risk.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="inflation-calculator"
+  title="Inflation Calculator – Future Cost & Buying Power"
+  description="Free inflation calculator. See what things will cost in the future and how much buying power your money will lose, at any inflation rate and time period."
+  intro="See what today’s prices will be in the future, and how much buying power your money will lose over time, at any inflation rate."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <InflationCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the inflation calculator</h2>
+    <ol>
+      <li><strong>Choose Future cost</strong> (what something will cost later) or <strong>Buying power</strong> (what an amount will be worth in today’s money).</li>
+      <li><strong>Enter the amount, inflation rate and number of years.</strong></li>
+    </ol>
+
+    <h2>Inflation formulas</h2>
+    <div class="formula">Future cost = Price × (1 + r)<sup>years</sup> &nbsp;&nbsp; Today’s value = Amount ÷ (1 + r)<sup>years</sup></div>
+
+    <h3>Worked examples</h3>
+    <ul>
+      <li>At <strong>3%</strong> inflation, $1,000 of shopping today costs about <strong>$1,343.92</strong> in 10 years.</li>
+      <li>At <strong>5%</strong> inflation, a $100 item costs about <strong>$265.33</strong> in 20 years.</li>
+      <li>At <strong>2%</strong> inflation, it costs about <strong>$181.14</strong> in 30 years.</li>
+    </ul>
+
+    <h2>How fast inflation erodes money</h2>
+    <table>
+      <thead><tr><th>Inflation rate</th><th>Prices double in</th><th>Buying power lost in 10 years</th></tr></thead>
+      <tbody>
+        <tr><td>2%</td><td>35 years</td><td>18.0%</td></tr>
+        <tr><td>3%</td><td>23.4 years</td><td>25.6%</td></tr>
+        <tr><td>5%</td><td>14.2 years</td><td>38.6%</td></tr>
+        <tr><td>7%</td><td>10.2 years</td><td>49.2%</td></tr>
+        <tr><td>10%</td><td>7.3 years</td><td>61.4%</td></tr>
+      </tbody>
+    </table>
+
+    <h2>What inflation means for you</h2>
+    <ul>
+      <li><strong>Savings:</strong> money earning less than inflation loses value in real terms.</li>
+      <li><strong>Pay rises:</strong> a rise below inflation is a real-terms pay cut.</li>
+      <li><strong>Planning:</strong> plan long-term goals in today’s money, then adjust.</li>
+    </ul>
+    <p>See how investing could beat inflation with the <a href="/investment-calculator">investment calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>

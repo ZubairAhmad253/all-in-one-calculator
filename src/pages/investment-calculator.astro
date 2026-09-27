@@ -1,0 +1,83 @@
+---
+import CalculatorLayout from '@/layouts/CalculatorLayout.astro';
+import InvestmentCalculator from '@/components/calculators/InvestmentCalculator';
+
+const faqs = [
+  {
+    q: 'How much will my investment grow?',
+    a: 'It depends on how much you start with, how much you add, the return and the time. $10,000 plus $300 a month at 7% a year grows to about $196,665 in 20 years, of which $82,000 is money you put in and $114,665 is growth.',
+  },
+  {
+    q: 'What return should I expect?',
+    a: 'Nobody knows future returns. Many long-term plans use 5–8% a year for a diversified stock portfolio before inflation, and less for bonds or cash. Try a lower figure too, so your plan still works if returns disappoint.',
+  },
+  {
+    q: 'What does “today’s money” mean?',
+    a: 'Inflation reduces what money can buy. At 2.5% inflation, $196,665 in 20 years buys about what $120,019 buys today. Planning in today’s money makes goals easier to picture.',
+  },
+  {
+    q: 'What is a real return?',
+    a: 'The return after inflation: (1 + return) ÷ (1 + inflation) − 1. A 7% return with 2.5% inflation is a real return of about 4.39% a year.',
+  },
+  {
+    q: 'Do fees matter?',
+    a: 'Yes, a lot over long periods. A 1% yearly fee on a 7% return leaves 6%, and over 30 years that can cost a large share of your final balance. Choose low-cost funds where you can.',
+  },
+];
+---
+
+<CalculatorLayout
+  slug="investment-calculator"
+  title="Investment Calculator – Growth with Monthly Contributions"
+  description="Free investment calculator. See how a starting amount and monthly contributions could grow over time, with the result in today's money after inflation."
+  intro="See how your investments could grow from a starting amount and regular monthly contributions, and what the result would be worth in today’s money."
+  faqs={faqs}
+  updated="2026-09-27"
+>
+  <InvestmentCalculator client:load />
+
+  <Fragment slot="learn">
+    <h2>How to use the investment calculator</h2>
+    <ol>
+      <li><strong>Enter your starting amount and monthly contribution.</strong></li>
+      <li><strong>Set an expected yearly return and the number of years.</strong></li>
+      <li><strong>Add an inflation rate</strong> to see the result in today’s money.</li>
+    </ol>
+
+    <h2>How the growth is calculated</h2>
+    <div class="formula">Future value = Start × (1 + i)<sup>n</sup> + Monthly × ((1 + i)<sup>n</sup> − 1) ÷ i</div>
+    <p>Here i is the monthly return (yearly ÷ 12) and n is the number of months. The result in today’s money divides by (1 + inflation)<sup>years</sup>.</p>
+
+    <h3>Worked example</h3>
+    <p>
+      <strong>$10,000</strong> to start, plus <strong>$300 a month</strong>, at <strong>7%</strong> for <strong>20 years</strong>: about <strong>$196,665</strong>. You put in $82,000
+      and growth adds $114,665. After 2.5% inflation, that’s worth about <strong>$120,019</strong> in today’s money.
+    </p>
+
+    <h2>Time and return make the biggest difference</h2>
+    <table>
+      <thead><tr><th>$10,000 + $300/month at 7%</th><th>You put in</th><th>Final value</th></tr></thead>
+      <tbody>
+        <tr><td>10 years</td><td>$46,000</td><td>$72,022</td></tr>
+        <tr><td>20 years</td><td>$82,000</td><td>$196,665</td></tr>
+        <tr><td>30 years</td><td>$118,000</td><td>$447,156</td></tr>
+      </tbody>
+    </table>
+    <table>
+      <thead><tr><th>Same plan for 20 years</th><th>Final value</th></tr></thead>
+      <tbody>
+        <tr><td>4% a year</td><td>$132,258</td></tr>
+        <tr><td>7% a year</td><td>$196,665</td></tr>
+        <tr><td>10% a year</td><td>$301,091</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Investing tips</h2>
+    <ul>
+      <li><strong>Start early and invest regularly;</strong> time does most of the work.</li>
+      <li><strong>Diversify</strong> across many companies and asset types.</li>
+      <li><strong>Keep fees low</strong> and stay invested through ups and downs.</li>
+    </ul>
+    <p>Planning for later life? Try the <a href="/retirement-calculator">retirement calculator</a>.</p>
+  </Fragment>
+</CalculatorLayout>
