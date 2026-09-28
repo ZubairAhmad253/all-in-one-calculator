@@ -193,7 +193,7 @@ Before applying to AdSense:
 
 ## Deployment
 
-The build output in `dist/` is a fully static site. Pages are built as `name.html` and served at clean URLs (`/mortgage-calculator`), which Cloudflare Pages, Vercel and Netlify all do by default.
+The build output in `dist/` is a fully static site. Pages are built as `name.html` and served at clean URLs (`/mortgage-calculator`), which Cloudflare Pages and Netlify do by default. On Vercel, `vercel.json` turns on `cleanUrls` for the same result.
 
 **Cloudflare Pages** or **Vercel**:
 - build command: `npm run build`
