@@ -184,7 +184,7 @@ The AdSense script and live ad units load only when `PUBLIC_ADSENSE_CLIENT` is s
 Before applying to AdSense:
 - have enough useful content live (roughly 20–30 good calculator pages and some blog posts)
 - publish the privacy policy
-- serve EU/UK visitors a Google-certified consent banner
+- in AdSense, turn on **Privacy & messaging → European regulations message** (Google’s free certified consent tool). EEA, UK and Swiss visitors must see it before personalised ads; a home-made banner doesn’t meet Google’s rules
 
 ## Deployment
 
@@ -210,17 +210,17 @@ All 111 calculators are live. The full list, with categories, is in [`src/data/c
 | Education | 5 |
 
 - **Done:** all 111 calculators, each with a how-to guide, formulas, worked examples and FAQs.
-- **Next:** choose a name and branding, add legal pages (terms, cookie notice), deploy, then switch on ads.
+- **Done:** legal pages (privacy, terms, disclaimer, contact).
+- **Next:** choose a name and branding, deploy, then switch on ads.
 - **After launch:** add calculators based on Search Console data.
 
 ## Pre-launch checklist
 
-- [ ] Pick a name and domain; update `src/config/site.ts` and `SITE_URL`
+- [ ] Pick a name and domain; update `SITE.name` and `SITE.email` (a placeholder for now) in `src/config/site.ts`, and set `SITE_URL`
 - [ ] Replace the favicon and add a default Open Graph image (1200×630), passed as `image` to `BaseLayout`
-- [ ] Review the privacy policy (`src/pages/privacy.astro`) and add contact details to the About page
-- [ ] Build the Phase 1 calculators
+- [ ] Review the privacy policy, terms and disclaimer (`src/pages/privacy.astro`, `terms.astro`, `disclaimer.astro`), ideally with legal advice, and add a governing-law clause to the terms
 - [ ] Deploy, then submit `sitemap-index.xml` in Google Search Console
-- [ ] Apply for AdSense and set up a consent banner for EU/UK visitors
+- [ ] Apply for AdSense, then turn on its European regulations consent message
 
 ## Disclaimer
 

@@ -1,0 +1,25 @@
+---
+/** Shared shell for the privacy, terms, disclaimer and contact pages. */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { SITE } from '@/config/site';
+
+interface Props {
+  title: string;
+  heading: string;
+  description: string;
+  /** Show the "Last updated" date (legal documents). */
+  dated?: boolean;
+}
+const { title, heading, description, dated = true } = Astro.props;
+const updated = new Date(`${SITE.legalUpdated}T00:00:00Z`).toLocaleDateString('en', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="container-page max-w-3xl pt-10">
+    <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{heading}</h1>
+    {dated && <p class="mt-2 text-sm text-muted">Last updated {updated}</p>}
+    <div class="prose-content mt-6">
+      <slot />
+    </div>
+  </div>
+</BaseLayout>
