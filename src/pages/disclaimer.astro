@@ -1,0 +1,45 @@
+---
+import LegalPage from '@/components/layout/LegalPage.astro';
+import { SITE } from '@/config/site';
+---
+
+<LegalPage title="Disclaimer" heading="Disclaimer" description={`${SITE.name} results are estimates for information only, not financial, medical, legal or professional advice.`}>
+  <p>
+    Everything on {SITE.name} is for general information and education. Results are estimates worked out from the numbers you enter and the standard formulas shown on each page. They aren’t a
+    substitute for advice from a qualified professional who knows your situation.
+  </p>
+
+  <h2>Financial calculators</h2>
+  <p>
+    Loan, mortgage, savings, investment, tax, salary and retirement results don’t include every fee, rate change or rule that may apply to you, and past returns don’t predict future ones. Lenders,
+    tax authorities and financial advisers will give you exact figures. Nothing on this site is a recommendation to buy, sell or borrow.
+  </p>
+
+  <h2>Health and fitness calculators</h2>
+  <p>
+    BMI, calorie, body fat, pregnancy, ovulation, heart rate and similar results are population-based estimates. They aren’t medical advice, a diagnosis or treatment, and they may not suit you if
+    you’re pregnant, under 18, an athlete or managing a health condition. Speak to a doctor or registered dietitian before changing your diet or exercise, and never rely on an ovulation estimate
+    for contraception.
+  </p>
+
+  <h2>Conversions, dates and times</h2>
+  <p>
+    Unit conversions use exact definitions where they exist. Exchange rates are updated regularly but can be out of date and don’t include bank or card fees. Time zone results use your browser’s
+    time zone database; check important deadlines against official sources.
+  </p>
+
+  <h2>Home and building estimates</h2>
+  <p>
+    Paint, tile, flooring, concrete, brick, roofing and wallpaper quantities use typical coverage and sizes. Real needs vary with the product, surface and method, so check the manufacturer’s
+    figures and allow extra. Structural work and work at height should be planned and done by qualified professionals.
+  </p>
+
+  <h2>Education calculators</h2>
+  <p>Grading scales and CGPA conversion rules differ between schools, boards and universities. Your institution’s published rules always take precedence.</p>
+
+  <h2>Our responsibility</h2>
+  <p>
+    We test our calculators and correct mistakes quickly, but we can’t guarantee every result is accurate or complete. You use the results at your own risk, as set out in our
+    <a href="/terms">terms of use</a>. If you spot an error, please <a href="/contact">let us know</a>.
+  </p>
+</LegalPage>

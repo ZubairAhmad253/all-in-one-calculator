@@ -9,6 +9,10 @@ export const SITE = {
   twitter: '',
   /** Default byline for blog posts; a post can override it with `author:` in its frontmatter. */
   author: 'Editorial Team',
+  /** Placeholder until the domain is bought: shown on the contact, privacy and terms pages. */
+  email: 'hello@example.com',
+  /** "Last updated" date shown on the privacy, terms and disclaimer pages. */
+  legalUpdated: '2026-09-28',
 } as const;
 
 export const ADSENSE_CLIENT = import.meta.env.PUBLIC_ADSENSE_CLIENT ?? '';

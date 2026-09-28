@@ -1,0 +1,28 @@
+---
+import LegalPage from '@/components/layout/LegalPage.astro';
+import { SITE } from '@/config/site';
+---
+
+<LegalPage title="Contact" heading="Contact us" description={`Get in touch with ${SITE.name}: report a mistake, suggest a calculator or ask a question.`} dated={false}>
+  <p>We read every message. Email us at:</p>
+  <p class="not-prose">
+    <a href={`mailto:${SITE.email}`} class="inline-flex h-12 items-center rounded-xl bg-brand px-5 text-base font-semibold text-white no-underline hover:opacity-90">{SITE.email}</a>
+  </p>
+
+  <h2>Reporting a mistake</h2>
+  <p>If a result looks wrong, the quickest way for us to check it is:</p>
+  <ol>
+    <li>Tap <strong>Share result</strong> on the calculator to copy a link with your inputs.</li>
+    <li>Paste the link into your email.</li>
+    <li>Tell us what result you expected and where that figure comes from.</li>
+  </ol>
+
+  <h2>Suggesting a calculator</h2>
+  <p>Tell us what you’d like to work out and, if you can, the formula or rules you use. We prioritise the calculators people ask for most.</p>
+
+  <h2>What we can’t help with</h2>
+  <p>We can’t give personal financial, medical, tax or legal advice. For those, please speak to a qualified professional. See our <a href="/disclaimer">disclaimer</a>.</p>
+
+  <h2>Business and advertising</h2>
+  <p>For partnerships or advertising, email us with “Business” in the subject line.</p>
+</LegalPage>
