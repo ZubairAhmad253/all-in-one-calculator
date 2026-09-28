@@ -1,0 +1,39 @@
+---
+/**
+ * The Kitwise mark (three tiles and a round "key") with the site wordmark.
+ * The same drawing as public/favicon.svg, inlined so it needs no request.
+ */
+import { SITE } from '@/config/site';
+
+interface Props {
+  /** Mark size in px. */
+  size?: number;
+  /** Unique id for the gradient when the logo appears more than once on a page. */
+  id?: string;
+  /** Hide the wordmark below the sm breakpoint. */
+  compact?: boolean;
+}
+const { size = 30, id = 'kitwise-mark', compact = false } = Astro.props;
+// "Kitwise Calc" → "Kitwise" + "Calc", with the second part lighter.
+const [first, ...rest] = SITE.name.split(' ');
+---
+
+<span class="flex items-center gap-2.5">
+  <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden="true" class="shrink-0">
+    <defs>
+      <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#5b50f0"></stop>
+        <stop offset="1" stop-color="#3f33d6"></stop>
+      </linearGradient>
+    </defs>
+    <rect width="64" height="64" rx="15" fill={`url(#${id})`}></rect>
+    <rect x="14" y="14" width="16" height="16" rx="4.5" fill="#fff"></rect>
+    <rect x="34" y="14" width="16" height="16" rx="4.5" fill="#fff"></rect>
+    <rect x="14" y="34" width="16" height="16" rx="4.5" fill="#fff"></rect>
+    <circle cx="42" cy="42" r="8.5" fill="#2dd4bf"></circle>
+  </svg>
+  <span class:list={['text-[1.0625rem] font-bold tracking-tight', compact && 'hidden sm:inline']}>
+    {first}
+    {rest.length > 0 && <span class="ml-[0.3em] font-medium text-muted">{rest.join(' ')}</span>}
+  </span>
+</span>

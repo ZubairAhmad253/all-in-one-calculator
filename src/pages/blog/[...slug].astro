@@ -31,7 +31,7 @@ const jsonLd = [
     datePublished: pubDate.toISOString(),
     dateModified: (updatedDate ?? pubDate).toISOString(),
     author: { '@type': 'Organization', name: author },
-    publisher: { '@type': 'Organization', name: SITE.name },
+    publisher: { '@type': 'Organization', name: SITE.name, logo: { '@type': 'ImageObject', url: new URL(SITE.logo, Astro.site).href } },
     mainEntityOfPage: url,
   },
   {

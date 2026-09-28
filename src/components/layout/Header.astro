@@ -4,6 +4,7 @@ import { CATEGORIES } from '@/data/categories';
 import { CALCULATORS } from '@/data/calculators';
 import Icon from '@/components/ui/Icon.astro';
 import SearchDialog from '@/components/layout/SearchDialog';
+import Logo from '@/components/layout/Logo.astro';
 
 const searchIndex = CALCULATORS.map(({ slug, name, category, status, summary, keywords }) => ({
   slug,
@@ -17,9 +18,8 @@ const searchIndex = CALCULATORS.map(({ slug, name, category, status, summary, ke
 
 <header class="sticky top-0 z-40 border-b border-line bg-bg/85 backdrop-blur supports-[backdrop-filter]:bg-bg/70">
   <div class="container-page flex h-16 items-center gap-4">
-    <a href="/" class="flex shrink-0 items-center gap-2 font-semibold tracking-tight">
-      <img src="/favicon.svg" alt="" width="28" height="28" />
-      <span class="hidden sm:inline">{SITE.name}</span>
+    <a href="/" class="shrink-0" aria-label={`${SITE.name} home`}>
+      <Logo id="kitwise-mark-header" />
     </a>
 
     <nav aria-label="Categories" class="hidden flex-1 items-center gap-1 text-sm text-muted lg:flex">
