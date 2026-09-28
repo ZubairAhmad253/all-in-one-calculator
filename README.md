@@ -74,7 +74,7 @@ Copy `.env.example` to `.env`:
 
 | Variable | Purpose |
 |---|---|
-| `SITE_URL` | Production URL, used for canonical links, the sitemap and `robots.txt`. Defaults to `https://example.com`. |
+| `SITE_URL` | Production URL, used for canonical links, the sitemap and `robots.txt`, e.g. `https://mycalc.com` (`https://` is added if you leave it out). If it’s unset or blank, Vercel builds use the project’s `*.vercel.app` address, and local builds use `https://example.com`. |
 | `PUBLIC_ADSENSE_CLIENT` | AdSense publisher ID (`ca-pub-…`). Leave it empty to show labelled "Ad space" placeholders. |
 
 ## Project structure
@@ -198,7 +198,7 @@ The build output in `dist/` is a fully static site. Pages are built as `name.htm
 **Cloudflare Pages** or **Vercel**:
 - build command: `npm run build`
 - output directory: `dist`
-- set `SITE_URL` (and `PUBLIC_ADSENSE_CLIENT` when you have it) as environment variables
+- set `SITE_URL` (and `PUBLIC_ADSENSE_CLIENT` when you have it) as environment variables. On Vercel you can leave `SITE_URL` unset until you have a domain; the `*.vercel.app` address is used automatically
 
 ## Roadmap
 
