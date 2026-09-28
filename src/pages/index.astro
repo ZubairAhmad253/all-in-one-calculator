@@ -20,11 +20,19 @@ const jsonLd = [
     name: SITE.name,
     url: Astro.site?.href,
     description: SITE.description,
+    publisher: { '@type': 'Organization', name: SITE.name, logo: { '@type': 'ImageObject', url: new URL(SITE.logo, Astro.site).href } },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: SITE.name,
+    url: Astro.site?.href,
+    logo: new URL(SITE.logo, Astro.site).href,
   },
 ];
 ---
 
-<BaseLayout title={SITE.name} description={SITE.description} jsonLd={jsonLd}>
+<BaseLayout title={`${SITE.name} – Free Online Calculators`} description={SITE.description} jsonLd={jsonLd}>
   <section class="container-page pt-14 pb-10 text-center sm:pt-20">
     <h1 class="mx-auto max-w-3xl text-4xl font-bold tracking-tight text-balance sm:text-5xl">Free calculators for money, health, maths and everyday life</h1>
     <p class="mx-auto mt-5 max-w-2xl text-lg text-muted text-pretty">

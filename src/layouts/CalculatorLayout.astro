@@ -58,7 +58,7 @@ const jsonLd = [
     operatingSystem: 'Any',
     browserRequirements: 'Requires JavaScript',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-    publisher: { '@type': 'Organization', name: SITE.name },
+    publisher: { '@type': 'Organization', name: SITE.name, logo: { '@type': 'ImageObject', url: new URL(SITE.logo, Astro.site).href } },
     dateModified: updated,
   },
   {

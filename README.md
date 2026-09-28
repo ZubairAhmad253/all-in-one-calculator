@@ -1,8 +1,19 @@
-# All-in-One Calculator
+# Kitwise Calc
 
-A fast, SEO-focused website of free online calculators (finance, math, health, conversions, dates, education and everyday life), with a blog of guides that link to them.
+A fast, SEO-focused website of free online calculators (finance, math, health, conversions, dates, education and everyday life), with a blog of guides that link to them. It's the calculator site in the **Kitwise** family of tool websites.
 
-> **"All-in-One Calculator" is a placeholder name.** Change it in [`src/config/site.ts`](src/config/site.ts) and it updates everywhere.
+> The name, tagline, logo and sharing image are set in [`src/config/site.ts`](src/config/site.ts); change them there and they update everywhere.
+
+### Brand assets
+
+| File | Use |
+|---|---|
+| `public/favicon.svg` | Logo mark: browser tab icon, and the source for every other icon |
+| `src/components/layout/Logo.astro` | The same mark inline, with the wordmark, in the header and footer |
+| `public/favicon.ico` | 16/32/48 px icon for older browsers and crawlers |
+| `public/apple-touch-icon.png` | 180 px home-screen icon for iPhone and iPad |
+| `public/icon-192.png`, `public/icon-512.png` | Android and search-engine icons (also listed in `site.webmanifest`) |
+| `public/og-image.jpg` | 1200 × 630 default image for links shared on WhatsApp, X, Facebook and LinkedIn |
 
 **Status:** all 111 calculators are live. Branding, legal pages, deployment and ads come next; see [Roadmap](#roadmap).
 
