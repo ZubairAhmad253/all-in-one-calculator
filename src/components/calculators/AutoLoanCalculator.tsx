@@ -1,9 +1,10 @@
 import { useMemo } from 'react';
 import { autoLoan } from '@/lib/calculators/debt';
 import { calculateLoan } from '@/lib/calculators/loan';
-import { CURRENCIES, localeFor, currencySymbol, formatMoney, formatNumber } from '@/lib/format/number';
+import { CURRENCY_CODES, localeFor, currencySymbol, formatMoney, formatNumber } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
-import { NumberField, QuickPicks, SelectField } from '@/components/ui/fields';
+import { NumberField, QuickPicks } from '@/components/ui/fields';
+import { CurrencyPicker } from '@/components/ui/CurrencyPicker';
 import { AmortizationPanel, Headline, Receipt, ShareButton, StatGrid } from './shared/results';
 
 const DEFAULTS = { price: 35_000, down: 5_000, trade: 0, owed: 0, tax: 7, fees: 600, rate: 6.5, months: 60, tat: 1, fin: 1, cur: 'USD' };
@@ -62,7 +63,7 @@ export default function AutoLoanCalculator() {
 
           <div className="flex flex-wrap items-end gap-3 border-t border-line pt-5">
             <div className="min-w-40 flex-1">
-              <SelectField label="Currency" value={cur} onChange={(v) => set('cur', v)} options={CURRENCIES.map((c) => ({ value: c.code, label: `${c.code} – ${c.label}` }))} />
+              <CurrencyPicker label="Currency" value={cur} onChange={(v) => set('cur', v)} codes={CURRENCY_CODES} />
             </div>
             <button type="button" onClick={reset} className="h-12 rounded-xl border border-line px-4 text-sm font-medium text-muted hover:text-fg">
               Reset

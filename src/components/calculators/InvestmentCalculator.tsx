@@ -1,9 +1,10 @@
 import { useMemo } from 'react';
 import { compoundInterest } from '@/lib/calculators/growth';
 import { realReturn, todaysValue } from '@/lib/calculators/savings';
-import { CURRENCIES, localeFor, currencySymbol, formatMoney, formatMoneyCompact, formatNumber } from '@/lib/format/number';
+import { CURRENCY_CODES, localeFor, currencySymbol, formatMoney, formatMoneyCompact, formatNumber } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
-import { NumberField, SelectField } from '@/components/ui/fields';
+import { NumberField } from '@/components/ui/fields';
+import { CurrencyPicker } from '@/components/ui/CurrencyPicker';
 import { BreakdownDonut, GrowthPanel, Headline, ShareButton, StatGrid } from './shared/results';
 
 const DEFAULTS = { start: 10_000, monthly: 300, ret: 7, years: 20, inf: 2.5, cur: 'USD' };
@@ -34,7 +35,7 @@ export default function InvestmentCalculator() {
           <NumberField label="Inflation" value={s.inf} onChange={(v) => set('inf', v)} suffix="% / yr" min={0} max={30} decimals={2} hint="Used to show the result in today’s money." />
           <div className="flex flex-wrap items-end gap-3 border-t border-line pt-5">
             <div className="min-w-40 flex-1">
-              <SelectField label="Currency" value={cur} onChange={(v) => set('cur', v)} options={CURRENCIES.map((c) => ({ value: c.code, label: `${c.code} – ${c.label}` }))} />
+              <CurrencyPicker label="Currency" value={cur} onChange={(v) => set('cur', v)} codes={CURRENCY_CODES} />
             </div>
             <button type="button" onClick={reset} className="h-12 rounded-xl border border-line px-4 text-sm font-medium text-muted hover:text-fg">
               Reset

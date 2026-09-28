@@ -15,7 +15,7 @@ interface Props {
   xTitle?: string;
 }
 
-const PAD = { top: 16, right: 12, bottom: 32, left: 64 };
+const BASE_PAD = { top: 16, right: 12, bottom: 32, left: 64 };
 
 function niceMax(v: number) {
   if (v <= 0) return 1;
@@ -44,13 +44,15 @@ export function StackedBarChart({ labels, layers, formatY, formatTooltip, xTitle
   const n = labels.length;
   const totals = labels.map((_, i) => layers.reduce((s, l) => s + Math.max(l.values[i] ?? 0, 0), 0));
   const max = niceMax(Math.max(...totals, 0));
+  const ticks = [0, 0.25, 0.5, 0.75, 1].map((t) => t * max);
+  // Widen the left margin for long axis labels such as "QAR 22.5K" (~6.6px per character at 11px).
+  const PAD = { ...BASE_PAD, left: Math.max(BASE_PAD.left, Math.ceil(Math.max(...ticks.map((t) => formatY(t).length)) * 6.6) + 16) };
   const iw = W - PAD.left - PAD.right;
   const ih = H - PAD.top - PAD.bottom;
   const slot = iw / Math.max(n, 1);
   const barW = Math.max(Math.min(slot * 0.7, 36), 2);
   const x = (i: number) => PAD.left + slot * i + (slot - barW) / 2;
   const y = (v: number) => PAD.top + ih - (v / max) * ih;
-  const ticks = [0, 0.25, 0.5, 0.75, 1].map((t) => t * max);
   const labelEvery = Math.max(1, Math.ceil(n / (W < 480 ? 6 : 12)));
 
   const onMove = (e: React.PointerEvent<SVGSVGElement>) => {

@@ -1,7 +1,8 @@
 import { dailyKwh, energyCost, type Appliance } from '@/lib/calculators/costs';
-import { CURRENCIES, currencySymbol, formatMoney, formatNumber, localeFor } from '@/lib/format/number';
+import { CURRENCY_CODES, currencySymbol, formatMoney, formatNumber, localeFor } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
-import { InlineNumber, NumberField, SelectField } from '@/components/ui/fields';
+import { InlineNumber, NumberField } from '@/components/ui/fields';
+import { CurrencyPicker } from '@/components/ui/CurrencyPicker';
 import { Headline, ShareButton, StatGrid } from './shared/results';
 
 /** Typical power draw while running. */
@@ -116,7 +117,7 @@ export default function ElectricityBillCalculator() {
           </div>
           <div className="grid grid-cols-[minmax(0,1fr)_8rem] items-end gap-3">
             <NumberField label="Price per kWh" value={s.price} onChange={(v) => set('price', v)} prefix={currencySymbol(cur)} locale={localeFor(cur)} min={0} decimals={4} hint="On your bill as the unit rate." />
-            <SelectField label="Currency" value={cur} onChange={(v) => set('cur', v)} options={CURRENCIES.map((c) => ({ value: c.code, label: c.code }))} />
+            <CurrencyPicker label="Currency" value={cur} onChange={(v) => set('cur', v)} codes={CURRENCY_CODES} />
           </div>
           <NumberField label="Fixed monthly charge (optional)" value={s.fixed} onChange={(v) => set('fixed', v)} prefix={currencySymbol(cur)} locale={localeFor(cur)} min={0} decimals={2} hint="Standing or service charge." />
           <button type="button" onClick={reset} className="h-10 rounded-xl border border-line px-4 text-sm font-medium text-muted hover:text-fg">

@@ -1,23 +1,16 @@
-/** Currencies offered in money calculators. Symbols come from Intl. */
-export const CURRENCIES = [
-  { code: 'USD', label: 'US Dollar' },
-  { code: 'EUR', label: 'Euro' },
-  { code: 'GBP', label: 'British Pound' },
-  { code: 'INR', label: 'Indian Rupee' },
-  { code: 'CAD', label: 'Canadian Dollar' },
-  { code: 'AUD', label: 'Australian Dollar' },
-  { code: 'AED', label: 'UAE Dirham' },
-  { code: 'SAR', label: 'Saudi Riyal' },
-  { code: 'PKR', label: 'Pakistani Rupee' },
-  { code: 'JPY', label: 'Japanese Yen' },
-  { code: 'CNY', label: 'Chinese Yuan' },
-  { code: 'ZAR', label: 'South African Rand' },
-  { code: 'NGN', label: 'Nigerian Naira' },
-  { code: 'BRL', label: 'Brazilian Real' },
-  { code: 'MXN', label: 'Mexican Peso' },
-] as const;
+import fallbackRates from '../../data/fallback-rates.json';
 
-export type CurrencyCode = (typeof CURRENCIES)[number]['code'];
+/**
+ * Codes in the rates data that money calculators shouldn't offer: units of
+ * account and offshore rates (CLF, XDR, CNH), retired currencies (HRK, SLL,
+ * ZWL, ANG) and local pounds/dollars without an ISO code.
+ */
+const NOT_OFFERED = new Set(['CLF', 'XDR', 'CNH', 'HRK', 'SLL', 'ZWL', 'ANG', 'FOK', 'GGP', 'IMP', 'JEP', 'KID', 'TVD']);
+
+/** Every currency offered in money calculators (all current ISO 4217 codes we have rates for), A–Z. */
+export const CURRENCY_CODES: string[] = Object.keys(fallbackRates.rates)
+  .filter((c) => !NOT_OFFERED.has(c))
+  .sort();
 
 const cache = new Map<string, Intl.NumberFormat>();
 const fmt = (key: string, make: () => Intl.NumberFormat) => {

@@ -1,7 +1,8 @@
 import { M2_PER_FT2, tiles } from '@/lib/calculators/build';
-import { CURRENCIES, currencySymbol, formatMoney, formatNumber, localeFor } from '@/lib/format/number';
+import { CURRENCY_CODES, currencySymbol, formatMoney, formatNumber, localeFor } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
 import { NumberField, SelectField, Tabs } from '@/components/ui/fields';
+import { CurrencyPicker } from '@/components/ui/CurrencyPicker';
 import { Headline, ShareButton, StatGrid } from './shared/results';
 
 const DEFAULTS = { u: 'metric', l: 4, w: 3, lft: 12, wft: 10, tl: 30, tw: 30, tlin: 12, twin: 12, grout: 3, groutin: 0.125, waste: 10, box: 11, price: 0, cur: 'USD' };
@@ -77,7 +78,7 @@ export default function TileCalculator() {
             <NumberField label="Tiles per box" value={s.box} onChange={(v) => set('box', v)} min={0} max={1000} decimals={0} />
             <NumberField label="Price per box" value={s.price} onChange={(v) => set('price', v)} prefix={currencySymbol(cur)} locale={localeFor(cur)} min={0} decimals={2} />
           </div>
-          <SelectField label="Currency" value={cur} onChange={(v) => set('cur', v)} options={CURRENCIES.map((c) => ({ value: c.code, label: `${c.code} (${currencySymbol(c.code)})` }))} />
+          <CurrencyPicker label="Currency" value={cur} onChange={(v) => set('cur', v)} codes={CURRENCY_CODES} />
           <button type="button" onClick={reset} className="h-10 rounded-xl border border-line px-4 text-sm font-medium text-muted hover:text-fg">
             Reset
           </button>

@@ -1,8 +1,9 @@
 import { useId } from 'react';
 import { decimalHours, formatHM, shiftMinutes, type Shift } from '@/lib/calculators/dates';
-import { CURRENCIES, currencySymbol, formatMoney, formatNumber, localeFor } from '@/lib/format/number';
+import { CURRENCY_CODES, currencySymbol, formatMoney, formatNumber, localeFor } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
-import { InlineNumber, NumberField, SelectField } from '@/components/ui/fields';
+import { InlineNumber, NumberField } from '@/components/ui/fields';
+import { CurrencyPicker } from '@/components/ui/CurrencyPicker';
 import { Headline, ShareButton, StatGrid } from './shared/results';
 
 const DEFAULT_SHIFT = '09:00-17:30-30';
@@ -120,7 +121,7 @@ export default function HoursWorkedCalculator() {
             <p className="text-sm font-semibold">Pay (optional)</p>
             <div className="mt-3 grid grid-cols-[minmax(0,1fr)_8rem] items-end gap-3">
               <NumberField label="Hourly rate" value={s.rate} onChange={(v) => set('rate', v)} prefix={currencySymbol(cur)} locale={localeFor(cur)} min={0} decimals={2} />
-              <SelectField label="Currency" value={cur} onChange={(v) => set('cur', v)} options={CURRENCIES.map((c) => ({ value: c.code, label: c.code }))} />
+              <CurrencyPicker label="Currency" value={cur} onChange={(v) => set('cur', v)} codes={CURRENCY_CODES} />
             </div>
             {s.rate > 0 && (
               <p className="tabular mt-4 text-2xl font-bold">

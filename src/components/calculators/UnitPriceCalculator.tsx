@@ -1,7 +1,8 @@
 import { pricePerUnit } from '@/lib/calculators/costs';
-import { CURRENCIES, currencySymbol, formatMoney, localeFor } from '@/lib/format/number';
+import { CURRENCY_CODES, currencySymbol, formatMoney, localeFor } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
-import { InlineNumber, SelectField } from '@/components/ui/fields';
+import { InlineNumber } from '@/components/ui/fields';
+import { CurrencyPicker } from '@/components/ui/CurrencyPicker';
 import { ShareButton } from './shared/results';
 
 /** Size of each unit in its base (grams, millilitres or items). */
@@ -99,7 +100,7 @@ export default function UnitPriceCalculator() {
             </button>
           </div>
           <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3">
-            <SelectField label="Currency" value={cur} onChange={(v) => set('cur', v)} options={CURRENCIES.map((c) => ({ value: c.code, label: `${c.code} (${currencySymbol(c.code)})` }))} />
+            <CurrencyPicker label="Currency" value={cur} onChange={(v) => set('cur', v)} codes={CURRENCY_CODES} />
             <button type="button" onClick={reset} className="h-12 rounded-xl border border-line px-4 text-sm font-medium text-muted hover:text-fg">
               Reset
             </button>

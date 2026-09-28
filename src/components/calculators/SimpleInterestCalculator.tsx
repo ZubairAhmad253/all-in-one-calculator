@@ -1,7 +1,8 @@
 import { simpleInterest, type SolveFor } from '@/lib/calculators/savings';
-import { CURRENCIES, localeFor, currencySymbol, formatMoney, formatNumber } from '@/lib/format/number';
+import { CURRENCY_CODES, localeFor, currencySymbol, formatMoney, formatNumber } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
 import { NumberField, SelectField, Tabs } from '@/components/ui/fields';
+import { CurrencyPicker } from '@/components/ui/CurrencyPicker';
 import { Headline, ShareButton, StatGrid } from './shared/results';
 
 const DEFAULTS = { solve: 'interest', p: 10_000, r: 5, t: 3, tu: 'y', i: 1_500, cur: 'USD' };
@@ -64,7 +65,7 @@ export default function SimpleInterestCalculator() {
           </div>
           <div className="flex flex-wrap items-end gap-3 border-t border-line pt-5">
             <div className="min-w-40 flex-1">
-              <SelectField label="Currency" value={cur} onChange={(v) => set('cur', v)} options={CURRENCIES.map((c) => ({ value: c.code, label: `${c.code} – ${c.label}` }))} />
+              <CurrencyPicker label="Currency" value={cur} onChange={(v) => set('cur', v)} codes={CURRENCY_CODES} />
             </div>
             <button type="button" onClick={reset} className="h-12 rounded-xl border border-line px-4 text-sm font-medium text-muted hover:text-fg">
               Reset

@@ -1,8 +1,9 @@
 import { splitByItems } from '@/lib/calculators/costs';
 import { tip } from '@/lib/calculators/shopping';
-import { CURRENCIES, currencySymbol, formatMoney, localeFor } from '@/lib/format/number';
+import { CURRENCY_CODES, currencySymbol, formatMoney, localeFor } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
-import { InlineNumber, NumberField, QuickPicks, SelectField, Tabs } from '@/components/ui/fields';
+import { InlineNumber, NumberField, QuickPicks, Tabs } from '@/components/ui/fields';
+import { CurrencyPicker } from '@/components/ui/CurrencyPicker';
 import { Headline, ShareButton, StatGrid } from './shared/results';
 
 const DEFAULTS = { mode: 'even', bill: 186.4, tip: 15, people: 4, round: 'no', subs: '42.5,38,55.9,31', shared: 18, tax: 8, cur: 'USD' };
@@ -79,7 +80,7 @@ export default function SplitBillCalculator() {
               <QuickPicks label="Common tips" values={[0, 10, 15, 18, 20]} value={s.tip} onPick={(v) => set('tip', v)} />
             </div>
           </div>
-          <SelectField label="Currency" value={cur} onChange={(v) => set('cur', v)} options={CURRENCIES.map((c) => ({ value: c.code, label: `${c.code} (${currencySymbol(c.code)})` }))} />
+          <CurrencyPicker label="Currency" value={cur} onChange={(v) => set('cur', v)} codes={CURRENCY_CODES} />
           {mode === 'even' && (
             <label className="flex items-center gap-2.5 text-sm">
               <input type="checkbox" checked={s.round === 'yes'} onChange={(e) => set('round', e.target.checked ? 'yes' : 'no')} className="size-4 accent-[var(--brand)]" />

@@ -17,7 +17,7 @@ interface Props {
   xTitle?: string;
 }
 
-const PAD = { top: 16, right: 16, bottom: 32, left: 64 };
+const BASE_PAD = { top: 16, right: 16, bottom: 32, left: 64 };
 
 function niceMax(v: number) {
   if (v <= 0) return 1;
@@ -45,11 +45,13 @@ export function LineChart({ labels, series, formatY, formatTooltip, xTitle }: Pr
   const H = W < 480 ? 220 : 260;
   const n = labels.length;
   const max = niceMax(Math.max(...series.flatMap((s) => s.values), 0));
+  const ticks = [0, 0.25, 0.5, 0.75, 1].map((t) => t * max);
+  // Widen the left margin for long axis labels such as "QAR 22.5K" (~6.6px per character at 11px).
+  const PAD = { ...BASE_PAD, left: Math.max(BASE_PAD.left, Math.ceil(Math.max(...ticks.map((t) => formatY(t).length)) * 6.6) + 16) };
   const iw = W - PAD.left - PAD.right;
   const ih = H - PAD.top - PAD.bottom;
   const x = (i: number) => PAD.left + (n <= 1 ? iw / 2 : (i / (n - 1)) * iw);
   const y = (v: number) => PAD.top + ih - (v / max) * ih;
-  const ticks = [0, 0.25, 0.5, 0.75, 1].map((t) => t * max);
   const xEvery = Math.max(1, Math.ceil(n / (W < 480 ? 5 : 8)));
 
   const onMove = (e: React.PointerEvent<SVGSVGElement>) => {

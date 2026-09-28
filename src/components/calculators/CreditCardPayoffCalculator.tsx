@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 import { payoffWithMinimum, payoffWithPayment, paymentToClearIn } from '@/lib/calculators/debt';
-import { CURRENCIES, localeFor, currencySymbol, formatDuration, formatMoney } from '@/lib/format/number';
+import { CURRENCY_CODES, localeFor, currencySymbol, formatDuration, formatMoney } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
-import { NumberField, SelectField, Tabs } from '@/components/ui/fields';
+import { NumberField, Tabs } from '@/components/ui/fields';
+import { CurrencyPicker } from '@/components/ui/CurrencyPicker';
 import { Headline, ShareButton, StatGrid } from './shared/results';
 
 const DEFAULTS = { bal: 5_000, apr: 22, mode: 'pay', pay: 200, months: 24, cur: 'USD' };
@@ -46,7 +47,7 @@ export default function CreditCardPayoffCalculator() {
 
           <div className="flex flex-wrap items-end gap-3 border-t border-line pt-5">
             <div className="min-w-40 flex-1">
-              <SelectField label="Currency" value={cur} onChange={(v) => set('cur', v)} options={CURRENCIES.map((c) => ({ value: c.code, label: `${c.code} – ${c.label}` }))} />
+              <CurrencyPicker label="Currency" value={cur} onChange={(v) => set('cur', v)} codes={CURRENCY_CODES} />
             </div>
             <button type="button" onClick={reset} className="h-12 rounded-xl border border-line px-4 text-sm font-medium text-muted hover:text-fg">
               Reset
