@@ -1,8 +1,9 @@
 import { tripFuel } from '@/lib/calculators/costs';
 import { convert, QUANTITIES } from '@/lib/calculators/units';
-import { CURRENCIES, currencySymbol, formatMoney, formatNumber, localeFor } from '@/lib/format/number';
+import { CURRENCY_CODES, currencySymbol, formatMoney, formatNumber, localeFor } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
 import { NumberField, SelectField, Tabs } from '@/components/ui/fields';
+import { CurrencyPicker } from '@/components/ui/CurrencyPicker';
 import { Headline, ShareButton, StatGrid } from './shared/results';
 
 const DEFAULTS = { d: 350, du: 'km', eff: 7, eu: 'l100', price: 1.75, pu: 'l', cur: 'EUR', trip: 'one', people: 1 };
@@ -66,7 +67,7 @@ export default function FuelCostCalculator() {
           </div>
           <div className="grid grid-cols-[minmax(0,1fr)_8rem] items-end gap-3">
             <NumberField label="Fuel price" value={s.price} onChange={(v) => set('price', v)} prefix={currencySymbol(cur)} locale={localeFor(cur)} min={0} decimals={3} />
-            <SelectField label="Currency" value={cur} onChange={(v) => set('cur', v)} options={CURRENCIES.map((c) => ({ value: c.code, label: c.code }))} />
+            <CurrencyPicker label="Currency" value={cur} onChange={(v) => set('cur', v)} codes={CURRENCY_CODES} />
           </div>
           <SelectField label="Price is" value={pu} onChange={(v) => set('pu', v)} options={PRICE_UNITS} />
           <NumberField label="Split between" value={s.people} onChange={(v) => set('people', v)} min={1} max={100} decimals={0} suffix={people === 1 ? 'person' : 'people'} />

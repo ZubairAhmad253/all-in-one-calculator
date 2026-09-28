@@ -1,7 +1,8 @@
 import { M_PER_FT, wallpaper } from '@/lib/calculators/build';
-import { CURRENCIES, currencySymbol, formatMoney, formatNumber, localeFor } from '@/lib/format/number';
+import { CURRENCY_CODES, currencySymbol, formatMoney, formatNumber, localeFor } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
 import { NumberField, SelectField, Tabs } from '@/components/ui/fields';
+import { CurrencyPicker } from '@/components/ui/CurrencyPicker';
 import { Headline, ShareButton, StatGrid } from './shared/results';
 
 const DEFAULTS = { u: 'metric', l: 4.5, w: 3.5, h: 2.4, lft: 14, wft: 12, hft: 8, doors: 1, windows: 1, roll: 'eu', rep: 0, repin: 0, waste: 0, price: 0, cur: 'USD' };
@@ -75,7 +76,7 @@ export default function WallpaperCalculator() {
           </div>
           <div className="grid grid-cols-[minmax(0,1fr)_7rem] items-end gap-3">
             <NumberField label="Price per roll (optional)" value={s.price} onChange={(v) => set('price', v)} prefix={currencySymbol(cur)} locale={localeFor(cur)} min={0} decimals={2} />
-            <SelectField label="Currency" value={cur} onChange={(v) => set('cur', v)} options={CURRENCIES.map((c) => ({ value: c.code, label: c.code }))} />
+            <CurrencyPicker label="Currency" value={cur} onChange={(v) => set('cur', v)} codes={CURRENCY_CODES} />
           </div>
           <button type="button" onClick={reset} className="h-10 rounded-xl border border-line px-4 text-sm font-medium text-muted hover:text-fg">
             Reset

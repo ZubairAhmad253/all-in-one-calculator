@@ -11,7 +11,7 @@ A fast, SEO-focused website of free online calculators (finance, math, health, c
 - **Instant results.** Calculators update as you type. There is no "Calculate" button.
 - **Shareable results.** Inputs are saved in the URL (`/mortgage-calculator?price=500000&rate=6`).
 - **Charts and schedules.** Built in SVG, with no chart library.
-- **15 currencies,** for a global audience.
+- **150+ currencies** in every money calculator (searchable by code or name, e.g. “QAR” or “Qatar”), for a global audience.
 - **Light and dark mode,** following the system setting, with a manual toggle.
 - **Search every calculator** with <kbd>Ctrl</kbd>+<kbd>K</kbd>.
 - **Built-in SEO:**

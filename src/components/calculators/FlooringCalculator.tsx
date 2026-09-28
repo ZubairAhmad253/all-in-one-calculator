@@ -1,7 +1,8 @@
 import { flooring, M2_PER_FT2 } from '@/lib/calculators/build';
-import { CURRENCIES, currencySymbol, formatMoney, formatNumber, localeFor } from '@/lib/format/number';
+import { CURRENCY_CODES, currencySymbol, formatMoney, formatNumber, localeFor } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
-import { InlineNumber, NumberField, SelectField, Tabs } from '@/components/ui/fields';
+import { InlineNumber, NumberField, Tabs } from '@/components/ui/fields';
+import { CurrencyPicker } from '@/components/ui/CurrencyPicker';
 import { Headline, ShareButton, StatGrid } from './shared/results';
 
 const DEFAULTS = { u: 'metric', rooms: '4.5x3.6,3.2x3', waste: 10, box: 2.2, price: 25, install: 0, cur: 'USD' };
@@ -79,7 +80,7 @@ export default function FlooringCalculator() {
             <NumberField label={`Flooring price per ${u}²`} value={s.price} onChange={(v) => set('price', v)} prefix={currencySymbol(cur)} locale={localeFor(cur)} min={0} decimals={2} />
             <NumberField label={`Fitting per ${u}²`} value={s.install} onChange={(v) => set('install', v)} prefix={currencySymbol(cur)} locale={localeFor(cur)} min={0} decimals={2} hint="Optional" />
           </div>
-          <SelectField label="Currency" value={cur} onChange={(v) => set('cur', v)} options={CURRENCIES.map((c) => ({ value: c.code, label: `${c.code} (${currencySymbol(c.code)})` }))} />
+          <CurrencyPicker label="Currency" value={cur} onChange={(v) => set('cur', v)} codes={CURRENCY_CODES} />
           <button type="button" onClick={reset} className="h-10 rounded-xl border border-line px-4 text-sm font-medium text-muted hover:text-fg">
             Reset
           </button>

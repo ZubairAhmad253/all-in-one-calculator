@@ -2,7 +2,7 @@ import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { currencyName } from '@/lib/format/number';
 
 /** Shown first in the list, before the alphabetical rest. */
-export const POPULAR_CURRENCIES = ['USD', 'EUR', 'GBP', 'INR', 'PKR', 'AED', 'SAR', 'CAD', 'AUD', 'JPY', 'CNY'];
+export const POPULAR_CURRENCIES = ['USD', 'EUR', 'GBP', 'INR', 'PKR', 'AED', 'SAR', 'QAR', 'KWD', 'BHD', 'OMR', 'CAD', 'AUD', 'JPY', 'CNY'];
 
 interface Props {
   label: string;
@@ -81,7 +81,7 @@ export function CurrencyPicker({ label, value, onChange, codes }: Props) {
       </button>
 
       {open && (
-        <div className="absolute z-30 mt-2 w-full min-w-64 overflow-hidden rounded-xl border border-line bg-surface shadow-2xl">
+        <div className="absolute right-0 z-30 mt-2 w-full min-w-64 overflow-hidden rounded-xl border border-line bg-surface shadow-2xl">
           <div className="border-b border-line p-2">
             <input
               ref={input}

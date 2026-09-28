@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 import { payoffPlan, type Debt, type StrategyResult } from '@/lib/calculators/debt';
-import { CURRENCIES, localeFor, currencySymbol, formatDuration, formatMoney } from '@/lib/format/number';
+import { CURRENCY_CODES, localeFor, currencySymbol, formatDuration, formatMoney } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
-import { InlineNumber, NumberField, SelectField } from '@/components/ui/fields';
+import { InlineNumber, NumberField } from '@/components/ui/fields';
+import { CurrencyPicker } from '@/components/ui/CurrencyPicker';
 import { ShareButton } from './shared/results';
 
 const DEFAULT_DEBTS: Debt[] = [
@@ -136,7 +137,7 @@ export default function DebtPayoffCalculator() {
           </button>
           <div className="ml-auto grid w-full grid-cols-2 gap-3 sm:w-96">
             <NumberField label="Extra each month" value={s.extra} onChange={(v) => set('extra', v)} prefix={sym} locale={loc} min={0} decimals={0} />
-            <SelectField label="Currency" value={cur} onChange={(v) => set('cur', v)} options={CURRENCIES.map((c) => ({ value: c.code, label: c.code }))} />
+            <CurrencyPicker label="Currency" value={cur} onChange={(v) => set('cur', v)} codes={CURRENCY_CODES} />
           </div>
         </div>
       </div>

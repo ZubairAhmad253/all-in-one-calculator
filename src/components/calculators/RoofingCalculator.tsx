@@ -1,7 +1,8 @@
 import { M2_PER_FT2, M_PER_FT, pitchDegrees, pitchFactor, roof } from '@/lib/calculators/build';
-import { CURRENCIES, currencySymbol, formatMoney, formatNumber, localeFor } from '@/lib/format/number';
+import { CURRENCY_CODES, currencySymbol, formatMoney, formatNumber, localeFor } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
-import { NumberField, SelectField, Tabs } from '@/components/ui/fields';
+import { NumberField, Tabs } from '@/components/ui/fields';
+import { CurrencyPicker } from '@/components/ui/CurrencyPicker';
 import { Headline, ShareButton, StatGrid } from './shared/results';
 
 const DEFAULTS = { u: 'imperial', l: 12, w: 9, o: 0.5, lft: 40, wft: 30, oft: 1, pitch: 6, waste: 10, price: 0, cur: 'USD' };
@@ -64,7 +65,7 @@ export default function RoofingCalculator() {
           <NumberField label="Extra for waste" value={s.waste} onChange={(v) => set('waste', v)} suffix="%" min={0} max={40} decimals={0} hint="10% for a simple gable, 15% or more for hips and valleys." />
           <div className="grid grid-cols-[minmax(0,1fr)_7rem] items-end gap-3">
             <NumberField label="Price per square (100 ft²)" value={s.price} onChange={(v) => set('price', v)} prefix={currencySymbol(cur)} locale={localeFor(cur)} min={0} decimals={2} hint="Optional, materials or installed." />
-            <SelectField label="Currency" value={cur} onChange={(v) => set('cur', v)} options={CURRENCIES.map((c) => ({ value: c.code, label: c.code }))} />
+            <CurrencyPicker label="Currency" value={cur} onChange={(v) => set('cur', v)} codes={CURRENCY_CODES} />
           </div>
           <button type="button" onClick={reset} className="h-10 rounded-xl border border-line px-4 text-sm font-medium text-muted hover:text-fg">
             Reset

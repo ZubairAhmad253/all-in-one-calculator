@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
 import { downPayment } from '@/lib/calculators/housing';
 import { addMonths } from '@/lib/calculators/dates';
-import { CURRENCIES, localeFor, currencySymbol, formatDuration, formatMoney, formatNumber } from '@/lib/format/number';
+import { CURRENCY_CODES, localeFor, currencySymbol, formatDuration, formatMoney, formatNumber } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
 import { useToday } from '@/lib/hooks/useToday';
-import { NumberField, QuickPicks, SelectField } from '@/components/ui/fields';
+import { NumberField, QuickPicks } from '@/components/ui/fields';
+import { CurrencyPicker } from '@/components/ui/CurrencyPicker';
 import { Headline, Receipt, ShareButton, StatGrid } from './shared/results';
 
 const DEFAULTS = { price: 400_000, pct: 20, close: 3, saved: 50_000, save: 1_500, srate: 4, mrate: 6.5, term: 30, cur: 'USD' };
@@ -50,7 +51,7 @@ export default function DownPaymentCalculator() {
 
           <div className="flex flex-wrap items-end gap-3 border-t border-line pt-5">
             <div className="min-w-40 flex-1">
-              <SelectField label="Currency" value={cur} onChange={(v) => set('cur', v)} options={CURRENCIES.map((c) => ({ value: c.code, label: `${c.code} – ${c.label}` }))} />
+              <CurrencyPicker label="Currency" value={cur} onChange={(v) => set('cur', v)} codes={CURRENCY_CODES} />
             </div>
             <button type="button" onClick={reset} className="h-12 rounded-xl border border-line px-4 text-sm font-medium text-muted hover:text-fg">
               Reset

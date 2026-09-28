@@ -1,7 +1,8 @@
 import { BRICKS, bricks, M2_PER_FT2, M_PER_FT, type BrickId } from '@/lib/calculators/build';
-import { CURRENCIES, currencySymbol, formatMoney, formatNumber, localeFor } from '@/lib/format/number';
+import { CURRENCY_CODES, currencySymbol, formatMoney, formatNumber, localeFor } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
 import { NumberField, SelectField, Tabs } from '@/components/ui/fields';
+import { CurrencyPicker } from '@/components/ui/CurrencyPicker';
 import { Headline, ShareButton, StatGrid } from './shared/results';
 
 const DEFAULTS = { u: 'metric', l: 6, h: 1.8, lft: 20, hft: 6, open: 0, openft: 0, brick: 'uk', joint: 10, jointin: 0.375, skins: 1, waste: 5, price: 0, cur: 'USD' };
@@ -70,7 +71,7 @@ export default function BrickCalculator() {
             <NumberField label="Extra for waste" value={s.waste} onChange={(v) => set('waste', v)} suffix="%" min={0} max={30} decimals={0} />
             <NumberField label="Price per brick" value={s.price} onChange={(v) => set('price', v)} prefix={currencySymbol(cur)} locale={localeFor(cur)} min={0} decimals={3} />
           </div>
-          <SelectField label="Currency" value={cur} onChange={(v) => set('cur', v)} options={CURRENCIES.map((c) => ({ value: c.code, label: `${c.code} (${currencySymbol(c.code)})` }))} />
+          <CurrencyPicker label="Currency" value={cur} onChange={(v) => set('cur', v)} codes={CURRENCY_CODES} />
           <button type="button" onClick={reset} className="h-10 rounded-xl border border-line px-4 text-sm font-medium text-muted hover:text-fg">
             Reset
           </button>

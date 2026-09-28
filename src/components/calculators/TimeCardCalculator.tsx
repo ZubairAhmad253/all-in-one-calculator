@@ -1,8 +1,9 @@
 import { formatHM, shiftMinutes } from '@/lib/calculators/dates';
 import { splitOvertime, type OvertimeRule } from '@/lib/calculators/pay';
-import { CURRENCIES, currencySymbol, formatMoney, formatNumber, localeFor } from '@/lib/format/number';
+import { CURRENCY_CODES, currencySymbol, formatMoney, formatNumber, localeFor } from '@/lib/format/number';
 import { useUrlState } from '@/lib/hooks/useUrlState';
 import { InlineNumber, NumberField, SelectField } from '@/components/ui/fields';
+import { CurrencyPicker } from '@/components/ui/CurrencyPicker';
 import { ShareButton, StatGrid } from './shared/results';
 
 const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
@@ -118,7 +119,7 @@ export default function TimeCardCalculator() {
           <div className="space-y-4 border-t border-line pt-5">
             <div className="grid grid-cols-[minmax(0,1fr)_7rem] items-end gap-3">
               <NumberField label="Hourly rate" value={s.rate} onChange={(v) => set('rate', v)} prefix={currencySymbol(cur)} locale={localeFor(cur)} min={0} decimals={2} />
-              <SelectField label="Currency" value={cur} onChange={(v) => set('cur', v)} options={CURRENCIES.map((c) => ({ value: c.code, label: c.code }))} />
+              <CurrencyPicker label="Currency" value={cur} onChange={(v) => set('cur', v)} codes={CURRENCY_CODES} />
             </div>
             <div className="grid grid-cols-[minmax(0,1fr)_7rem] items-end gap-3">
               <SelectField label="Overtime starts" value={rule} onChange={(v) => set('ot', v)} options={RULES} />
