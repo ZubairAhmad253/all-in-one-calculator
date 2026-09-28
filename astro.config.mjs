@@ -9,11 +9,16 @@ import tailwindcss from '@tailwindcss/vite';
 // the sitemap and Open Graph tags are all built from this value.
 const SITE_URL = process.env.SITE_URL ?? 'https://example.com';
 
-// `astro build` and `astro check` get their own Vite cache. Sharing the
-// default one with a running `astro dev` lets a build overwrite the dev
+// Only `astro dev` uses the dev Vite cache; build, check and preview get a
+// separate one. Sharing a cache lets a production run overwrite the dev
 // server's pre-bundled React with the production copy, which breaks every
 // interactive widget in dev ("_jsxDEV is not a function").
-const isBuild = process.argv.some((arg) => arg === 'build' || arg === 'check');
+//
+// The dev cache is `.vite-dev`, not Vite's default `.vite`: browsers keep
+// pre-bundled files for a year (immutable caching), so a browser that once
+// received a broken copy under /node_modules/.vite/ would keep reusing it.
+// A new folder name gives every file a new URL.
+const isDev = process.argv.includes('dev');
 
 export default defineConfig({
   site: SITE_URL,
@@ -22,6 +27,6 @@ export default defineConfig({
   integrations: [react(), mdx(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
-    cacheDir: isBuild ? 'node_modules/.vite-build' : 'node_modules/.vite',
+    cacheDir: isDev ? 'node_modules/.vite-dev' : 'node_modules/.vite-build',
   },
 });

@@ -57,7 +57,12 @@ npm run dev        # http://localhost:4321
 
 ### Troubleshooting
 
-**Calculators don't appear in `npm run dev`; the pages show only text.** The browser console will show `_jsxDEV is not a function`. The dev server's pre-bundled React is the production copy. Builds now use a separate cache (`node_modules/.vite-build`, set in `astro.config.mjs`), so this shouldn't recur. If it does, stop the dev server and restart it with a fresh cache:
+**Calculators appear, then disappear, in `npm run dev`.** The browser console shows `_jsxDEV is not a function`: the browser is running a production copy of React against dev code. Two settings in `astro.config.mjs` prevent this:
+
+- only `astro dev` uses the dev Vite cache (`node_modules/.vite-dev`); build, check and preview use `node_modules/.vite-build`, so they can never overwrite it;
+- the dev cache has its own folder name, so a browser that cached a broken copy under the old `/node_modules/.vite/` URLs can't reuse it (Vite tells browsers to keep these files for a year).
+
+If it ever happens again, restart the dev server with a fresh cache, then in the browser open DevTools (F12), right-click the reload button and choose **Empty cache and hard reload**:
 
 ```bash
 npm run dev -- --force
