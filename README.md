@@ -15,7 +15,7 @@ A fast, SEO-focused website of free online calculators (finance, math, health, c
 | `public/icon-192.png`, `public/icon-512.png` | Android and search-engine icons (also listed in `site.webmanifest`) |
 | `public/og-image.jpg` | 1200 × 630 default image for links shared on WhatsApp, X, Facebook and LinkedIn |
 
-**Status:** all 111 calculators are live. Branding, legal pages, deployment and ads come next; see [Roadmap](#roadmap).
+**Status:** all 111 calculators are live. Branding and legal pages are done. Deployment and ads come next; see [Remaining work](#remaining-work).
 
 ## Features
 
@@ -227,13 +227,26 @@ All 111 calculators are live. The full list, with categories, is in [`src/data/c
 
 - **Done:** all 111 calculators, each with a how-to guide, formulas, worked examples and FAQs.
 - **Done:** legal pages (privacy, terms, disclaimer, contact).
-- **Next:** choose a name and branding, deploy, then switch on ads.
+- **Done:** Kitwise Calc branding: name, logo, favicons and link-preview image.
+- **Next:** see [Remaining work](#remaining-work).
 - **After launch:** add calculators based on Search Console data.
+
+## Remaining work
+
+What's left, in order. Each part gets its own branch: push it, merge it into `main`, push `main`, then pull.
+
+1. **Domain:** buy it, add it in Vercel, then set `SITE_URL`. Canonical links, the sitemap and link previews use it.
+2. **Contact email:** replace `hello@example.com` (`SITE.email` in `src/config/site.ts`).
+3. **Legal review** of the privacy policy, terms and disclaimer (`src/pages/privacy.astro`, `terms.astro`, `disclaimer.astro`), ideally with legal advice. Add a governing-law clause to the terms.
+4. **Deploy on Vercel,** then submit `sitemap-index.xml` in Google Search Console.
+5. **AdSense:** apply, set the AdSense ID (see [Ads](#ads)), then turn on the consent message for European visitors.
+6. **After launch:** add calculators based on Search Console data.
 
 ## Pre-launch checklist
 
-- [ ] Pick a name and domain; update `SITE.name` and `SITE.email` (a placeholder for now) in `src/config/site.ts`, and set `SITE_URL`
-- [ ] Replace the favicon and add a default Open Graph image (1200×630), passed as `image` to `BaseLayout`
+- [x] Pick a name (Kitwise Calc)
+- [ ] Buy the domain, set `SITE_URL`, and replace the placeholder `SITE.email` in `src/config/site.ts`
+- [x] Replace the favicon and add a default Open Graph image (1200×630), passed as `image` to `BaseLayout`
 - [ ] Review the privacy policy, terms and disclaimer (`src/pages/privacy.astro`, `terms.astro`, `disclaimer.astro`), ideally with legal advice, and add a governing-law clause to the terms
 - [ ] Deploy, then submit `sitemap-index.xml` in Google Search Console
 - [ ] Apply for AdSense, then turn on its European regulations consent message
